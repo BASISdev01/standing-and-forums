@@ -79,7 +79,7 @@
             style="background-image: url('/images/form-header-bg.png'); background-position: center center; background-size:cover; background-repeat: no-repeat;">
             <div class="col-12">
                 <h3 class="text-center">BASIS Standing Committee and Forums</h3>
-                <h5 class="text-center mt-3">Admin Login pass</h5>
+                <h5 class="text-center mt-3">Admin Login</h5>
             </div>
         </div>
         <div class="row justify-content-center m-4">
