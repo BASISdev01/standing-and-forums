@@ -1,0 +1,15 @@
+textarea.error{
+	border: 1px solid #c6303e !important;
+}
+
+textarea.error:focus{
+	box-shadow: unset !important;
+}
+
+label.error{
+	display: none !important;
+}
+
+.form-card .overflow{
+	z-index: 99 !important;
+}
