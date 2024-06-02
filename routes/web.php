@@ -20,8 +20,10 @@ use App\Http\Controllers\backEnd\StandingAndForumsController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('registrationForm');
+})->middleware('auth');
+
+//Clear Route
 Route::get('/clear', function () {
     \Illuminate\Support\Facades\Artisan::call('optimize:clear');
     return redirect()->back();
@@ -30,17 +32,21 @@ Auth::routes(['register' => false, 'login' => true]);
 
 Route::get('/login', [LoginController::class, 'login'])->name('login');
 
+//Register Submit Route
 Route::post('/submit-form', [HomeController::class, 'formSubmit'])->name('form.submit');
 
-//Admin Routes
+//Admin Login Routes
 Route::match(['GET', 'POST'], '/cms/login', [AdminLoginController::class, 'login'])->name('admin.login');
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () {
+
+    //dashboard Routes
     Route::get('/dashboard', [StandingAndForumsController::class, 'dashboard'])->name('admin.dashboard');
-        //Permission Routes
-        Route::controller(StandingAndForumsController::class)->prefix('standing-and-forums')->name('committee.')->group(function () {
-            Route::get('/', 'index')->name('index');
-        });
+
+    //committee Routes
+    Route::controller(StandingAndForumsController::class)->prefix('standing-and-forums')->name('committee.')->group(function () {
+        Route::get('/', 'index')->name('index');
+    });
 
 });
 

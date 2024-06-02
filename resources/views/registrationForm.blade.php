@@ -4,15 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <!-- fontawesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
     <title>Registration Form of BASIS Standing Committee and Forums</title>
+
     <link rel="icon" type="image/x-icon" href="https://basis.org.bd/public/images/favicon.png" />
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     <style>
         a {
             text-decoration: none;
@@ -104,15 +109,14 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Rep. E-mail
+                                <label for="exampleInputPassword1" class="form-label">E-mail
                                     <span class="text-danger">*</span></label>
                                 <input type="email" required class="form-control border border-dark-subtle"
                                     id="exampleInputPassword1">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="exampleInputPassword1" class="form-label">Rep. Mobile <span
+                            <div class="mb-3">Mobile <span
                                         class="text-danger">*</span></label>
                                 <input type="text" required class="form-control border border-dark-subtle" required
                                     id="exampleInputPassword1">
@@ -160,7 +164,7 @@
                                 <div class="fs-sm">Participant's Name (Only Representative Can Join) <span
                                         class="text-danger">*</span></div>
                                 <div class="form-check">
-                                    <input checked class="form-check-input" type="radio" name="flexRadioDefault20"
+                                    <input checked class="form-check-input" type="radio" selected name=""
                                         id="flexRadioDefault">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         Ashik Ahmed Eshan, CEO
