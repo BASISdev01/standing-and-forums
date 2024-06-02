@@ -9,7 +9,7 @@
     <div class="app-brand demo" style="background: #eceff1;margin-top:0">
         <a href="" class="app-brand-link">
             <div class="logo-container">
-                {{--  <img src="{{asset("uploads/images/")}}/{{config('settings')['logo']}}" style="width: 45% ">  --}}
+                <img src="{{asset("assets/img/basis.png")}}" style="width: 45% ">
             </div>
         </a>
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">

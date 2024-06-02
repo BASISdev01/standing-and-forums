@@ -28,31 +28,37 @@
                 <div class="card-header text-white d-flex" style="justify-content: space-between">
                     <div class="col-md-12">
                         <div class="input-group">
-                            <input style="width: 140px;" type="text" id="Search"
+                            <input style="width: 190px;" type="text" id="Search"
                                 value="{{ request('company_name') }}" name="company_name" class="form-control me-2 ms-2"
                                 title="Search with Company Name" placeholder="Search with Company Name...." />
-                            <select name="date_type" title="Select Standing Committee" class="form-select" aria-label="Default select example">
+                            <select name="date_type" style="width: 80px;" title="Select Standing Committee" class="form-select" aria-label="Default select example">
                                 @foreach ($standingCommittee as $committee)
                                     <option value="committee" @if (request('committee') == $committee) selected @endif>{{ $committee }}</option>
                                 @endforeach
                             </select>
-                            <select name="date_type" style="width: 140px;" title="Select Forums" class="form-select" aria-label="Default select example">
+                            <select name="date_type" style="width: 160px;" title="Select Forums" class="form-select" aria-label="Default select example">
                                 @foreach ($forums as $forum)
                                     <option value="committee" @if (request('committee') ==  $forum) selected @endif>{{ $forum }}</option>
                                 @endforeach
                             </select>
 
                             <select name="year" title="Select Year" class="form-select" aria-label="Default select example">
-                                <option value="">Select Year</option>
+                                <option value="">Year</option>
                                 @foreach ($Years as $Year)
                                     <option value="committee" @if (request('Year') ==  $Year) selected @endif>{{ $Year }}</option>
                                 @endforeach
                                 </option>
                             </select>
-                            <button class="btn btn-primary rounded-end" title="Search" type="submit"><i class='bx bx-search'></i> Search</button>
+                            <select name="status" style="width: 60px;" title="Select Year" class="form-select" aria-label="Default select example">
+                                    <option value="pending" @if (request('status') ==  'pending') selected @endif>Pending</option>
+                                    <option value="approved" @if (request('status') ==  'approved') selected @endif>Approved</option>
+                                    <option value="rejected" @if (request('status') ==  'rejected') selected @endif>Rejected</option>
+                                </option>
+                            </select>
+                            <button class="btn btn-primary rounded-end" title="Search" type="submit"><i class='bx bx-search'></i></button>
 
                             <a href=""
-                                title="Filter Reset" class="btn btn-warning mx-2 rounded"><i class="bx bx-sync"></i>Reset
+                                title="Filter Reset" class="btn btn-warning mx-2 rounded"><i class="bx bx-sync"></i>
                             </a>
 
                             <a href="{{ url('/form') }}"
@@ -73,7 +79,7 @@
                     </div>
                 </div>
             </form>
-            <div class="card-body px-0">
+            <div class="card-body">
                 <table class="table table-bordered myTable">
                     <thead class="table-dark">
                         <tr>
@@ -144,85 +150,9 @@
                                 </div>
                              </td>
                         </tr>
-                        {{--  @foreach ($Compliances as $Compliance)
-                            <tr style="padding:10px !important;">
-                                <td class="text-center" style="padding:5px !important;">
-                                    {{ ($Compliances->currentPage() - 1) * $Compliances->perPage() + $id }}
-                                </td>
-                                <td class="text-center" style="padding:5px !important;">
-                                    {{ date('d M, Y', strtotime($Compliance['submitted_date'])) }}<br>
-                                    {{ date('d M, Y', strtotime($Compliance['updated_at'])) }}
-
-                                </td>
-                                <td class="text-center">
-                                    {{ $Compliance['submitted_year'] }}
-                                </td>
-                                <td class="text-center" style="padding: 10px !important">
-                                    {{ $Compliance['member']['company_name'] }} <br>
-                                    {{ $Compliance['member']['company_type'] }} <br>
-                                    {{ memberNO($Compliance['member']['id']) ?? '' }}
-                                </td>
-                                    @php
-                                        $oldCompanyRpInfo = oldCompanyRp($Compliance['member_id']);
-                                    @endphp
-                                <td class="text-center">
-                                    <div class="row mb-1">
-                                        <div class="col-7">
-                                            <div class="text-start ms-2">
-                                                Local Market:
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="text-start">
-                                                <span class="badge bg-label-danger align-items-end" style="margin-left: -1rem">BDT {{ $Compliance['software_local_market'] }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-7">
-                                            <div class="d-flex justify-content-start ms-2">
-                                                International Market:
-                                            </div>
-                                        </div>
-                                        <div class="col-5">
-                                            <div class="d-flex justify-content-start">
-                                                <span class="badge bg-label-danger" style="margin-left: -1rem">$ {{ $Compliance['software_overseas'] }}</span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="text-center">
-                                    Total Employees: <span class="badge bg-label-danger ms-1">{{ $Compliance['total_hr'] }}</span><br>
-                                </td>
-                                <td class=" ps-1">
-                                    <a href="#" title="View Income Tax Return" @if (empty($Compliance['income_tax'])) hidden @endif class="btn btn-sm btn-secondary btn-custom-size fw-bold fs-9 m-1" style="width: 110px"> Income Tax</a>
-                                    <a href="#" title="View Updated Trade License" @if (empty($Compliance['trade_license'])) hidden @endif class="btn btn-sm btn-secondary btn-custom-size fw-bold fs-9 m-1" style="width: 110px">Trade License</a>
-                                    <a href="#" title="View TIN Certificate" @if (empty($Compliance['member']['trade_license'])) hidden @endif class="btn btn-sm btn-secondary btn-custom-size fw-bold fs-9 m-1" style="width: 110px"> TIN Certificate</a>
-                                    <a href="#" title="View Form X" @if (empty($Compliance['form_x'])) hidden @endif class="btn btn-sm btn-secondary btn-custom-size fw-bold fs-9 m-1" style="width: 110px"> Form X</a>
-                                </td>
-                                <td class="">
-                                    <div class="w-100 d-flex flex-column align-items-center">
-                                        @can('Compliance View')
-                                            <a href="{{ url('dashboard/compliance/' . $Compliance['id']) }}" class="btn btn-sm mx-1 btn-success btn-custom-size fs-9"
-                                                title="View Compliance">
-                                                <i class="fa-solid fa-eye me-1"></i>View
-                                            </a>
-                                        @endcan
-                                        <div class="form-check form-switch mt-2 ps-0 text-center">
-                                            @can('Compliance Lock')
-                                                <input name="show_home_page" title="Lock The Compliance Form" id="lock_{{ $Compliance['id'] }}" class="form-check-input ms-1 fs-6"
-                                                    type="checkbox" @if ($Compliance['is_lock'] == 1) value="0" checked @else value="1" @endif
-                                                    data-id="{{ $Compliance['id'] }}" onclick="lock(this)" />
-                                            @endcan
-                                        </div>
-                                    </div>
-
-                                </td>  --}}
-                            </tr>
                             @php
                                 $id++;
                             @endphp
-                        {{--  @endforeach  --}}
                     </tbody>
                 </table>
                 <div class="contaner">
