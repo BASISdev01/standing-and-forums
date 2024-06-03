@@ -11,39 +11,41 @@ class RegistrationController extends Controller
 {
     public function index()
     {
-        return view('registrationForm');
+        $is_register = Registration::where('membership_id', Auth::user()->membership_id)->first();
+        return view('registrationForm',compact('is_register'));
 
     }
 
     public function formSubmit(Request $request)
     {
-        dd($request->all());
-        $firstPiorityDataset = $this->pioritystore($request->all(),'first');
-        $secondPiorityDataset = $this->pioritystore($request->all(),'second');
+
+        if(!empty($request->first_priority_type)){
+            $firstPiorityDataset = $this->pioritystore($request,'first');
+        }
+
+        if(!empty($request->second_priority_type)){
+            $secondPiorityDataset = $this->pioritystore($request,'second',$firstPiorityDataset->registration_id);
+        }
+
+        return redirect('/');
+
     }
 
-    protected function pioritystore($request ,$priorityLabel, $registration_id = null) {
+    protected function pioritystore(Request $request,$priorityLabel, $registration_id = null) {
         // Define validation rules
-        $rules = [
-            "{$priorityLabel}_priority" => 'required',
-            "{$priorityLabel}_priority_type" => 'required',
-            "{$priorityLabel}_par_name" => 'required',
-            "{$priorityLabel}_par_designation" => 'required',
-            "{$priorityLabel}_par_email" => 'required',
-            "{$priorityLabel}_par_phone" => 'required',
-            "{$priorityLabel}_priority_relevance_to_committee" => 'required',
-            "{$priorityLabel}_priority_support_or_improvement" => 'required',
-            "{$priorityLabel}_priority_identified_gaps" => 'required',
-            "{$priorityLabel}_priority_three_collaborates" => 'required',
-            "{$priorityLabel}_priority_community_or_policy" => 'required',
-            "{$priorityLabel}_priority_contribute_hours" => 'required',
-            "{$priorityLabel}_priority_attend_monthly_meeting" => 'required',
-        ];
+        // $rules = [
+        //     "{$priorityLabel}_priority" => 'required',
+        //     "{$priorityLabel}_priority_type" => 'required',
+        //     "{$priorityLabel}_priority_relevance_to_committee" => 'required',
+        //     "{$priorityLabel}_priority_community_or_policy" => 'required',
+        //     "{$priorityLabel}_priority_contribute_hours" => 'required',
+        //     "{$priorityLabel}_priority_attend_monthly_meeting" => 'required',
+        // ];
 
-        // Validate the request
-        $validatedData = $request->validate($rules);
+        // // Validate the request
+        // $validatedData = $request->validate($rules);
 
-        if($registration_id = null){
+        if(empty($registration_id)){
 
             $registationDataser=[
                 'membership_id' => Auth::user()->membership_id,
@@ -52,14 +54,12 @@ class RegistrationController extends Controller
                 'company_name' => Auth::user()->company_name,
                 'company_address' => Auth::user()->com_name,
                 'is_agree' => $request->is_agree,
-                'year' => now('y'),
-                'submitted_date' => now()->format('d-M-Y:m-s'),
+                'year' => now()->format('Y'),
+                'submitted_date' => now()->format('Y-m-d'),
             ];
-
             $Registration = Registration::create($registationDataser);
 
         }
-
 
         $priorityDataSate = [
             'registration_id' => $Registration->id ?? $registration_id,
@@ -71,8 +71,8 @@ class RegistrationController extends Controller
             'par_email' => $request["{$priorityLabel}_par_email"],
             'par_phone' => $request["{$priorityLabel}_par_phone"],
             'priority_relevance_to_committee' => $request["{$priorityLabel}_priority_relevance_to_committee"],
-            'priority_support_or_improvement' => $request["{$priorityLabel}_priority_support_or_improvement"],
-            'priority_identified_gaps' => $request["{$priorityLabel}_priority_identified_gaps"],
+            'priority_support_or_improvement' => json_encode($request["{$priorityLabel}_priority_support_or_improvement"]),
+            'priority_identified_gaps' => json_encode($request["{$priorityLabel}_priority_identified_gaps"]),
             'priority_three_collaborates' => $request["{$priorityLabel}_priority_three_collaborates"],
             'priority_community_or_policy' => $request["{$priorityLabel}_priority_community_or_policy"],
             'priority_contribute_hours' => $request["{$priorityLabel}_priority_contribute_hours"],
@@ -80,7 +80,7 @@ class RegistrationController extends Controller
         ];
 
         $Registration = Priority::create($priorityDataSate);
-
+        return $Registration;
     }
 
     public function logout()

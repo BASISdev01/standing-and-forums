@@ -168,7 +168,7 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-12">
-                <form class="p-2 p-xl-4" action="{{ route('form.submit') }}" method="post" enctype="multipart/form-data">
+                <form class="p-2 p-xl-4" @if(empty($is_register)) action="{{ route('form.submit') }}" @endif method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row mb-3">
                         <div class="col-12 col-md-6">
@@ -210,16 +210,23 @@
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Facebook Profile </label>
-                                <input type="text" value="" name="par_facebook_link" class="form-control border border-dark-subtle"
+                                <input type="text" value="{{ old ('par_facebook_link') }}" name="par_facebook_link" class="@error('par_facebook_link') is-invalid @enderror form-control border border-dark-subtle"
                                     id="exampleInputPassword1">
                             </div>
+                            @error('par_facebook_link')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
+
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">LinkedIn Profile </label>
-                                <input type="text" name="par_linkedIn_link" class="form-control border border-dark-subtle"
+                                <input type="text" name="par_linkedIn_link" value="{{old('par_linkedIn_link')}}" class="form-control border @error('par_linkedIn_link') is-invalid @enderror border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
+                            @error('par_linkedIn_link')
+                                <div class="invalid-feedback">{{$message}}</div>
+                            @enderror
                         </div>
                     </div>
 
@@ -368,7 +375,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">How many hours per month can you
                                     contribute? <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control border border-dark-subtle"
+                                <input type="number" class="form-control border border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp" name="first_priority_contribute_hours" required>
                             </div>
                         </div>
@@ -553,35 +560,37 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">How many hours
-                                                        per month can you
-                                                        contribute?</label>
-                                                    <input type="text" name="second_priority_contribute_hours"
-                                                        class="form-control border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">How many hours
+                                                            per month can you
+                                                            contribute?</label>
+                                                        <input type="number" name="second_priority_contribute_hours"
+                                                            class="form-control border border-dark-subtle"
+                                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Will you attend
-                                                        at least one monthly
-                                                        meeting?</label>
-                                                    <div class="d-flex">
-                                                        <div class="form-check">
-                                                            <input checked class="form-check-input" type="radio"
-                                                                name="second_priority_attend_monthly_meeting" value="Yes" id="flexRadioDefault">
-                                                            <label class="form-check-label fw-semibold"
-                                                                for="flexRadioDefault1">Yes
-                                                            </label>
-                                                        </div>
-                                                        <div class="form-check ms-2">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="second_priority_attend_monthly_meeting" value="NO" id="no">
-                                                            <label class="form-check-label fw-semibold"
-                                                                for="no">No
-                                                            </label>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Will you attend
+                                                            at least one monthly
+                                                            meeting?</label>
+                                                        <div class="d-flex">
+                                                            <div class="form-check">
+                                                                <input checked class="form-check-input" type="radio"
+                                                                    name="second_priority_attend_monthly_meeting" value="Yes" id="flexRadioDefault">
+                                                                <label class="form-check-label fw-semibold"
+                                                                    for="flexRadioDefault1">Yes
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check ms-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="second_priority_attend_monthly_meeting" value="NO" id="no">
+                                                                <label class="form-check-label fw-semibold"
+                                                                    for="no">No
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -607,7 +616,9 @@
                     </div>
                     <div class="row mb-3 mb-md-0">
                         <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-success text-center">Submit</button>
+                            @if(empty($is_register))
+                                <button type="submit" class="btn btn-success text-center">Submit</button>
+                            @endif
                         </div>
                     </div>
                 </form>
@@ -690,7 +701,7 @@
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Mobile <span class="text-danger">*</span></label>
-                                                <input type="text" name="modile"
+                                                <input type="number" name="modile"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputPassword1">
                                             </div>
