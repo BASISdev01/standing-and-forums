@@ -161,7 +161,7 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="text-center">Submit Your EoI To Joining BASIS Standing Committee And Forums</h3>
+                <h3 class="text-center">Submit Your EoI To Join BASIS Standing Committee And Forums</h3>
                 <h5 class="text-center">Deadline: 10 June, 2024</h5>
                 <p class="text-center">Note: Members can select a maximum two of any standing committees or forums</p>
             </div>
@@ -185,7 +185,7 @@
                                 <label for="exampleInputPassword1" class="form-label">Office Address <span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="company_address" value="{{ auth()->user()->address }}"
-                                    class="form-control border border-dark-subtle" id="exampleInputPassword1" required
+                                    class="form-control  border border-dark-subtle" id="exampleInputPassword1" required
                                     readonly>
                             </div>
                         </div>
@@ -238,9 +238,10 @@
                             </div>
                         </div>
                         <input name="first_priority_type" id="first_priority_type" value="" hidden />
+                        <input name="first_priority" id="first_priority" value="" hidden />
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <select name="first_priority" id="first_priority_committe" class="form-select fw-semibold border border-dark-subtle"
+                                <select id="first_priority_committe" class="form-select fw-semibold border border-dark-subtle"
                                     aria-label="Default select example">
                                     <option value ="" selected>Select Standing Committee</option>
                                     @foreach ($standingCommittee as $committee)
@@ -253,7 +254,7 @@
                                         class="text-danger">*</span></div>
                                 <div class="form-check">
                                     <input checked class="form-check-input" type="radio" selected name=""
-                                        id="flexRadioDefault">
+                                        id="firstPriorityCommitteNameField">
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         {{ auth()->user()->name }}, {{ auth()->user()->designation }}
                                     </label>
@@ -262,7 +263,7 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <select name="first_priority" id="first_priority_forum" class="form-select fw-semibold border border-dark-subtle"
+                                <select  id="first_priority_forum" class="form-select fw-semibold border border-dark-subtle"
                                     aria-label="Default select example">
                                     <option value ="" selected>Select Forum</option>
                                     @foreach ($forums as $forum)
@@ -275,16 +276,14 @@
                                 <div class="fs-sm d-flex">Participant's Name <span class="text-danger me-2">*</span>
                                     <div id="firstPriorityForumParticipantName">
                                         <a href="#" style="text-decoration: none;"
-                                        class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
-                                        data-bs-toggle="modal"
-                                         data-bs-target="#ChangeParticipants"><i
+                                        class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6" onclick="openForm('first')"><i
                                             class="fa-regular fa-pen-to-square" ></i> Change</a>
                                     </div>
                                 </div>
                                 <div class="form-check">
                                     <input checked class="form-check-input" type="radio" selected name=""
                                         id="firstPriorityNameField">
-                                    <label class="form-check-label" for="flexRadioDefault1">
+                                    <label class="form-check-label" for="flexRadioDefault1" id="firstPriorityNameField_show">
                                         <div>{{ auth()->user()->name }}, {{ auth()->user()->designation }}</div>
                                     </label>
                                 </div>
@@ -318,10 +317,12 @@
                                 <input type="text" name="first_priority_support_or_improvement[]" class="form-control mt-2 border border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp" required>
                                 <div id="first-more-points"></div>
-                                <div class="mb-2 d-flex justify-content-end" id="firstMorePoints_div" hidden>
-                                    <a href="#" style="text-decoration: none;"
+                                <div class="mb-2 d-flex justify-content-end">
+                                    <div id="firstMorePoints_Button">
+                                        <a href="#" style="text-decoration: none;"
                                         class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
                                         id="firstMorePoints">+ Add</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -338,10 +339,12 @@
                             </div>
                             <div id="first-more-gap"></div>
                             <div class="mb-2 d-flex justify-content-end">
-                                <a href="#" style="text-decoration: none;"
+                                <div id="firstMoreGap_buttonDiv">
+                                    <a href="#" style="text-decoration: none;"
                                     class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
                                     id="firstMoreGap">+
                                     Add</a>
+                                </div>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -413,7 +416,7 @@
                                         <div class="row">
                                             <div class="col-12 col-md-6">
                                                 <div class="mb-3">
-                                                    <select name="second_priority" id="second_priority_committee" class="form-select fw-semibold"
+                                                    <select id="second_priority_committee" class="form-select fw-semibold"
                                                         aria-label="Default select example">
                                                         <option value ="" selected>Select Standing Committee</option>
                                                         @foreach ($standingCommittee as $committee)
@@ -427,7 +430,7 @@
                                                         Join)</div>
                                                     <div class="form-check">
                                                         <input checked class="form-check-input" type="radio"
-                                                            name="flexRadioDefault" id="flexRadioDefault1">
+                                                            name="flexRadioDefault" id="secondPriorityCommitteNameField">
                                                         <label class="form-check-label" for="flexRadioDefault1">
                                                             {{ auth()->user()->name }}, {{ auth()->user()->designation }}
                                                         </label>
@@ -436,7 +439,7 @@
                                             </div>
                                             <div class="col-12 col-md-6">
                                                 <div class="mb-3">
-                                                    <select name="second_priority" id="second_priority_forum" class="form-select fw-semibold"
+                                                    <select id="second_priority_forum" class="form-select fw-semibold"
                                                         aria-label="Default select example">
                                                         <option value ="" selected>Select Forum</option>
                                                         @foreach ($forums as $forum)
@@ -451,25 +454,25 @@
                                                         <div class="ms-2" id="secondtPriorityForumParticipantName">
                                                             <a href="#" style="text-decoration: none;"
                                                             class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
-                                                            data-bs-toggle="modal"
-                                                            data-bs-target="#ChangeParticipants"><i
+                                                            onclick="openForm('second')"><i
                                                                 class="fa-regular fa-pen-to-square"></i> Change</a>
                                                         </div>
                                                     </div>
                                                     <div class="form-check">
                                                         <input checked id="secondPriorityNameField" class="form-check-input" type="radio"
                                                             selected name="" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
+                                                        <label class="form-check-label" for="flexRadioDefault1" id="secondPriorityNameField_show">
                                                             {{ auth()->user()->name }}, {{ auth()->user()->designation }}
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
                                             <input name="second_priority_type" id="second_priority_type" value="" hidden />
-                                            <input name="second_par_name" id="second_par_name" value="" hidden />
-                                            <input name="second_par_designation" id="second_par_designation" value="" hidden />
-                                            <input name="second_par_email" id="second_par_email" value="" hidden />
-                                            <input name="second_par_phone" id="second_par_phone" value="" hidden />
+                                            <input name="second_priority" id="second_priority" value="" hidden />
+                                            <input name="second_par_name" id="second_par_name" value="{{ auth()->user()->name }}" hidden />
+                                            <input name="second_par_designation" id="second_par_designation" value="{{ auth()->user()->designation }}" hidden />
+                                            <input name="second_par_email" id="second_par_email" value="{{ auth()->user()->email }}" hidden />
+                                            <input name="second_par_phone" id="second_par_phone" value="{{ auth()->user()->mobile }}" hidden />
                                             <div class="col-12 col-md-12">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label">Briefly describe yourself
@@ -499,9 +502,11 @@
                                                         id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_support_or_improvement[]">
                                                     <div id="second-more-gap"></div>
                                                     <div class="mb-2 d-flex justify-content-end">
-                                                        <a href="#" style="text-decoration: none;"
+                                                        <div id="second_priorityMoreGap_button">
+                                                            <a href="#" style="text-decoration: none;"
                                                             class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
                                                             id="secondMoreGap">+ Add</a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -522,9 +527,11 @@
                                                 </div>
                                                 <div id="second-more-points"></div>
                                                 <div class="mb-2 d-flex justify-content-end">
-                                                    <a href="#" style="text-decoration: none;"
-                                                        class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
+                                                    <div id="second_priorityMorePoints_button">
+                                                        <a href="#" style="text-decoration: none;"
+                                                            class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
                                                         id="secondMorePoints">+ Add</a>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
@@ -648,13 +655,14 @@
                     <div class="container">
                         <div class="row">
                             <div class="col-12">
-                                <form action="">
+                                <form action="" id="changeParticipantForm">
+                                    <input id="par_type" value="" hidden/>
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">Participants Name
                                                     <span class="text-danger">*</span></label>
-                                                <input type="text" required
+                                                <input type="text" required name="name"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputEmail1" aria-describedby="emailHelp">
                                             </div>
@@ -663,7 +671,7 @@
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Designation <span class="text-danger">*</span></label>
-                                                <input type="password" required
+                                                <input type="text" required name="designation"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputPassword1">
                                             </div>
@@ -673,7 +681,7 @@
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Email
                                                     <span class="text-danger">*</span></label>
-                                                <input type="password" required
+                                                <input type="text" required name="email"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputPassword1">
                                             </div>
@@ -682,14 +690,13 @@
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Mobile <span class="text-danger">*</span></label>
-                                                <input type="password" required
+                                                <input type="text" name="modile"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputPassword1">
                                             </div>
                                         </div>
                                         <div class="col-12 text-center">
-                                            <button type="button" class="btn btn-success"
-                                                data-bs-dismiss="modal">Save</button>
+                                            <a class="btn btn-success" onclick="changeParticipant()">Save</a>
                                         </div>
                                     </div>
                                 </form>
@@ -711,6 +718,10 @@
             var first_ForumOptions = $('#first_priority_forum').html();
             var second_CommitteeOptions = $('#second_priority_committee').html();
             var second_ForumOptions = $('#second_priority_forum').html();
+            var perName = "{{ auth()->user()->name }}";
+            var perDesignation = "{{ auth()->user()->designation }}";
+            var perEmail = "{{ auth()->user()->email }}";
+            var perPhone = "{{ auth()->user()->mobile }}";
 
             //Company Name and Logout
             $('#responsiveCollapse').on('show.bs.collapse', function () {
@@ -723,10 +734,21 @@
                     $('#first_priority_forum').prop('disabled', true);
                     $('#firstPriorityForumParticipantName').attr('hidden', true);
                     $('#firstPriorityNameField').prop('disabled', true);
+                    $('#first_priority_type').val('committe');
+                    $('#first_priority').val($(this).val());
+                    $("#firstPriorityNameField_show").text( perName + ','+ perDesignation);
+                    $("#first_par_name").val(perName);
+                    $("#first_par_designation").val(perDesignation);
+                    $("#first_par_email").val(perEmail);
+                    $("#first_par_phone").val(perPhone);
                 } else {
                     $('#first_priority_forum').prop('disabled', false);
                     $('#firstPriorityNameField').prop('disabled', false);
                     $('#firstPriorityForumParticipantName').removeAttr('hidden', false);
+                    $('#first_priority_type').val('');
+                    $('#first_priority').val($(this).val());
+
+
                 }
 
                 var selectedValue = $(this).val();
@@ -742,8 +764,15 @@
 
                 if ($(this).val()) {
                     $('#first_priority_committe').prop('disabled', true);
+                    $('#firstPriorityCommitteNameField').prop('disabled', true);
+                    $('#first_priority').val($(this).val());
+                    $('#first_priority_type').val('forum');
+
                 } else {
+                    $('#firstPriorityCommitteNameField').prop('disabled', false);
                     $('#first_priority_committe').prop('disabled', false);
+                    $('#first_priority').val('');
+                    $('#first_priority_type').val('');
                 }
 
                 var selectedValue = $(this).val();
@@ -754,7 +783,7 @@
                 }
             });
 
-            //linecount
+            //linecount first
             $('#first_priority_relevance_to_committee').on('input', function() {
                 const maxWords  = 100;
                 const words = $(this).val().match(/\b[-?(\w+)?]+\b/gi) || [];
@@ -776,12 +805,20 @@
                 if ($(this).val()) {
                     $('#second_priority_forum').prop('disabled', true);
                     $('#secondPriorityNameField').prop('disabled', true);
+                    $('#second_priority_type').val('committe');
                     $('#secondtPriorityForumParticipantName').attr('hidden', true);
-
+                    $('#second_priority').val($(this).val());
+                    $("#secondPriorityNameField_show").text( perName + ','+ perDesignation);
+                    $("#second_par_name").val(perName);
+                    $("#second_par_designation").val(perDesignation);
+                    $("#second_par_email").val(perEmail);
+                    $("#second_par_phone").val(perPhone);
                 } else {
+                    $('#second_priority_type').val('');
                     $('#second_priority_forum').prop('disabled', false);
                     $('#secondPriorityNameField').prop('disabled', false);
                     $('#secondtPriorityForumParticipantName').removeAttr('hidden', false);
+                    $('#second_priority').val('');
                 }
 
                 var selectedValue = $(this).val();
@@ -796,9 +833,17 @@
             $('#second_priority_forum').on('change', function() {
 
                 if ($(this).val()) {
+                    $('#second_priority_type').val('forum');
                     $('#second_priority_committee').prop('disabled', true);
+                    $('#secondPriorityCommitteNameField').prop('disabled', true);
+                    $('#second_priority').val($(this).val());
                 } else {
                     $('#second_priority_committee').prop('disabled', false);
+                    $('#secondPriorityCommitteNameField').prop('disabled', false);
+                    $('#second_priority_type').val('');
+                    $('#second_priority').val('');
+
+
                 }
 
                 var selectedValue = $(this).val();
@@ -823,12 +868,17 @@
                     </div>
                 `;
                 $('#first-more-gap').append(newGapField);
+                var first_priority_support_or_improvement_Button = $('input[name="first_priority_identified_gaps[]"]').length;
+                if (first_priority_support_or_improvement_Button >= 10) {
+                    $('#firstMoreGap_buttonDiv').attr('hidden', true);
+                }
             });
 
             $(document).on('click', '.first-remove-gap', function(e) {
                 e.preventDefault();
                 var indexGap = $(this).data('index');
                 $('#first_gap_' + indexGap).remove();
+                $('#firstMoreGap_buttonDiv').attr('hidden', false);
             });
 
             $('#firstMorePoints').click(function(e) {
@@ -841,8 +891,9 @@
                     </div>
                 `;
                 $('#first-more-points').append(newExampleField);
-                if (firstMorePoints >= 10) {
-                    $('#firstMorePoints_div').attr('hidden', true);
+                var firstMorePoints_Button = $('input[name="first_priority_support_or_improvement[]"]').length;
+                if (firstMorePoints_Button >= 10) {
+                    $('#firstMorePoints_Button').attr('hidden', true);
                 }
             });
 
@@ -850,6 +901,7 @@
                 e.preventDefault();
                 var firstIndex = $(this).data('index');
                 $('#firstMorePoints_' + firstIndex).remove();
+                $('#firstMorePoints_Button').attr('hidden', false);
             });
 
             $('#secondMoreGap').click(function(e) {
@@ -862,12 +914,17 @@
                     </div>
                 `;
                 $('#second-more-gap').append(newSecondGapField);
+                var second_priorityMoreGap_button = $('input[name="second_priority_support_or_improvement[]"]').length;
+                if (second_priorityMoreGap_button >= 10) {
+                    $('#second_priorityMoreGap_button').attr('hidden', true);
+                }
             });
 
             $(document).on('click', '.second-remove-gap', function(e) {
                 e.preventDefault();
                 var indexSecondGap = $(this).data('index');
                 $('#second_gap_' + indexSecondGap).remove();
+                $('#second_priorityMoreGap_button').attr('hidden', false);
             });
 
             $('#secondMorePoints').click(function(e) {
@@ -880,14 +937,39 @@
                     </div>
                 `;
                 $('#second-more-points').append(secondExampleField);
+                var second_priorityMorePoints_button = $('input[name="second_priority_identified_gaps[]"]').length;
+                if (second_priorityMorePoints_button >= 10) {
+                    $('#second_priorityMorePoints_button').attr('hidden', true);
+                }
             });
 
             $(document).on('click', '.remove-example-second', function(e) {
                 e.preventDefault();
                 var secondtIndex = $(this).data('index');
                 $('#secondMorePoints_' + secondtIndex).remove();
+                $('#second_priorityMorePoints_button').attr('hidden', false);
             });
         });
+
+        function openForm(label){
+            $("#ChangeParticipants").modal('show');
+            $("#par_type").val(label);
+        }
+
+        function changeParticipant(){
+            var formData = new FormData(document.getElementById("changeParticipantForm"));
+            var type = $("#par_type").val();
+            var formDataObj = {};
+            formData.forEach(function(value, key) {
+                formDataObj[key] = value;
+            });
+            $("#" + type + "_par_name").val(formDataObj.name);
+            $("#" + type + "PriorityNameField_show").text( formDataObj.name + ','+ formDataObj.designation);
+            $("#" + type + "_par_designation").val(formDataObj.designation);
+            $("#" + type + "_par_email").val(formDataObj.email);
+            $("#" + type + "_par_phone").val(formDataObj.mobile);
+            $("#ChangeParticipants").modal('hide');
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
