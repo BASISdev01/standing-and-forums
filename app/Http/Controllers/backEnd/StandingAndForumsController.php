@@ -4,6 +4,7 @@ namespace App\Http\Controllers\backEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class StandingAndForumsController extends Controller
 {
@@ -18,7 +19,13 @@ class StandingAndForumsController extends Controller
     {
         $standingCommittee = standingCommittee();
         $forums = forums();
-        $Years = range(2000, now()->format('Y'));
+        $Years = range(now()->format('Y'), 2000);
         return view($this->dirApply.'.index', compact('standingCommittee','forums','Years'));
+    }
+
+    public function logout()
+    {
+        Auth::guard('admin')->logout();
+        return to_route('admin.login');
     }
 }

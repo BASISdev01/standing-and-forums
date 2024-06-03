@@ -41,11 +41,9 @@ class LoginController extends Controller
         }
 
         $token_payload = $jwtObj->decode(base64_decode($token), $key, $algorithm);
-
         if (empty($token_payload->membership_id)) {
             return redirect('https://www.basis.org.bd/member-login');
         }
-
         $member_id = $token_payload->membership_id;
         $getMember = Member::where('membership_id', $member_id)->first();
 
@@ -65,6 +63,7 @@ class LoginController extends Controller
         $insertData = [
             'membership_id' => $member_id,
             'name' => $token_payload->name ?? "",
+            'designation' => $token_payload->designation ?? "",
             'email' => $token_payload->email ?? "",
             'mobile' => $token_payload->mobile ?? "",
             'address' => $updateData['address'],
