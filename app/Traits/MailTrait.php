@@ -49,7 +49,7 @@ trait MailTrait
         $email = new \SendGrid\Mail\Mail();
         $email->setFrom('noreply@basis.org.bd', 'BASIS');
         $email->setSubject($sub);
-        $email->addTo('dreamlessrana60@gmail.com');
+        $email->addTo($to);
         $email->addContent(
             "text/html",
             "<p>$body</p>"

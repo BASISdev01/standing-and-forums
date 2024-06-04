@@ -6,12 +6,16 @@ use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Models\Priority;
 use Illuminate\Support\Facades\Auth;
+use App\Traits\MailTrait;
 
 class RegistrationController extends Controller
 {
+    use MailTrait;
+
     public function index()
     {
         $is_register = Registration::where('membership_id', Auth::user()->membership_id)->first();
+        $is_register = null;
         return view('registrationForm',compact('is_register'));
 
     }
@@ -26,8 +30,8 @@ class RegistrationController extends Controller
         if(!empty($request->second_priority_type)){
             $secondPiorityDataset = $this->pioritystore($request,'second',$firstPiorityDataset->registration_id);
         }
-
-        return redirect('/')->with('success', 'Submission Successfully Done!');
+        $this->sendMailForRegistration($request->first_par_email, emailContent()['subject'], emailContent()['body']);
+        return redirect('/')->with('success', 'Submission Successful!');
 
     }
 

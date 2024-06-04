@@ -313,7 +313,7 @@
                         </div>
                     </div>
                 </div>
-                <h3 class="text-center">Submit Your EoI To Join BASIS Standing Committee And Forums</h3>
+                <h3 class="text-center">Submit your EoI to Join BASIS Standing Committee and Forums</h3>
                 <h5 class="text-center">Deadline: 12 June, 2024</h5>
                 <p class="text-center">Note: Members can select a maximum two of any standing committees or forums</p>
             </div>
