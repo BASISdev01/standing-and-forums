@@ -15,7 +15,7 @@ class RegistrationController extends Controller
     public function index()
     {
         $is_register = Registration::where('membership_id', Auth::user()->membership_id)->first();
-        $is_register = null;
+        // $is_register = null;
         return view('registrationForm',compact('is_register'));
 
     }
