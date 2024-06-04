@@ -18,49 +18,73 @@
         integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-        <style>
-            a {
-                text-decoration: none;
-            }
+    <style>
+        a {
+            text-decoration: none;
+        }
 
-            .logout-toggle-btn{
-                top:0.6rem;
-                right: 3rem;
-            }
-            .header-content {
-                width: auto;
-            }
+        .alert-container {
+            width: 100%;
+        }
 
-            .container {
-                width: 93%;
-                margin: 12px auto !important;
-            }
+        .logout-toggle-btn {
+            top: 0.6rem;
+            right: 3rem;
+        }
 
-            .accordion-button {
-                cursor: pointer;
-            }
-            .logout-container:focus .fa-chevron-down{
-                transform: rotate(180deg);
-            }
-            .profile-image {
-                height: 40px;
-                width: 40px;
-                border: 1px solid gray;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                padding: 0;
-                border-radius: 50%;
-                overflow: hidden;
-            }
+        .header-content {
+            width: auto;
+        }
 
-            .profile-image img {
-                max-height: 100%;
-                max-width: 100%;
-                object-fit: fill;
-            }
-            @media screen and (max-width: 767px){
-                .line-clamp-1{
+        .container {
+            width: 93%;
+            margin: 12px auto !important;
+        }
+
+        .accordion-button {
+            cursor: pointer;
+        }
+
+        .logout-container:focus .fa-chevron-down {
+            transform: rotate(180deg);
+        }
+
+        .profile-image {
+            height: 40px;
+            width: 40px;
+            border: 1px solid gray;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 0;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+
+        .profile-image img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: fill;
+        }
+
+        .alert-container {
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 99;
+        }
+
+        .form-bottom-overlay {
+            height: 100%;
+            width: 100%;
+            position: absolute;
+            background-color: rgba(0, 0, 0, 0.50);
+            top: 0;
+            left: 0;
+        }
+
+        @media screen and (max-width: 767px) {
+            .line-clamp-1 {
                 overflow: hidden;
                 display: -webkit-box;
                 -webkit-box-orient: vertical;
@@ -69,94 +93,219 @@
                 height: 1lh;
                 width: 32ch;
             }
-            }
-            @media screen and (min-width:767px) {
-                .container {
-                    width: 60%;
-                    margin: auto;
-                }
+
+        }
+
+        @media screen and (min-width:767px) {
+            .container {
+                width: 60%;
+                margin: auto;
             }
 
-            input:focus,
-            textarea:focus,
-            select:focus {
-                box-shadow: 0px 0px 2px 3px rgba(0, 128, 0, 0.4) !important;
+            .alert-container {
+                top: 90vh;
+                left: 50%;
+                transform: translateX(-50%);
+                z-index: 99;
             }
+        }
 
-            select option:hover {
-                background-color: rgba(0, 128, 0, 0.4) !important;
-            }
+        input:focus,
+        textarea:focus,
+        select:focus {
+            box-shadow: 0px 0px 2px 3px rgba(0, 128, 0, 0.4) !important;
+        }
 
-            select option:hover {
-                color: red !important;
-            }
+        select option:hover {
+            background-color: rgba(0, 128, 0, 0.4) !important;
+        }
 
-            button {
-                padding: 0.4rem 2rem !important;
-            }
+        select option:hover {
+            color: red !important;
+        }
 
-            body {
-                background-image: url('./images/form-bg.png'), linear-gradient(90deg, #fffbf9, #FFF4FF, #F0FCFF);
-            }
+        button {
+            padding: 0.4rem 2rem !important;
+        }
 
-            .form-header {
-                background-image: url('./images/form-header-bg.png');
-                background-size: cover;
-                background-position: center center;
-                background-repeat: no-repeat;
-            }
-            .fs-sm {
-                font-size: 12px;
-            }
+        body {
+            background-image: url('./images/form-bg.png'), linear-gradient(90deg, #fffbf9, #FFF4FF, #F0FCFF);
+        }
 
-            /* For icon rotation */
-            .rotate-icon {
+        .form-header {
+            background-image: url('./images/form-header-bg.png');
+            background-size: cover;
+            background-position: center center;
+            background-repeat: no-repeat;
+        }
+
+        .fs-sm {
+            font-size: 12px;
+        }
+
+        /* For icon rotation */
+        .rotate-icon {
             transition: transform 0.3s ease;
-            }
-            .rotate-icon.collapsed {
-            transform: rotate(0deg);
-            }
-            .rotate-icon:not(.collapsed){
-            transform: rotate(180deg);
-            }
-            #charCount {
-                font-size: 0.875em;
-                color: #6c757d;
-            }
-        </style>
-</head>
+        }
 
-<body class="pb-3 pb-md-5">
-    <div class="container mx-3 mt-3 bg-white my-md-3 my-xl-5 pb-3 pb-xl-4 border border-success-subtle shadow rounded-4 overflow-hidden">
+        .rotate-icon.collapsed {
+            transform: rotate(0deg);
+        }
+
+        .rotate-icon:not(.collapsed) {
+            transform: rotate(180deg);
+        }
+
+        #charCount {
+            font-size: 0.875em;
+            color: #6c757d;
+        }
+
+        #preloader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #C_loader {
+            display: block;
+
+            left: 50%;
+            top: 50%;
+            width: 150px;
+            height: 150px;
+            margin: -75px 0 0 -75px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #007F3E;
+            -webkit-animation: spin 2s linear infinite;
+            animation: spin 2s linear infinite;
+        }
+
+        #C_loader:before {
+            content: "";
+            position: absolute;
+            top: 5px;
+            left: 5px;
+            right: 5px;
+            bottom: 5px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #ED1C24;
+            -webkit-animation: spin 3s linear infinite;
+            animation: spin 3s linear infinite;
+        }
+
+        #C_loader:after {
+            content: "";
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            right: 15px;
+            bottom: 15px;
+            border-radius: 50%;
+            border: 3px solid transparent;
+            border-top-color: #6EC8BF;
+            -webkit-animation: spin 1.5s linear infinite;
+            animation: spin 1.5s linear infinite;
+        }
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+                -ms-transform: rotate(0deg);
+                transform: rotate(0deg);
+            }
+
+            100% {
+                -webkit-transform: rotate(360deg);
+                -ms-transform: rotate(360deg);
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+<div id="preloader" hidden>
+    <div id="C_loader" class="mx-auto"></div>
+    <p class="text-white mt-2 fs-3" id="Uploading">Uploading.....</p>
+</div>
+
+<body class="pb-3 pb-md-5 position-relative">
+    @if (session()->has('success') || session()->has('error'))
+        <div id="autoCloseAlert"
+            class="d-flex alert-container justify-content-center justify-content-md-end position-fixed position-absolute">
+            <div class="alert {{ session()->has('success') ? 'alert-success' : 'alert-danger' }} alert-dismissible me-3 d-flex align-items-center"
+                role="alert">
+                {{ session('success') ?? session('error') }}
+                <button type="button" class="btn-close mt-3 px-2 me-2" data-bs-dismiss="alert"
+                    aria-label="Close"></button>
+            </div>
+        </div>
+    @endif
+
+    <div
+        class="container mx-3 mt-3 bg-white my-md-3 my-xl-5 border border-success-subtle shadow rounded-4 overflow-hidden">
         <div class="row py-0 pb-xl-4 border border-bottom rounded-top-4"
             style="background-image: url('./images/form-header-bg.png'); background-position: center center; background-size:cover; background-repeat: no-repeat;">
             <div class="col-12">
                 <div class="row mb-3 py-3 bg-dark-subtle">
                     <div class="col-12">
                         <!-- Changes -->
-                        <div class="me-md-2 d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-center align-items-md-center">
+                        <div
+                            class="me-md-2 d-flex flex-column flex-md-row justify-content-center align-items-start justify-content-md-center align-items-md-center">
                             <div class="d-flex justify-content-start align-items-center mb-2 mb-md-0 position-relative">
-                                <div class="profile-image d-flex bg-white" type="button" data-toggle="collapse" data-target="#responsiveCollapse" aria-expanded="false" aria-controls="responsiveCollapse">
-                                    <img  src="{{ auth()->user()->logo }}"
-                                        alt="">
+                                <div class="profile-image d-flex bg-white" type="button" data-toggle="collapse"
+                                    data-target="#responsiveCollapse" aria-expanded="false"
+                                    aria-controls="responsiveCollapse">
+                                    <img src="{{ auth()->user()->logo }}" alt="">
                                 </div>
-                                <p class="mb-0 ms-2 me-md-2 line-clamp-1" type="button" data-toggle="collapse" data-target="#responsiveCollapse" aria-expanded="false" aria-controls="responsiveCollapse">{{ auth()->user()->company_name }}</p>
-                                <a class="d-block d-md-none position-absolute logout-toggle-btn" type="button" data-toggle="collapse" data-target="#responsiveCollapse" aria-expanded="false" aria-controls="responsiveCollapse">
+                                <p class="mb-0 ms-2 me-md-2 line-clamp-1" type="button" data-toggle="collapse"
+                                    data-target="#responsiveCollapse" aria-expanded="false"
+                                    aria-controls="responsiveCollapse">{{ auth()->user()->company_name }}</p>
+                                <a class="d-block d-md-none position-absolute logout-toggle-btn" type="button"
+                                    data-toggle="collapse" data-target="#responsiveCollapse" aria-expanded="false"
+                                    aria-controls="responsiveCollapse">
                                     <i class="text-dark fas fa-chevron-down rotate-icon collapsed"></i>
                                 </a>
                             </div>
                             <div class="d-none d-md-flex justify-content-start collapse" id="responsiveCollapse">
-                                <a class="text-success px-2 py-1 rounded border border-success" href="{{ route('member.logout') }}"><i class=" me-1 fa-solid fa-arrow-right-from-bracket"></i>
-                                Logout</a>
+                                <a class="text-success px-2 py-1 rounded border border-success"
+                                    href="{{ route('member.logout') }}"><i
+                                        class=" me-1 fa-solid fa-arrow-right-from-bracket"></i>
+                                    Logout</a>
                             </div>
                             <!-- Toogle Logout for mobile -->
                             <div class="d-block d-md-none">
-                                  <div class="collapse d-md-block" id="responsiveCollapse">
+                                <div class="collapse d-md-block" id="responsiveCollapse">
                                     <div class="d-flex justify-content-start collapse" id="responsiveCollapse">
-                                        <a class="text-success px-2 py-1 rounded border border-success" href="{{ route('member.logout') }}"><i class=" me-1 fa-solid fa-arrow-right-from-bracket"></i>
-                                        Logout</a>
+                                        <a class="text-success px-2 py-1 rounded border border-success"
+                                            href="{{ route('member.logout') }}"><i
+                                                class=" me-1 fa-solid fa-arrow-right-from-bracket"></i>
+                                            Logout</a>
                                     </div>
-                                  </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,17 +316,19 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <div class="col-12">
-                <form class="p-2 p-xl-4" @if(empty($is_register)) action="{{ route('form.submit') }}" @endif method="post" enctype="multipart/form-data">
-                    @csrf
+            <form class="p-2 p-xl-4 pb-0" @if (empty($is_register)) action="{{ route('form.submit') }}" @endif
+                method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+                @csrf
+                <div class="col-12">
                     <div class="row mb-3">
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">Company Name <span
                                         class="text-danger">*</span></label>
                                 <input type="text" class="form-control border border-dark-subtle"
-                                    id="exampleInputEmail1" name="company_name" value="{{ auth()->user()->company_name }}"
-                                    aria-describedby="emailHelp" required readonly>
+                                    id="exampleInputEmail1" name="company_name"
+                                    value="{{ auth()->user()->company_name }}" aria-describedby="emailHelp" required
+                                    readonly>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -190,19 +341,22 @@
                             </div>
                         </div>
                         <input name="first_par_name" id="first_par_name" value="{{ auth()->user()->name }}" hidden />
-                        <input name="first_par_designation" id="first_par_designation" value="{{ auth()->user()->name }}" hidden />
+                        <input name="first_par_designation" id="first_par_designation"
+                            value="{{ auth()->user()->name }}" hidden />
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">E-mail
                                     <span class="text-danger">*</span></label>
-                                <input type="email" name="first_par_email" id="first_par_email" value="{{ auth()->user()->email }}"
+                                <input type="email" name="first_par_email" id="first_par_email"
+                                    value="{{ auth()->user()->email }}"
                                     class="form-control border border-dark-subtle" id="exampleInputPassword1" required
                                     readonly>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">Mobile <span class="text-danger">*</span></label>
-                                <input type="text" name="first_par_phone" id="first_par_phone" value="{{ auth()->user()->mobile }}"
+                                <input type="text" name="first_par_phone" id="first_par_phone"
+                                    value="{{ auth()->user()->mobile }}"
                                     class="form-control border border-dark-subtle" id="exampleInputPassword1" required
                                     readonly>
                             </div>
@@ -210,22 +364,26 @@
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Facebook Profile </label>
-                                <input type="text" value="{{ old ('par_facebook_link') }}" name="par_facebook_link" class="@error('par_facebook_link') is-invalid @enderror form-control border border-dark-subtle"
+                                <input type="text" value="{{ old('par_facebook_link') }}"
+                                    name="par_facebook_link"
+                                    class="@error('par_facebook_link') is-invalid @enderror form-control border border-dark-subtle"
                                     id="exampleInputPassword1">
                             </div>
                             @error('par_facebook_link')
-                                <div class="invalid-feedback">{{$message}}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
 
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">LinkedIn Profile </label>
-                                <input type="text" name="par_linkedIn_link" value="{{old('par_linkedIn_link')}}" class="form-control border @error('par_linkedIn_link') is-invalid @enderror border-dark-subtle"
+                                <input type="text" name="par_linkedIn_link"
+                                    value="{{ old('par_linkedIn_link') }}"
+                                    class="form-control border @error('par_linkedIn_link') is-invalid @enderror border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
                             @error('par_linkedIn_link')
-                                <div class="invalid-feedback">{{$message}}</div>
+                                <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
                     </div>
@@ -248,7 +406,8 @@
                         <input name="first_priority" id="first_priority" value="" hidden />
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <select id="first_priority_committe" class="form-select fw-semibold border border-dark-subtle"
+                                <select id="first_priority_committe"
+                                    class="form-select fw-semibold border border-dark-subtle"
                                     aria-label="Default select example">
                                     <option value ="" selected>Select Standing Committee</option>
                                     @foreach ($standingCommittee as $committee)
@@ -270,7 +429,8 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <select  id="first_priority_forum" class="form-select fw-semibold border border-dark-subtle"
+                                <select id="first_priority_forum"
+                                    class="form-select fw-semibold border border-dark-subtle"
                                     aria-label="Default select example">
                                     <option value ="" selected>Select Forum</option>
                                     @foreach ($forums as $forum)
@@ -283,14 +443,16 @@
                                 <div class="fs-sm d-flex">Participant's Name <span class="text-danger me-2">*</span>
                                     <div id="firstPriorityForumParticipantName">
                                         <a href="#" style="text-decoration: none;"
-                                        class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6" onclick="openForm('first')"><i
-                                            class="fa-regular fa-pen-to-square" ></i> Change</a>
+                                            class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
+                                            onclick="openForm('first')"><i class="fa-regular fa-pen-to-square"></i>
+                                            Change</a>
                                     </div>
                                 </div>
                                 <div class="form-check">
                                     <input checked class="form-check-input" type="radio" selected name=""
                                         id="firstPriorityNameField">
-                                    <label class="form-check-label" for="flexRadioDefault1" id="firstPriorityNameField_show">
+                                    <label class="form-check-label" for="flexRadioDefault1"
+                                        id="firstPriorityNameField_show">
                                         <div>{{ auth()->user()->name }}, {{ auth()->user()->designation }}</div>
                                     </label>
                                 </div>
@@ -306,7 +468,8 @@
                                 </label>
                                 <div class="form-floating">
                                     <textarea class="form-control p-2 border border-dark-subtle" placeholder="Leave a comment here"
-                                        id="first_priority_relevance_to_committee" name="first_priority_relevance_to_committee" style="height: 120px" required></textarea>
+                                        id="first_priority_relevance_to_committee" name="first_priority_relevance_to_committee" style="height: 120px"
+                                        required></textarea>
                                     <div id="wordCount" class="text-end mt-1">0 / 100</div>
                                 </div>
                             </div>
@@ -317,18 +480,21 @@
                                     requires support
                                     or improvement. <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" name="first_priority_support_or_improvement[]" class="form-control border border-dark-subtle"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_support_or_improvement[]" class="form-control mt-2 border border-dark-subtle"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_support_or_improvement[]" class="form-control mt-2 border border-dark-subtle"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                <input type="text" name="first_priority_support_or_improvement[]"
+                                    class="form-control border border-dark-subtle" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
+                                <input type="text" name="first_priority_support_or_improvement[]"
+                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
+                                <input type="text" name="first_priority_support_or_improvement[]"
+                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
                                 <div id="first-more-points"></div>
                                 <div class="mb-2 d-flex justify-content-end">
                                     <div id="firstMorePoints_Button">
                                         <a href="#" style="text-decoration: none;"
-                                        class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
-                                        id="firstMorePoints">+ Add</a>
+                                            class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
+                                            id="firstMorePoints">+ Add</a>
                                     </div>
                                 </div>
                             </div>
@@ -337,20 +503,23 @@
                             <div class="mb-2">
                                 <label for="exampleInputEmail1" class="form-label">List the initiatives to address the
                                     identified gaps. <span class="text-danger">*</span></label>
-                                <input type="text"  name="first_priority_identified_gaps[]" class="form-control border border-dark-subtle mt-4"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_identified_gaps[]" class="form-control mt-2 border border-dark-subtle"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_identified_gaps[]" class="form-control mt-2 border border-dark-subtle"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                                <input type="text" name="first_priority_identified_gaps[]"
+                                    class="form-control border border-dark-subtle mt-4" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
+                                <input type="text" name="first_priority_identified_gaps[]"
+                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
+                                <input type="text" name="first_priority_identified_gaps[]"
+                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
+                                    aria-describedby="emailHelp" required>
                             </div>
                             <div id="first-more-gap"></div>
                             <div class="mb-2 d-flex justify-content-end">
                                 <div id="firstMoreGap_buttonDiv">
                                     <a href="#" style="text-decoration: none;"
-                                    class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
-                                    id="firstMoreGap">+
-                                    Add</a>
+                                        class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
+                                        id="firstMoreGap">+
+                                        Add</a>
                                 </div>
                             </div>
                         </div>
@@ -359,7 +528,8 @@
                                 <label for="exampleInputEmail1" class="form-label">Provide the names of 03 individuals
                                     you wish to collaborate with.
                                 </label>
-                                <textarea class="form-control p-2 border border-dark-subtle" id="floatingTextarea2" name="first_priority_three_collaborates" style="height: 85px" required></textarea>
+                                <textarea class="form-control p-2 border border-dark-subtle" id="floatingTextarea2"
+                                    name="first_priority_three_collaborates" style="height: 85px" required></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -368,7 +538,8 @@
                                     or
                                     policy work. <span class="text-danger">*</span>
                                 </label>
-                                <textarea class="form-control p-2 border border-dark-subtle mt-md-4" id="floatingTextarea2" style="height: 85px" name="first_priority_community_or_policy" required></textarea>
+                                <textarea class="form-control p-2 border border-dark-subtle mt-md-4" id="floatingTextarea2" style="height: 85px"
+                                    name="first_priority_community_or_policy" required></textarea>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -376,7 +547,8 @@
                                 <label for="exampleInputEmail1" class="form-label">How many hours per month can you
                                     contribute? <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control border border-dark-subtle"
-                                    id="exampleInputEmail1" aria-describedby="emailHelp" name="first_priority_contribute_hours" required>
+                                    id="exampleInputEmail1" aria-describedby="emailHelp"
+                                    name="first_priority_contribute_hours" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -387,13 +559,15 @@
                                 <div class="d-flex">
                                     <div class="form-check">
                                         <input checked class="form-check-input" type="radio"
-                                            name="first_priority_attend_monthly_meeting" id="flexRadioDefault" value="Yes">
+                                            name="first_priority_attend_monthly_meeting" id="flexRadioDefault"
+                                            value="Yes">
                                         <label class="form-check-label fw-semibold" for="flexRadioDefault1">Yes
                                         </label>
                                     </div>
                                     <div class="form-check ms-2">
                                         <input class="form-check-input" type="radio"
-                                            name="first_priority_attend_monthly_meeting" id="no" value="No" >
+                                            name="first_priority_attend_monthly_meeting" id="no"
+                                            value="No">
                                         <label class="form-check-label fw-semibold" for="no">No
                                         </label>
                                     </div>
@@ -423,9 +597,11 @@
                                         <div class="row">
                                             <div class="col-12 col-md-6">
                                                 <div class="mb-3">
-                                                    <select id="second_priority_committee" class="form-select fw-semibold"
+                                                    <select id="second_priority_committee"
+                                                        class="form-select fw-semibold"
                                                         aria-label="Default select example">
-                                                        <option value ="" selected>Select Standing Committee</option>
+                                                        <option value ="" selected>Select Standing Committee
+                                                        </option>
                                                         @foreach ($standingCommittee as $committee)
                                                             <option value="{{ $committee }}">{{ $committee }}
                                                             </option>
@@ -437,9 +613,11 @@
                                                         Join)</div>
                                                     <div class="form-check">
                                                         <input checked class="form-check-input" type="radio"
-                                                            name="flexRadioDefault" id="secondPriorityCommitteNameField">
+                                                            name="flexRadioDefault"
+                                                            id="secondPriorityCommitteNameField">
                                                         <label class="form-check-label" for="flexRadioDefault1">
-                                                            {{ auth()->user()->name }}, {{ auth()->user()->designation }}
+                                                            {{ auth()->user()->name }},
+                                                            {{ auth()->user()->designation }}
                                                         </label>
                                                     </div>
                                                 </div>
@@ -460,26 +638,35 @@
                                                     <div class="fs-sm d-flex">Participant's Name
                                                         <div class="ms-2" id="secondtPriorityForumParticipantName">
                                                             <a href="#" style="text-decoration: none;"
-                                                            class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
-                                                            onclick="openForm('second')"><i
-                                                                class="fa-regular fa-pen-to-square"></i> Change</a>
+                                                                class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
+                                                                onclick="openForm('second')"><i
+                                                                    class="fa-regular fa-pen-to-square"></i> Change</a>
                                                         </div>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input checked id="secondPriorityNameField" class="form-check-input" type="radio"
-                                                            selected name="" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1" id="secondPriorityNameField_show">
-                                                            {{ auth()->user()->name }}, {{ auth()->user()->designation }}
+                                                        <input checked id="secondPriorityNameField"
+                                                            class="form-check-input" type="radio" selected
+                                                            name="" id="flexRadioDefault1">
+                                                        <label class="form-check-label" for="flexRadioDefault1"
+                                                            id="secondPriorityNameField_show">
+                                                            {{ auth()->user()->name }},
+                                                            {{ auth()->user()->designation }}
                                                         </label>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input name="second_priority_type" id="second_priority_type" value="" hidden />
-                                            <input name="second_priority" id="second_priority" value="" hidden />
-                                            <input name="second_par_name" id="second_par_name" value="{{ auth()->user()->name }}" hidden />
-                                            <input name="second_par_designation" id="second_par_designation" value="{{ auth()->user()->designation }}" hidden />
-                                            <input name="second_par_email" id="second_par_email" value="{{ auth()->user()->email }}" hidden />
-                                            <input name="second_par_phone" id="second_par_phone" value="{{ auth()->user()->mobile }}" hidden />
+                                            <input name="second_priority_type" id="second_priority_type"
+                                                value="" hidden />
+                                            <input name="second_priority" id="second_priority" value=""
+                                                hidden />
+                                            <input name="second_par_name" id="second_par_name"
+                                                value="{{ auth()->user()->name }}" hidden />
+                                            <input name="second_par_designation" id="second_par_designation"
+                                                value="{{ auth()->user()->designation }}" hidden />
+                                            <input name="second_par_email" id="second_par_email"
+                                                value="{{ auth()->user()->email }}" hidden />
+                                            <input name="second_par_phone" id="second_par_phone"
+                                                value="{{ auth()->user()->mobile }}" hidden />
                                             <div class="col-12 col-md-12">
                                                 <div class="mb-3">
                                                     <label for="" class="form-label">Briefly describe yourself
@@ -487,8 +674,8 @@
                                                         relevance to the committee.
                                                         <small>(100 words)</small></label>
                                                     <div class="form-floating">
-                                                        <textarea name="first_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle" placeholder="Leave a comment here"
-                                                            id="floatingTextarea2" style="height: 120px"></textarea>
+                                                        <textarea name="first_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
+                                                            placeholder="Leave a comment here" id="floatingTextarea2" style="height: 120px"></textarea>
                                                     </div>
                                                 </div>
                                             </div>
@@ -500,19 +687,22 @@
                                                     </label>
                                                     <input type="text"
                                                         class="form-control border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_support_or_improvement[]">
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                        name="second_priority_support_or_improvement[]">
                                                     <input type="text"
                                                         class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_support_or_improvement[]">
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                        name="second_priority_support_or_improvement[]">
                                                     <input type="text"
                                                         class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_support_or_improvement[]">
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                        name="second_priority_support_or_improvement[]">
                                                     <div id="second-more-gap"></div>
                                                     <div class="mb-2 d-flex justify-content-end">
                                                         <div id="second_priorityMoreGap_button">
                                                             <a href="#" style="text-decoration: none;"
-                                                            class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
-                                                            id="secondMoreGap">+ Add</a>
+                                                                class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
+                                                                id="secondMoreGap">+ Add</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -524,20 +714,23 @@
                                                         address the identified gaps.</label>
                                                     <input type="text"
                                                         class="form-control border border-dark-subtle mt-4"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_identified_gaps[]">
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                        name="second_priority_identified_gaps[]">
                                                     <input type="text"
                                                         class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_identified_gaps[]">
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                        name="second_priority_identified_gaps[]">
                                                     <input type="text"
                                                         class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp" name="second_priority_identified_gaps[]">
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                        name="second_priority_identified_gaps[]">
                                                 </div>
                                                 <div id="second-more-points"></div>
                                                 <div class="mb-2 d-flex justify-content-end">
                                                     <div id="second_priorityMorePoints_button">
                                                         <a href="#" style="text-decoration: none;"
                                                             class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
-                                                        id="secondMorePoints">+ Add</a>
+                                                            id="secondMorePoints">+ Add</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -547,7 +740,8 @@
                                                         names of 03 individuals
                                                         you wish to collaborate with.
                                                     </label>
-                                                    <textarea name="second_priority_three_collaborates" class="form-control p-2 border border-dark-subtle" id="floatingTextarea2" style="height: 85px"></textarea>
+                                                    <textarea name="second_priority_three_collaborates" class="form-control p-2 border border-dark-subtle"
+                                                        id="floatingTextarea2" style="height: 85px"></textarea>
                                                 </div>
                                             </div>
                                             <div class="col-12 col-md-6">
@@ -556,41 +750,43 @@
                                                         examples of your community or
                                                         policy work.
                                                     </label>
-                                                    <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle mt-md-4" id="floatingTextarea2" style="height: 85px"></textarea>
-                                                    </div>
+                                                    <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle mt-md-4"
+                                                        id="floatingTextarea2" style="height: 85px"></textarea>
                                                 </div>
                                             </div>
-                                            <div class="row">
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">How many hours
-                                                            per month can you
-                                                            contribute?</label>
-                                                        <input type="number" name="second_priority_contribute_hours"
-                                                            class="form-control border border-dark-subtle"
-                                                            id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                    </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-12 col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">How many hours
+                                                        per month can you
+                                                        contribute?</label>
+                                                    <input type="number" name="second_priority_contribute_hours"
+                                                        class="form-control border border-dark-subtle"
+                                                        id="exampleInputEmail1" aria-describedby="emailHelp">
                                                 </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Will you attend
-                                                            at least one monthly
-                                                            meeting?</label>
-                                                        <div class="d-flex">
-                                                            <div class="form-check">
-                                                                <input checked class="form-check-input" type="radio"
-                                                                    name="second_priority_attend_monthly_meeting" value="Yes" id="flexRadioDefault">
-                                                                <label class="form-check-label fw-semibold"
-                                                                    for="flexRadioDefault1">Yes
-                                                                </label>
-                                                            </div>
-                                                            <div class="form-check ms-2">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="second_priority_attend_monthly_meeting" value="NO" id="no">
-                                                                <label class="form-check-label fw-semibold"
-                                                                    for="no">No
-                                                                </label>
-                                                            </div>
+                                            </div>
+                                            <div class="col-12 col-md-6">
+                                                <div class="mb-3">
+                                                    <label for="exampleInputEmail1" class="form-label">Will you attend
+                                                        at least one monthly
+                                                        meeting?</label>
+                                                    <div class="d-flex">
+                                                        <div class="form-check">
+                                                            <input checked class="form-check-input" type="radio"
+                                                                name="second_priority_attend_monthly_meeting"
+                                                                value="Yes" id="flexRadioDefault">
+                                                            <label class="form-check-label fw-semibold"
+                                                                for="flexRadioDefault1">Yes
+                                                            </label>
+                                                        </div>
+                                                        <div class="form-check ms-2">
+                                                            <input class="form-check-input" type="radio"
+                                                                name="second_priority_attend_monthly_meeting"
+                                                                value="NO" id="no">
+                                                            <label class="form-check-label fw-semibold"
+                                                                for="no">No
+                                                            </label>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -600,14 +796,23 @@
                                 </div>
                             </div>
                         </div>
-
                     </div>
 
-                    <!-- Agree With -->
+                </div>
+
+                <!-- Agree With -->
+                <div class="form-bottom position-relative py-3">
+                    @if (!empty($is_register))
+                        <div
+                            class="form-bottom-overlay rounded-3 d-flex justify-content-center align-items-center text-white text-capitalize fw-bold fs-1">
+                            Already Submitted !
+                        </div>
+                    @endif
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="is_agree" required>
+                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="is_agree"
+                                    required>
                                 <label class="form-check-label" for="exampleCheck1">I Agree With <a href="#"
                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">Terms & Conditions</a>
                                     <span class="text-danger">*</span></label>
@@ -616,14 +821,13 @@
                     </div>
                     <div class="row mb-3 mb-md-0">
                         <div class="col-12 text-center">
-                            @if(empty($is_register))
-                                <button type="submit" class="btn btn-success text-center">Submit</button>
-                            @endif
+                            <button type="submit" class="btn btn-success text-center">Submit</button>
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
+    </div>
     </div>
 
 
@@ -667,13 +871,13 @@
                         <div class="row">
                             <div class="col-12">
                                 <form action="" id="changeParticipantForm">
-                                    <input id="par_type" value="" hidden/>
+                                    <input id="par_type" value="" hidden />
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="mb-3">
                                                 <label for="exampleInputEmail1" class="form-label">Participants Name
                                                     <span class="text-danger">*</span></label>
-                                                <input type="text" required name="name"
+                                                <input type="text" name="name"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputEmail1" aria-describedby="emailHelp">
                                             </div>
@@ -682,7 +886,7 @@
                                             <div class="mb-3">
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Designation <span class="text-danger">*</span></label>
-                                                <input type="text" required name="designation"
+                                                <input type="text" name="designation"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputPassword1">
                                             </div>
@@ -692,7 +896,7 @@
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Email
                                                     <span class="text-danger">*</span></label>
-                                                <input type="text" required name="email"
+                                                <input type="email" name="email"
                                                     class="form-control border border-dark-subtle"
                                                     id="exampleInputPassword1">
                                             </div>
@@ -718,7 +922,6 @@
             </div>
         </div>
     </div>
-
     <script>
         $(document).ready(function() {
             var firstMorePoints = 3;
@@ -734,8 +937,15 @@
             var perEmail = "{{ auth()->user()->email }}";
             var perPhone = "{{ auth()->user()->mobile }}";
 
+            //error and sueecee alert
+            var alertElement = document.getElementById('autoCloseAlert');
+            // Set a timeout to hide the alert after 4 seconds
+            setTimeout(function() {
+                alertElement.classList.add('d-none')
+            }, 4000);
+
             //Company Name and Logout
-            $('#responsiveCollapse').on('show.bs.collapse', function () {
+            $('#responsiveCollapse').on('show.bs.collapse', function() {
                 $('.rotate-icon').removeClass('collapsed');
             });
 
@@ -747,7 +957,7 @@
                     $('#firstPriorityNameField').prop('disabled', true);
                     $('#first_priority_type').val('committe');
                     $('#first_priority').val($(this).val());
-                    $("#firstPriorityNameField_show").text( perName + ','+ perDesignation);
+                    $("#firstPriorityNameField_show").text(perName + ',' + perDesignation);
                     $("#first_par_name").val(perName);
                     $("#first_par_designation").val(perDesignation);
                     $("#first_par_email").val(perEmail);
@@ -765,7 +975,8 @@
                 var selectedValue = $(this).val();
 
                 if (selectedValue) {
-                    $('#second_priority_committee').html(second_CommitteeOptions).find(`option[value="${selectedValue}"]`).remove();
+                    $('#second_priority_committee').html(second_CommitteeOptions).find(
+                        `option[value="${selectedValue}"]`).remove();
                 } else {
                     $('#second_priority_committee').html(second_CommitteeOptions);
                 }
@@ -788,7 +999,8 @@
 
                 var selectedValue = $(this).val();
                 if (selectedValue) {
-                    $('#second_priority_forum').html(second_ForumOptions).find(`option[value="${selectedValue}"]`).remove();
+                    $('#second_priority_forum').html(second_ForumOptions).find(
+                        `option[value="${selectedValue}"]`).remove();
                 } else {
                     $('#second_priority_forum').html(second_ForumOptions);
                 }
@@ -796,7 +1008,7 @@
 
             //linecount first
             $('#first_priority_relevance_to_committee').on('input', function() {
-                const maxWords  = 100;
+                const maxWords = 100;
                 const words = $(this).val().match(/\b[-?(\w+)?]+\b/gi) || [];
                 const wordCount = words.length;
 
@@ -819,7 +1031,7 @@
                     $('#second_priority_type').val('committe');
                     $('#secondtPriorityForumParticipantName').attr('hidden', true);
                     $('#second_priority').val($(this).val());
-                    $("#secondPriorityNameField_show").text( perName + ','+ perDesignation);
+                    $("#secondPriorityNameField_show").text(perName + ',' + perDesignation);
                     $("#second_par_name").val(perName);
                     $("#second_par_designation").val(perDesignation);
                     $("#second_par_email").val(perEmail);
@@ -835,7 +1047,8 @@
                 var selectedValue = $(this).val();
 
                 if (selectedValue) {
-                    $('#first_priority_committe').html(first_CommitteeOptions).find(`option[value="${selectedValue}"]`).remove();
+                    $('#first_priority_committe').html(first_CommitteeOptions).find(
+                        `option[value="${selectedValue}"]`).remove();
                 } else {
                     $('#first_priority_committe').html(first_CommitteeOptions);
                 }
@@ -859,13 +1072,14 @@
 
                 var selectedValue = $(this).val();
                 if (selectedValue) {
-                    $('#first_priority_forum').html(first_ForumOptions).find(`option[value="${selectedValue}"]`).remove();
+                    $('#first_priority_forum').html(first_ForumOptions).find(
+                        `option[value="${selectedValue}"]`).remove();
                 } else {
                     $('#first_priority_forum').html(first_ForumOptions);
                 }
             });
 
-            $('#responsiveCollapse').on('hide.bs.collapse', function () {
+            $('#responsiveCollapse').on('hide.bs.collapse', function() {
                 $('.rotate-icon').addClass('collapsed');
             });
 
@@ -879,7 +1093,8 @@
                     </div>
                 `;
                 $('#first-more-gap').append(newGapField);
-                var first_priority_support_or_improvement_Button = $('input[name="first_priority_identified_gaps[]"]').length;
+                var first_priority_support_or_improvement_Button = $(
+                    'input[name="first_priority_identified_gaps[]"]').length;
                 if (first_priority_support_or_improvement_Button >= 10) {
                     $('#firstMoreGap_buttonDiv').attr('hidden', true);
                 }
@@ -902,7 +1117,8 @@
                     </div>
                 `;
                 $('#first-more-points').append(newExampleField);
-                var firstMorePoints_Button = $('input[name="first_priority_support_or_improvement[]"]').length;
+                var firstMorePoints_Button = $('input[name="first_priority_support_or_improvement[]"]')
+                    .length;
                 if (firstMorePoints_Button >= 10) {
                     $('#firstMorePoints_Button').attr('hidden', true);
                 }
@@ -925,7 +1141,8 @@
                     </div>
                 `;
                 $('#second-more-gap').append(newSecondGapField);
-                var second_priorityMoreGap_button = $('input[name="second_priority_support_or_improvement[]"]').length;
+                var second_priorityMoreGap_button = $(
+                    'input[name="second_priority_support_or_improvement[]"]').length;
                 if (second_priorityMoreGap_button >= 10) {
                     $('#second_priorityMoreGap_button').attr('hidden', true);
                 }
@@ -948,7 +1165,8 @@
                     </div>
                 `;
                 $('#second-more-points').append(secondExampleField);
-                var second_priorityMorePoints_button = $('input[name="second_priority_identified_gaps[]"]').length;
+                var second_priorityMorePoints_button = $('input[name="second_priority_identified_gaps[]"]')
+                    .length;
                 if (second_priorityMorePoints_button >= 10) {
                     $('#second_priorityMorePoints_button').attr('hidden', true);
                 }
@@ -962,12 +1180,12 @@
             });
         });
 
-        function openForm(label){
+        function openForm(label) {
             $("#ChangeParticipants").modal('show');
             $("#par_type").val(label);
         }
 
-        function changeParticipant(){
+        function changeParticipant() {
             var formData = new FormData(document.getElementById("changeParticipantForm"));
             var type = $("#par_type").val();
             var formDataObj = {};
@@ -975,21 +1193,46 @@
                 formDataObj[key] = value;
             });
             $("#" + type + "_par_name").val(formDataObj.name);
-            $("#" + type + "PriorityNameField_show").text( formDataObj.name + ','+ formDataObj.designation);
+            $("#" + type + "PriorityNameField_show").text(formDataObj.name + ',' + formDataObj.designation);
             $("#" + type + "_par_designation").val(formDataObj.designation);
             $("#" + type + "_par_email").val(formDataObj.email);
             $("#" + type + "_par_phone").val(formDataObj.mobile);
             $("#ChangeParticipants").modal('hide');
         }
+
+        function validateForm() {
+            // Perform custom validation here (check required fields)
+            var requiredFields = document.querySelectorAll('[required]');
+            var isValid = true;
+            for (var i = 0; i < requiredFields.length; i++) {
+                if (requiredFields[i].value.trim() === '') {
+                    requiredFields[i].classList.add('is-invalid');
+                    isValid = false;
+                    break;
+                } else {
+                    requiredFields[i].classList.remove('is-invalid');
+                }
+            }
+
+            if (isValid) {
+                // If all required fields are filled, show the preloader
+                $("#preloader").removeAttr("hidden").show();
+                return true; // Allow the form to submit
+            } else {
+                // If not all required fields are filled, display an alert or error message
+                alert('Please fill out all required fields.');
+                return false; // Prevent the form from submitting
+            }
+        }
     </script>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-        crossorigin="anonymous"></script>
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous">
+    </script>
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
 </body>
 

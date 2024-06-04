@@ -27,7 +27,7 @@ class RegistrationController extends Controller
             $secondPiorityDataset = $this->pioritystore($request,'second',$firstPiorityDataset->registration_id);
         }
 
-        return redirect('/');
+        return redirect('/')->with('success', 'Submission Successfully Done!');
 
     }
 
