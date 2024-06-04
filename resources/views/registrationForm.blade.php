@@ -116,6 +116,11 @@
             box-shadow: 0px 0px 2px 3px rgba(0, 128, 0, 0.4) !important;
         }
 
+        .custom-input-focus {
+            box-shadow: 0px 0px 1px 1px rgba(255, 0, 0, 0.4) !important;
+            border-color: red;
+        }
+
         select option:hover {
             background-color: rgba(0, 128, 0, 0.4) !important;
         }
@@ -245,7 +250,7 @@
 </head>
 <div id="preloader" hidden>
     <div id="C_loader" class="mx-auto"></div>
-    <p class="text-white mt-2 fs-3" id="Uploading">Uploading.....</p>
+    <p class="text-white mt-2 fs-3" id="Uploading">Submission.....</p>
 </div>
 
 <body class="pb-3 pb-md-5 position-relative">
@@ -309,7 +314,7 @@
                     </div>
                 </div>
                 <h3 class="text-center">Submit Your EoI To Join BASIS Standing Committee And Forums</h3>
-                <h5 class="text-center">Deadline: 10 June, 2024</h5>
+                <h5 class="text-center">Deadline: 12 June, 2024</h5>
                 <p class="text-center">Note: Members can select a maximum two of any standing committees or forums</p>
             </div>
         </div>
@@ -326,7 +331,7 @@
                                 <input type="text" class="form-control border border-dark-subtle"
                                     id="exampleInputEmail1" name="company_name"
                                     value="{{ auth()->user()->company_name }}" aria-describedby="emailHelp" required
-                                    disabled >
+                                    disabled>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -406,7 +411,7 @@
                             <div class="mb-3">
                                 <select id="first_priority_committe"
                                     class="form-select fw-semibold border border-dark-subtle"
-                                    aria-label="Default select example">
+                                    aria-label="Default select example" required>
                                     <option value ="" selected>Select Standing Committee</option>
                                     @foreach ($standingCommittee as $committee)
                                         <option value="{{ $committee }}">{{ $committee }}</option>
@@ -429,7 +434,7 @@
                             <div class="mb-3">
                                 <select id="first_priority_forum"
                                     class="form-select fw-semibold border border-dark-subtle"
-                                    aria-label="Default select example">
+                                    aria-label="Default select example" required>
                                     <option value ="" selected>Select Forum</option>
                                     @foreach ($forums as $forum)
                                         <option value="{{ $forum }}">{{ $forum }}</option>
@@ -461,7 +466,7 @@
                                 <label for="" class="form-label">Briefly describe yourself and your relevance
                                     to the
                                     committee.
-                                    <small>(100 words)</small>
+                                    <small>(Min: 100 words)</small>
                                     <span class="text-danger">*</span>
                                 </label>
                                 <div class="form-floating">
@@ -474,9 +479,9 @@
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label for="" class="form-label">Identify key areas where the industry
-                                    requires support
-                                    or improvement. <span class="text-danger">*</span>
+                                <label for="" class="form-label">Identify key areas where this Standing
+                                    Committee / Forum can contribute
+                                    <span class="text-danger">*</span>
                                 </label>
                                 <input type="text" name="first_priority_support_or_improvement[]"
                                     class="form-control border border-dark-subtle" id="exampleInputEmail1"
@@ -498,45 +503,12 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
-                            <div class="mb-2">
-                                <label for="exampleInputEmail1" class="form-label">List the initiatives to address the
-                                    identified gaps. <span class="text-danger">*</span></label>
-                                <input type="text" name="first_priority_identified_gaps[]"
-                                    class="form-control border border-dark-subtle mt-4" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_identified_gaps[]"
-                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_identified_gaps[]"
-                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" required>
-                            </div>
-                            <div id="first-more-gap"></div>
-                            <div class="mb-2 d-flex justify-content-end">
-                                <div id="firstMoreGap_buttonDiv">
-                                    <a href="#" style="text-decoration: none;"
-                                        class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
-                                        id="firstMoreGap">+
-                                        Add</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
                             <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Provide the names of 03 individuals
-                                    you wish to collaborate with.
+                                <label for="exampleInputEmail1" class="form-label">Provide examples/experience of your
+                                    contribution to policy work or position held related to community engagement.
+                                    <span class="text-danger">*</span>
                                 </label>
-                                <textarea class="form-control p-2 border border-dark-subtle" id="floatingTextarea2"
-                                    name="first_priority_three_collaborates" style="height: 85px" required></textarea>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-6">
-                            <div class="mb-3">
-                                <label for="exampleInputEmail1" class="form-label">Provide examples of your community
-                                    or
-                                    policy work. <span class="text-danger">*</span>
-                                </label>
-                                <textarea class="form-control p-2 border border-dark-subtle mt-md-4" id="floatingTextarea2" style="height: 85px"
+                                <textarea class="form-control p-2 border border-dark-subtle" id="floatingTextarea2" style="height: 130px"
                                     name="first_priority_community_or_policy" required></textarea>
                             </div>
                         </div>
@@ -589,202 +561,171 @@
                                                 / Forum <span class="fw-bold"> (Second Priority) ?</span>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div id="collapseTwo" class="accordion-collapse collapse"
-                                        data-bs-parent="#accordionExample">
-                                        <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <select id="second_priority_committee"
-                                                        class="form-select fw-semibold"
-                                                        aria-label="Default select example">
-                                                        <option value ="" selected>Select Standing Committee
-                                                        </option>
-                                                        @foreach ($standingCommittee as $committee)
-                                                            <option value="{{ $committee }}">{{ $committee }}
+                                        <div id="collapseTwo" class="accordion-collapse collapse"
+                                            data-bs-parent="#accordionExample">
+                                            <div class="row">
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <select id="second_priority_committee"
+                                                            class="form-select fw-semibold"
+                                                            aria-label="Default select example">
+                                                            <option value ="" selected>Select Standing Committee
                                                             </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-                                                <div class="mb-3">
-                                                    <div class="fs-sm">Participant's Name (Only Representative Can
-                                                        Join)</div>
-                                                    <div class="form-check">
-                                                        <input checked class="form-check-input" type="radio"
-                                                            name="flexRadioDefault"
-                                                            id="secondPriorityCommitteNameField">
-                                                        <label class="form-check-label" for="flexRadioDefault1">
-                                                            {{ auth()->user()->name }},
-                                                            {{ auth()->user()->designation }}
-                                                        </label>
+                                                            @foreach ($standingCommittee as $committee)
+                                                                <option value="{{ $committee }}">
+                                                                    {{ $committee }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <select id="second_priority_forum" class="form-select fw-semibold"
-                                                        aria-label="Default select example">
-                                                        <option value ="" selected>Select Forum</option>
-                                                        @foreach ($forums as $forum)
-                                                            <option value="{{ $forum }}">{{ $forum }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <div class="fs-sm d-flex">Participant's Name
-                                                        <div class="ms-2" id="secondtPriorityForumParticipantName">
-                                                            <a href="#" style="text-decoration: none;"
-                                                                class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
-                                                                onclick="openForm('second')"><i
-                                                                    class="fa-regular fa-pen-to-square"></i> Change</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-check">
-                                                        <input checked id="secondPriorityNameField"
-                                                            class="form-check-input" type="radio" selected
-                                                            name="" id="flexRadioDefault1">
-                                                        <label class="form-check-label" for="flexRadioDefault1"
-                                                            id="secondPriorityNameField_show">
-                                                            {{ auth()->user()->name }},
-                                                            {{ auth()->user()->designation }}
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input name="second_priority_type" id="second_priority_type"
-                                                value="" hidden />
-                                            <input name="second_priority" id="second_priority" value=""
-                                                hidden />
-                                            <input name="second_par_name" id="second_par_name"
-                                                value="{{ auth()->user()->name }}" hidden />
-                                            <input name="second_par_designation" id="second_par_designation"
-                                                value="{{ auth()->user()->designation }}" hidden />
-                                            <input name="second_par_email" id="second_par_email"
-                                                value="{{ auth()->user()->email }}" hidden />
-                                            <input name="second_par_phone" id="second_par_phone"
-                                                value="{{ auth()->user()->mobile }}" hidden />
-                                            <div class="col-12 col-md-12">
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Briefly describe yourself
-                                                        and your
-                                                        relevance to the committee.
-                                                        <small>(100 words)</small></label>
-                                                    <div class="form-floating">
-                                                        <textarea name="first_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
-                                                            placeholder="Leave a comment here" id="floatingTextarea2" style="height: 120px"></textarea>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="" class="form-label">Identify key areas where
-                                                        the industry
-                                                        requires support or improvement.
-                                                    </label>
-                                                    <input type="text"
-                                                        class="form-control border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                        name="second_priority_support_or_improvement[]">
-                                                    <input type="text"
-                                                        class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                        name="second_priority_support_or_improvement[]">
-                                                    <input type="text"
-                                                        class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                        name="second_priority_support_or_improvement[]">
-                                                    <div id="second-more-gap"></div>
-                                                    <div class="mb-2 d-flex justify-content-end">
-                                                        <div id="second_priorityMoreGap_button">
-                                                            <a href="#" style="text-decoration: none;"
-                                                                class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
-                                                                id="secondMoreGap">+ Add</a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-2">
-                                                    <label for="exampleInputEmail1" class="form-label">List the
-                                                        initiatives to
-                                                        address the identified gaps.</label>
-                                                    <input type="text"
-                                                        class="form-control border border-dark-subtle mt-4"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                        name="second_priority_identified_gaps[]">
-                                                    <input type="text"
-                                                        class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                        name="second_priority_identified_gaps[]">
-                                                    <input type="text"
-                                                        class="form-control mt-2 border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                        name="second_priority_identified_gaps[]">
-                                                </div>
-                                                <div id="second-more-points"></div>
-                                                <div class="mb-2 d-flex justify-content-end">
-                                                    <div id="second_priorityMorePoints_button">
-                                                        <a href="#" style="text-decoration: none;"
-                                                            class="bg-success p-2 rounded-1 text-white fs-sm d-inline-block"
-                                                            id="secondMorePoints">+ Add</a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Provide the
-                                                        names of 03 individuals
-                                                        you wish to collaborate with.
-                                                    </label>
-                                                    <textarea name="second_priority_three_collaborates" class="form-control p-2 border border-dark-subtle"
-                                                        id="floatingTextarea2" style="height: 85px"></textarea>
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Provide
-                                                        examples of your community or
-                                                        policy work.
-                                                    </label>
-                                                    <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle mt-md-4"
-                                                        id="floatingTextarea2" style="height: 85px"></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">How many hours
-                                                        per month can you
-                                                        contribute?</label>
-                                                    <input type="number" name="second_priority_contribute_hours"
-                                                        class="form-control border border-dark-subtle"
-                                                        id="exampleInputEmail1" aria-describedby="emailHelp">
-                                                </div>
-                                            </div>
-                                            <div class="col-12 col-md-6">
-                                                <div class="mb-3">
-                                                    <label for="exampleInputEmail1" class="form-label">Will you attend
-                                                        at least one monthly
-                                                        meeting?</label>
-                                                    <div class="d-flex">
+                                                    <div class="mb-3">
+                                                        <div class="fs-sm">Participant's Name (Only Representative Can
+                                                            Join)</div>
                                                         <div class="form-check">
                                                             <input checked class="form-check-input" type="radio"
-                                                                name="second_priority_attend_monthly_meeting"
-                                                                value="Yes" id="flexRadioDefault">
-                                                            <label class="form-check-label fw-semibold"
-                                                                for="flexRadioDefault1">Yes
+                                                                name="flexRadioDefault"
+                                                                id="secondPriorityCommitteNameField">
+                                                            <label class="form-check-label" for="flexRadioDefault1">
+                                                                {{ auth()->user()->name }},
+                                                                {{ auth()->user()->designation }}
                                                             </label>
                                                         </div>
-                                                        <div class="form-check ms-2">
-                                                            <input class="form-check-input" type="radio"
-                                                                name="second_priority_attend_monthly_meeting"
-                                                                value="NO" id="no">
-                                                            <label class="form-check-label fw-semibold"
-                                                                for="no">No
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <select id="second_priority_forum"
+                                                            class="form-select fw-semibold"
+                                                            aria-label="Default select example">
+                                                            <option value ="" selected>Select Forum</option>
+                                                            @foreach ($forums as $forum)
+                                                                <option value="{{ $forum }}">
+                                                                    {{ $forum }}
+                                                                </option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <div class="fs-sm d-flex">Participant's Name
+                                                            <div class="ms-2"
+                                                                id="secondtPriorityForumParticipantName">
+                                                                <a href="#" style="text-decoration: none;"
+                                                                    class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
+                                                                    onclick="openForm('second')"><i
+                                                                        class="fa-regular fa-pen-to-square"></i>
+                                                                    Change</a>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-check">
+                                                            <input checked id="secondPriorityNameField"
+                                                                class="form-check-input" type="radio" selected
+                                                                name="" id="flexRadioDefault1">
+                                                            <label class="form-check-label" for="flexRadioDefault1"
+                                                                id="secondPriorityNameField_show">
+                                                                {{ auth()->user()->name }},
+                                                                {{ auth()->user()->designation }}
                                                             </label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <input name="second_priority_type" id="second_priority_type"
+                                                    value="" hidden />
+                                                <input name="second_priority" id="second_priority" value=""
+                                                    hidden />
+                                                <input name="second_par_name" id="second_par_name"
+                                                    value="{{ auth()->user()->name }}" hidden />
+                                                <input name="second_par_designation" id="second_par_designation"
+                                                    value="{{ auth()->user()->designation }}" hidden />
+                                                <input name="second_par_email" id="second_par_email"
+                                                    value="{{ auth()->user()->email }}" hidden />
+                                                <input name="second_par_phone" id="second_par_phone"
+                                                    value="{{ auth()->user()->mobile }}" hidden />
+                                                <div class="col-12 col-md-12">
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Briefly describe
+                                                            yourself
+                                                            and your
+                                                            relevance to the committee.
+                                                            <small>(Min 100 words)</small></label>
+                                                        <div class="form-floating">
+                                                            <textarea name="first_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
+                                                                placeholder="Leave a comment here" id="floatingTextarea2" style="height: 120px"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="" class="form-label">Identify key areas
+                                                            where
+                                                            this Standing Committee / Forum can contribute
+                                                        </label>
+                                                        <input type="text"
+                                                            class="form-control border border-dark-subtle"
+                                                            id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                            name="second_priority_support_or_improvement[]">
+                                                        <input type="text"
+                                                            class="form-control mt-2 border border-dark-subtle"
+                                                            id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                            name="second_priority_support_or_improvement[]">
+                                                        <input type="text"
+                                                            class="form-control mt-2 border border-dark-subtle"
+                                                            id="exampleInputEmail1" aria-describedby="emailHelp"
+                                                            name="second_priority_support_or_improvement[]">
+                                                        <div id="second-more-gap"></div>
+                                                        <div class="mb-2 d-flex justify-content-end">
+                                                            <div id="second_priorityMoreGap_button">
+                                                                <a href="#" style="text-decoration: none;"
+                                                                    class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
+                                                                    id="secondMoreGap">+ Add</a>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Provide
+                                                            examples/experience of your contribution to policy work or
+                                                            position held related to community engagement.
+                                                        </label>
+                                                        <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle"
+                                                            id="floatingTextarea2" style="height: 130px"></textarea>
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">How many
+                                                            hours
+                                                            per month can you
+                                                            contribute?</label>
+                                                        <input type="number" name="second_priority_contribute_hours"
+                                                            class="form-control border border-dark-subtle"
+                                                            id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                    </div>
+                                                </div>
+                                                <div class="col-12 col-md-6">
+                                                    <div class="mb-3">
+                                                        <label for="exampleInputEmail1" class="form-label">Will you
+                                                            attend
+                                                            at least one monthly
+                                                            meeting?</label>
+                                                        <div class="d-flex">
+                                                            <div class="form-check">
+                                                                <input checked class="form-check-input" type="radio"
+                                                                    name="second_priority_attend_monthly_meeting"
+                                                                    value="Yes" id="flexRadioDefault">
+                                                                <label class="form-check-label fw-semibold"
+                                                                    for="flexRadioDefault1">Yes
+                                                                </label>
+                                                            </div>
+                                                            <div class="form-check ms-2">
+                                                                <input class="form-check-input" type="radio"
+                                                                    name="second_priority_attend_monthly_meeting"
+                                                                    value="NO" id="no">
+                                                                <label class="form-check-label fw-semibold"
+                                                                    for="no">No
+                                                                </label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -811,15 +752,19 @@
                             <div class="mb-3 form-check">
                                 <input type="checkbox" class="form-check-input" id="is_agree" name="is_agree"
                                     required>
-                                <label class="form-check-label" for="exampleCheck1">I Agree With <a href="#"
-                                        data-bs-toggle="modal" data-bs-target="#staticBackdrop">Terms & Conditions</a>
-                                    <span class="text-danger">*</span></label>
+                                <label class="form-check-label" for="exampleCheck1">I agree with the <a
+                                        href="#" data-bs-toggle="modal" data-bs-target="#staticBackdrop">Terms
+                                        & Conditions</a> <span class="text-danger">*</span><br>
+                                    This is an EOI form only. BASIS EC holds the right to finalize the Standing
+                                    Committee / Forum members.
+                                </label>
                             </div>
                         </div>
                     </div>
                     <div class="row mb-3 mb-md-0">
-                        <div class="col-12 text-center">
-                            <button type="submit" class="btn btn-success text-center">Submit</button>
+                        <div class="col-12 text-center mt-4">
+                            <button type="submit" class="btn btn-success text-center"
+                                onclick="showError()">Submit</button>
                         </div>
                     </div>
                 </div>
@@ -841,13 +786,12 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    1. Active members can select up to two standing committees or two forums.<br><br>
-                    2. Members may be terminated from a standing committee if their annual dues are pending for more
-                    than six months.<br><br>
+                    1. Active members can select up to two standing committees or forums (combination of both should not
+                    exceed two).<br><br>
+                    2. Members may be withdrawn from a standing committee if their annual dues are pending for more than
+                    six months.<br><br>
                     3. The EC body reserves the rights to add or reassign any member to or from any committee or
                     forum.<br><br>
-                    4. If any member consistently fails to participate in meetings, he/she may be terminated from the
-                    committee or forum<br><br>
                 </div>
             </div>
         </div>
@@ -938,9 +882,16 @@
             //error and sueecee alert
             var alertElement = document.getElementById('autoCloseAlert');
             // Set a timeout to hide the alert after 4 seconds
-            setTimeout(function() {
-                alertElement.classList.add('d-none')
-            }, 4000);
+            if (alertElement) {
+                setTimeout(function() {
+                    alertElement.classList.add('d-none')
+                }, 4000);
+            }
+
+            $('input, textarea').on('blur', function() {
+                $(this).removeClass('custom-input-focus');
+                $(this).removeClass('is-invalid');
+            });
 
             //Company Name and Logout
             $('#responsiveCollapse').on('show.bs.collapse', function() {
@@ -960,14 +911,16 @@
                     $("#first_par_designation").val(perDesignation);
                     $("#first_par_email").val(perEmail);
                     $("#first_par_phone").val(perPhone);
+                    $('#first_priority_forum').removeAttr('required');
+                    $('#first_priority_forum , #first_priority_committe').removeClass('custom-input-focus');
+                    $('#first_priority_forum , #first_priority_committe').removeClass('is-invalid');
                 } else {
                     $('#first_priority_forum').prop('disabled', false);
                     $('#firstPriorityNameField').prop('disabled', false);
-                    $('#firstPriorityForumParticipantName').removeAttr('hidden', false);
+                    $('#firstPriorityForumParticipantName').removeAttr('hidden');
                     $('#first_priority_type').val('');
                     $('#first_priority').val($(this).val());
-
-
+                    $('#first_priority_forum').attr('required', true);;
                 }
 
                 var selectedValue = $(this).val();
@@ -987,12 +940,16 @@
                     $('#firstPriorityCommitteNameField').prop('disabled', true);
                     $('#first_priority').val($(this).val());
                     $('#first_priority_type').val('forum');
+                    $('#first_priority_committe').removeAttr('required');
+                    $('#first_priority_committe , #first_priority_forum').removeClass('custom-input-focus');
+                    $('#first_priority_committe , #first_priority_forum').removeClass('is-invalid');
 
                 } else {
                     $('#firstPriorityCommitteNameField').prop('disabled', false);
                     $('#first_priority_committe').prop('disabled', false);
                     $('#first_priority').val('');
                     $('#first_priority_type').val('');
+                    $('#first_priority_committe').removeAttr('required');
                 }
 
                 var selectedValue = $(this).val();
@@ -1034,14 +991,20 @@
                     $("#second_par_designation").val(perDesignation);
                     $("#second_par_email").val(perEmail);
                     $("#second_par_phone").val(perPhone);
-                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').attr('required', true);
+                    $('#Second_PriorityForm input[type="text"], #Second_PriorityForm input[type="number"],#Second_PriorityForm select, #Second_PriorityForm textarea')
+                        .attr('required', true);
+                    $('#second_priority_forum').removeAttr('required');
+                    $('#second_priority_forum , #second_priority_committee').removeClass(
+                        'custom-input-focus');
+                    $('#second_priority_forum , #second_priority_committee').removeClass('is-invalid');
                 } else {
                     $('#second_priority_type').val('');
                     $('#second_priority_forum').prop('disabled', false);
                     $('#secondPriorityNameField').prop('disabled', false);
                     $('#secondtPriorityForumParticipantName').removeAttr('hidden', false);
                     $('#second_priority').val('');
-                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').removeAttr('required');
+                    $('#Second_PriorityForm input[type="text"], #Second_PriorityForm input[type="number"],#Second_PriorityForm select, #Second_PriorityForm textarea')
+                        .removeAttr('required');
                 }
 
                 var selectedValue = $(this).val();
@@ -1061,13 +1024,19 @@
                     $('#second_priority_committee').prop('disabled', true);
                     $('#secondPriorityCommitteNameField').prop('disabled', true);
                     $('#second_priority').val($(this).val());
-                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').attr('required', true);
+                    $('#Second_PriorityForm input[type="text"], #Second_PriorityForm input[type="number"], #Second_PriorityForm select, #Second_PriorityForm textarea')
+                        .attr('required', true);
+                    $('#second_priority_committee').removeAttr('required');
+                    $('#second_priority_committee , #second_priority_forum').removeClass(
+                        'custom-input-focus');
+                    $('#second_priority_committee , #second_priority_forum').removeClass('is-invalid');
                 } else {
                     $('#second_priority_committee').prop('disabled', false);
                     $('#secondPriorityCommitteNameField').prop('disabled', false);
                     $('#second_priority_type').val('');
                     $('#second_priority').val('');
-                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').removeAttr('required');
+                    $('#Second_PriorityForm input[type="text"], #Second_PriorityForm input[type="number"],#Second_PriorityForm select, #Second_PriorityForm textarea')
+                        .removeAttr('required');
 
 
 
@@ -1225,6 +1194,22 @@
                 // If not all required fields are filled, display an alert or error message
                 alert('Please fill out all required fields.');
                 return false; // Prevent the form from submitting
+            }
+        }
+
+        function showError() {
+            var requiredFields = document.querySelectorAll('[required]');
+            var isValid = true;
+            for (var i = 0; i < requiredFields.length; i++) {
+                console.log(requiredFields[i]);
+                if (requiredFields[i].value.trim() === '') {
+                    requiredFields[i].classList.add('custom-input-focus');
+                    requiredFields[i].classList.add('is-invalid');
+
+                } else {
+                    requiredFields[i].classList.remove('custom-input-focus');
+                    requiredFields[i].classList.remove('is-invalid');
+                }
             }
         }
     </script>

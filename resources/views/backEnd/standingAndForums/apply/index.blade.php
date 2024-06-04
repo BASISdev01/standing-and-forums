@@ -183,12 +183,12 @@
                     </tbody>
                 </table>
                 <div class="contaner">
-                    @if ($registrationDataset->total() < 1)
+                    @if ($registrationDataset->total() < 15)
                         <div class="text-center">
                             <h3 class="text-danger m-4"> No Data Found </h3>
                         </div>
                     @endif
-                    @if ($registrationDataset->total() > 1)
+                    @if ($registrationDataset->total() > 15)
                         <div class="d-flex justify-content-center mt-4">
                             {{ $registrationDataset->appends(request()->except('page'))->links() }}
                         </div>
