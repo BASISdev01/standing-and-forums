@@ -39,41 +39,41 @@ Senior Vice President, BASIS<br>
 
 function standingCommittee(){
     return [
-        '4IR',
-        'Access to Finance & New Investment',
-        'Data Center and cloud',
-        'Digital Commerce',
-        'Digital Content Services and TVAS',
-        'Digital Education',
         'Digital Marketing',
-        'Digital Security',
-        'eGov',
         'FinTech & Digital Payment',
-        'Games, XR, NFT, Animation and Graphics',
-        'HR Development & IT Training',
-        'HR Management',
-        'International Market Development',
-        'IPR',
         'Local Market',
-        'Member Services & Welfare',
-        'Research and Publication',
-        'Software product and SAAS',
+        'Digital Commerce',
         'Start-ups',
-        'Women in IT'
+        'International Market',
+        'Research and Publication',
+        'Games, Animation and Graphics',
+        'Digital Content Services and TVAS',
+        'HR Management',
+        'HR Development & IT Training',
+        'Digital Security',
+        'Member Services & Welfare',
+        'Access to Finance & New Investment',
+        'Women In IT',
+        'Digital Education',
+        'Frontier Technology',
+        'e-Governance',
+        'IPR',
+        'Data Center And Cloud',
+        'Software Product And SAAS',
+       'Geographic Information System & Space',
     ];
 }
 
 function forums(){
     return [
-        'BASIS America Desk',
-        'BASIS Japan and Korea Desk',
-        'BASIS Middle East and Africa Desk',
-        'BASIS Presidents’ Forum',
-        'BASIS Students Forum',
-        'Forum for especially abled persons',
+        'BASIS Presidents Forum',
         'Infrastructure & Hi-Tech Park Forum',
-        'Quantum Safe Bangladesh',
-        'System Integration Forum',
-        'Testing & Quality Assurance Forum'
+        'Microprocessor,  Encryption & Quantum Computing Forum',
+        'Forum For Especially Abled Persons',
+        'Testing & Quality Assurance Forum',
+        'BASIS Students Forum',
+        'BASIS Japan Desk',
+        'BASIS America Desk',
+        'BASIS Middle East And Africa Desk',
     ];
 }
