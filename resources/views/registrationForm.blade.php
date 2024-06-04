@@ -120,10 +120,6 @@
             background-color: rgba(0, 128, 0, 0.4) !important;
         }
 
-        select option:hover {
-            color: red !important;
-        }
-
         button {
             padding: 0.4rem 2rem !important;
         }
@@ -256,14 +252,16 @@
     @if (session()->has('success') || session()->has('error'))
         <div id="autoCloseAlert"
             class="d-flex alert-container justify-content-center justify-content-md-end position-fixed position-absolute">
-            <div class="alert {{ session()->has('success') ? 'alert-success' : 'alert-danger' }} alert-dismissible me-3 d-flex align-items-center"
+            <div class="alert {{ session()->has('success') ? 'bg-success' : 'bg-danger' }} text-white alert-dismissible me-3 d-flex align-items-center"
                 role="alert">
                 {{ session('success') ?? session('error') }}
-                <button type="button" class="btn-close mt-3 px-2 me-2" data-bs-dismiss="alert"
-                    aria-label="Close"></button>
+                {{--  <button type="button" class="btn-close mt-3 px-2 me-2" data-bs-dismiss="alert"
+                    aria-label="Close"></button>  --}}
             </div>
         </div>
     @endif
+
+
 
     <div
         class="container mx-3 mt-3 bg-white my-md-3 my-xl-5 border border-success-subtle shadow rounded-4 overflow-hidden">
@@ -328,7 +326,7 @@
                                 <input type="text" class="form-control border border-dark-subtle"
                                     id="exampleInputEmail1" name="company_name"
                                     value="{{ auth()->user()->company_name }}" aria-describedby="emailHelp" required
-                                    readonly>
+                                    disabled >
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -337,7 +335,7 @@
                                         class="text-danger">*</span></label>
                                 <input type="text" name="company_address" value="{{ auth()->user()->address }}"
                                     class="form-control  border border-dark-subtle" id="exampleInputPassword1" required
-                                    readonly>
+                                    disabled>
                             </div>
                         </div>
                         <input name="first_par_name" id="first_par_name" value="{{ auth()->user()->name }}" hidden />
@@ -350,7 +348,7 @@
                                 <input type="email" name="first_par_email" id="first_par_email"
                                     value="{{ auth()->user()->email }}"
                                     class="form-control border border-dark-subtle" id="exampleInputPassword1" required
-                                    readonly>
+                                    disabled>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -358,7 +356,7 @@
                                 <input type="text" name="first_par_phone" id="first_par_phone"
                                     value="{{ auth()->user()->mobile }}"
                                     class="form-control border border-dark-subtle" id="exampleInputPassword1" required
-                                    readonly>
+                                    disabled>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -577,7 +575,7 @@
                     </div>
 
                     <!-- Second Priority -->
-                    <div class="row my-4">
+                    <div class="row my-4" id="Second_PriorityForm">
                         <div class="col-12">
                             <div class="accordion border-none" id="accordionExample">
                                 <div class="accordion-item" style="border: none !important;">
@@ -811,7 +809,7 @@
                     <div class="row">
                         <div class="col-12">
                             <div class="mb-3 form-check">
-                                <input type="checkbox" class="form-check-input" id="exampleCheck1" name="is_agree"
+                                <input type="checkbox" class="form-check-input" id="is_agree" name="is_agree"
                                     required>
                                 <label class="form-check-label" for="exampleCheck1">I Agree With <a href="#"
                                         data-bs-toggle="modal" data-bs-target="#staticBackdrop">Terms & Conditions</a>
@@ -1036,12 +1034,14 @@
                     $("#second_par_designation").val(perDesignation);
                     $("#second_par_email").val(perEmail);
                     $("#second_par_phone").val(perPhone);
+                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').attr('required', true);
                 } else {
                     $('#second_priority_type').val('');
                     $('#second_priority_forum').prop('disabled', false);
                     $('#secondPriorityNameField').prop('disabled', false);
                     $('#secondtPriorityForumParticipantName').removeAttr('hidden', false);
                     $('#second_priority').val('');
+                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').removeAttr('required');
                 }
 
                 var selectedValue = $(this).val();
@@ -1061,11 +1061,14 @@
                     $('#second_priority_committee').prop('disabled', true);
                     $('#secondPriorityCommitteNameField').prop('disabled', true);
                     $('#second_priority').val($(this).val());
+                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').attr('required', true);
                 } else {
                     $('#second_priority_committee').prop('disabled', false);
                     $('#secondPriorityCommitteNameField').prop('disabled', false);
                     $('#second_priority_type').val('');
                     $('#second_priority').val('');
+                    $('#Second_PriorityForm select, #Second_PriorityForm textarea').removeAttr('required');
+
 
 
                 }
