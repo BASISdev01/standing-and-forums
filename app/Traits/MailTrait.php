@@ -44,5 +44,25 @@ trait MailTrait
         }
     }
 
+    protected function sendMailForRegistration($to, $sub, $body)
+    {
+        $email = new \SendGrid\Mail\Mail();
+        $email->setFrom('noreply@basis.org.bd', 'BASIS');
+        $email->setSubject($sub);
+        $email->addTo('dreamlessrana60@gmail.com');
+        $email->addContent(
+            "text/html",
+            "<p>$body</p>"
+        );
+
+        $sendgrid = new \SendGrid(env('SENDGRID_KEY'));
+        try {
+            $response = $sendgrid->send($email);
+            return response()->json(true);
+        } catch (Exception $e) {
+            return response()->json(false);
+        }
+    }
+
 
 }

@@ -29,15 +29,14 @@ function getRegID()
 function emailContent(): array
 {
     return [
-        'subject' => 'Registration Confirmation for BASIS 25-Year Celebration',
-        'body' => 'Respected Guest,<br><br> Your registration for the BASIS 25-Year Celebration event is confirmed.<br><br> Your registration CODE is <strong>{{code}}.</strong><br><p>We cordially invite you to join us at this memorable occasion, scheduled for  <strong>Saturday, February 17, 2024,</strong> at <strong>4:00 pm</strong>. The celebration will take place at <strong><a href="https://maps.app.goo.gl/Gec8P22cnK8fzzSeA" target="_blank">Greenville Outdoors</a></strong>, Madani Ave, 100 Feet, Dhaka.
-</p><p>Please present your entry pass at the venue\'s welcome desk to get entry. Kindly note that this entry pass is not transferable.</p><p>For any queries or assistance, feel free to contact us dialing <strong>16488</strong>. We look forward to celebrating this important milestone of BASIS and IT industry with you.</p><br>Warm Regards,<br><br><strong>Samira Zuberi Himika</strong><br>
-Senior Vice President, BASIS<br>
-(Convener, BASIS 25-Year Celebration)'
+        'subject' => 'Expression of Interest (EoI) Successfully Submitted',
+        'body' => 'Respected Member,<br><br> Thank you for expressing your interest in becoming a member of your desired Standing Committee/Forum.<br><br>
+        We will inform you of the committee list after final declaration by the EC, and the list will also be published on the BASIS website.'
     ];
 }
 
-function standingCommittee(){
+function standingCommittee()
+{
     return [
         'Digital Marketing',
         'FinTech & Digital Payment',
@@ -60,11 +59,12 @@ function standingCommittee(){
         'IPR',
         'Data Center And Cloud',
         'Software Product And SAAS',
-       'Geographic Information System & Space',
+        'Geographic Information System & Space',
     ];
 }
 
-function forums(){
+function forums()
+{
     return [
         'BASIS Presidents Forum',
         'Infrastructure & Hi-Tech Park Forum',
