@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Registration extends Model
 {
@@ -21,4 +22,9 @@ class Registration extends Model
         'year',
         'submitted_date'
     ];
+
+    public function priority(): HasMany
+    {
+        return $this->hasMany(Priority::class,'registration_id','id');
+    }
 }

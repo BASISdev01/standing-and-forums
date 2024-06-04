@@ -4,6 +4,8 @@ namespace App\Http\Controllers\backEnd;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Registration;
+use App\Models\Priority;
 use Illuminate\Support\Facades\Auth;
 
 class StandingAndForumsController extends Controller
@@ -15,12 +17,13 @@ class StandingAndForumsController extends Controller
         return view('backEnd.dashboard');
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $standingCommittee = standingCommittee();
         $forums = forums();
         $Years = range(now()->format('Y'), 2000);
-        return view($this->dirApply.'.index', compact('standingCommittee','forums','Years'));
+        $registrationDataset = Priority::with('registration')->Filter($request)->paginate(15);
+        return view($this->dirApply.'.index', compact('standingCommittee','forums','Years','registrationDataset'));
     }
 
     public function logout()

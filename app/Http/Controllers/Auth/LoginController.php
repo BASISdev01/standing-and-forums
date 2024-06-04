@@ -50,6 +50,7 @@ class LoginController extends Controller
         $updateData = [
             'address' => $token_payload->address ?? "",
             'logo' => $token_payload->logo ?? "",
+            'mobile' => $token_payload->contact_number ?? "",
             'company_name' => $token_payload->company_name ?? "",
             'com_name' => $token_payload->company_name ? strtolower(str_replace(['-', '_', '(', ')', '.'], '', $token_payload->company_name)) : ""
         ];
@@ -65,7 +66,7 @@ class LoginController extends Controller
             'name' => $token_payload->name ?? "",
             'designation' => $token_payload->designation ?? "",
             'email' => $token_payload->email ?? "",
-            'mobile' => $token_payload->mobile ?? "",
+            'mobile' => $token_payload->contact_number ?? "",
             'address' => $updateData['address'],
             'logo' => $updateData['logo'],
             'company_name' => $updateData['company_name'],
