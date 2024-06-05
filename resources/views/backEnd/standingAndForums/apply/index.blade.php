@@ -19,6 +19,11 @@
             .myTable thead tr th {
                 font-size: 10px;
             }
+            .logImage{
+                height: 50px;
+                width: 50px;
+                margin-top: 12px;
+            }
         </style>
     @endpush
     <!-- Show All Certificates Request Table-->
@@ -29,6 +34,90 @@
         <p class="text-white me-5 mt-3 fs-3" hidden id="Deleting">Deleting.....</p>
     </div>
 
+    <div class="row d-filex">
+        <div class="col-lg-12 col-md-4 order-1">
+            <div class="row g-4 mb-3">
+                <div class="col-lg-3 col-md-12 col-6 mb-2">
+                    <div class="card">
+                        <div class="row">
+                            <div class="card-title d-flex justify-content-center">
+                                <div class="flex-shrink-0">
+                                    <img
+                                        src="/assets/img/icons/unicons/website_login.png"
+                                        alt="Credit Card"
+                                        class="rounded logImage"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span class="fw-semibold d-block text-center mb-1">Logged In Members</span>
+                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-6 mb-2">
+                    <div class="card">
+                        <div class="row">
+                            <div class="card-title d-flex justify-content-center">
+                                <div class="flex-shrink-0">
+                                    <img
+                                        src="/assets/img/icons/unicons/application_Submit.png"
+                                        alt="Credit Card"
+                                        class="rounded logImage"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span class="fw-semibold d-block text-center mb-1">Total Applied</span>
+                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-6 mb-2">
+                    <div class="card">
+                        <div class="row">
+                            <div class="card-title d-flex justify-content-center">
+                                <div class="flex-shrink-0">
+                                    <img
+                                        src="/assets/img/icons/unicons/application_Submit.png"
+                                        alt="Credit Card"
+                                        class="rounded logImage"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span class="fw-semibold d-block text-center mb-1">Total Pending Approval</span>
+                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-12 col-6 mb-2">
+                    <div class="card">
+                        <div class="row">
+                            <div class="card-title d-flex justify-content-center">
+                                <div class="flex-shrink-0">
+                                    <img
+                                        src="/assets/img/icons/unicons/application_Submit.png"
+                                        alt="Credit Card"
+                                        class="rounded logImage"
+                                    />
+                                </div>
+                            </div>
+                            <div class="col">
+                                <span class="fw-semibold d-block text-center mb-1">Total Approved</span>
+                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {{--  Application Data Table  --}}
     <div class="card pb-4">
         <div class="container">
             <form method="GET" action="{{ route('committee.index') }}">
