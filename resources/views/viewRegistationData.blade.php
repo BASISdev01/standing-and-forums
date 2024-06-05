@@ -441,7 +441,7 @@
                                     <option value ="" selected>Select Forum</option>
                                     @foreach ($forums as $forum)
                                         <option value="{{ $forum }}"
-                                            @if ($is_register->priority[0]['priority_forum'] ?? old('first_priority_forum') == $forum) selected @endif>{{ $forum }}
+                                            @if ($is_register->priority[0]['priority'] == $forum) selected @endif>{{ $forum }}
                                         </option>
                                     @endforeach
                                     </option>
