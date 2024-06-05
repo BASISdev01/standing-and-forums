@@ -26,6 +26,13 @@ class StandingAndForumsController extends Controller
         return view($this->dirApply.'.index', compact('standingCommittee','forums','Years','registrationDataset'));
     }
 
+    public function destroy(Request $request){
+
+        Priority::where('registration_id',$request->id)->delete();
+        Registration::where('id',$request->id)->delete();
+        return response()->json( $request->id . " This Application Successfully Deleted");
+    }
+
     public function logout()
     {
         Auth::guard('admin')->logout();

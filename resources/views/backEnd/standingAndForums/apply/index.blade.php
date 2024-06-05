@@ -22,6 +22,13 @@
         </style>
     @endpush
     <!-- Show All Certificates Request Table-->
+    {{--  custom preloader  --}}
+    <div id="preloader" hidden>
+        <div id="C_loader"></div>
+        <p class="text-white me-5 mt-3 fs-3" id="Uploading">Uploading.....</p>
+        <p class="text-white me-5 mt-3 fs-3" hidden id="Deleting">Deleting.....</p>
+    </div>
+
     <div class="card pb-4">
         <div class="container">
             <form method="GET" action="{{ route('committee.index') }}">
@@ -156,20 +163,20 @@
                                 <td class="text-center" style="padding:5px !important;">
                                     <div class="row me-1">
                                         <div class="col-12 col-md-6">
-                                            <a href="" class="btn btn-sm mx-1 btn-danger"
-                                                title="View Compliance">
+                                            <a onclick="deleteApplication({{ $registration->registration['id'] }})" class="text-white btn btn-sm mx-1 btn-danger"
+                                                title="Delete This Application">
                                                 <i class='bx bxs-trash me-1'></i>Delete
                                             </a>
                                         </div>
                                         <div class="col-12 col-md-6">
                                             <a href="" class="btn btn-sm mx-1 btn-primary"
-                                                title="View Compliance">
-                                                <i class='bx bx-check-double me-1'></i>View
+                                                title="View This Application">
+                                                <i class='bx bx-show-alt'></i>View
                                             </a>
                                         </div>
                                         <div class="col-12 col-md-12 m-2">
                                             <a href="" class="btn btn-sm mx-1 btn-success fw-bold"
-                                                title="View Compliance">
+                                                title="Approve This Application">
                                                 <i class='bx bx-check-double me-1'></i>Approve
                                             </a>
                                         </div>
@@ -200,7 +207,43 @@
 
 
     @push('script')
-        <script></script>
+        <script>
+            function deleteApplication(id) {
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $("#preloader").removeAttr("hidden").show();
+                        document.getElementById('Uploading').setAttribute('hidden', '');
+                        $("#Deleting").removeAttr("hidden");
+                        $.ajax({
+                            headers: {
+                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                            },
+                            url: "{{ route('committee.delete') }}",
+                            type: "post",
+                            data: {
+                                id: id
+                            },
+                            success: function(data) {
+                                window.location.reload();
+                            },
+                            error: function(request, status, error) {
+                                $('#preloader').fadeOut('slow');
+                                console.log(error);
+                            }
+                        });
+                    }
+                })
+
+            }
+        </script>
     @endpush
 
 </x-app-layout>

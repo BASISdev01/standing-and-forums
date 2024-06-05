@@ -48,6 +48,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     //committee Routes
     Route::controller(StandingAndForumsController::class)->prefix('standing-and-forums')->name('committee.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::post('/destroy', 'destroy')->name('delete');
     });
 
 });
