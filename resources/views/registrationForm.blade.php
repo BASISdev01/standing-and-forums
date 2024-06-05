@@ -371,7 +371,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Facebook Profile </label>
                                 <input type="text" value="{{ $is_register->par_facebook_link ?? old('par_facebook_link') }}"
-                                    name="par_facebook_link" placeholder="https://www.facebook.com/abcd"
+                                    name="par_facebook_link" placeholder="https://www.facebook.com/"
                                     class="@error('par_facebook_link') is-invalid @enderror form-control border border-dark-subtle"
                                     >
                             </div>
@@ -384,7 +384,7 @@
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">LinkedIn Profile </label>
                                 <input type="text" name="par_linkedIn_link"
-                                    value="{{ $is_register->par_linkedIn_link ?? old('par_linkedIn_link') }}" placeholder="https://www.linkedin.com/in/abcd"
+                                    value="{{ $is_register->par_linkedIn_link ?? old('par_linkedIn_link') }}" placeholder="https://www.linkedin.com/in/"
                                     class="form-control border @error('par_linkedIn_link') is-invalid @enderror border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
