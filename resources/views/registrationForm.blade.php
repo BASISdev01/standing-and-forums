@@ -23,6 +23,9 @@
             text-decoration: none;
         }
 
+        input::placeholder{
+            color: rgb(192, 192, 192) !important;
+        }
         .alert-container {
             width: 100%;
         }
