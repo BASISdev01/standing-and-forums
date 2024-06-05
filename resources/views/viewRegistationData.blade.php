@@ -267,7 +267,6 @@
     @endif
 
 
-
     <div
         class="container mx-3 mt-3 bg-white my-md-3 my-xl-5 border border-success-subtle shadow rounded-4 overflow-hidden">
         <div class="row py-0 pb-xl-4 border border-bottom rounded-top-4"
@@ -319,8 +318,7 @@
             </div>
         </div>
         <div class="row justify-content-center">
-            <form class="p-2 p-xl-4 pb-0" @if (empty($is_register)) action="{{ route('form.submit') }}" @endif
-                method="post" enctype="multipart/form-data" onsubmit="return validateForm();">
+            <form class="p-2 p-xl-4 pb-0">
                 @csrf
                 <div class="col-12">
                     <div class="row mb-3">
@@ -339,8 +337,7 @@
                                 <label for="exampleInputPassword1" class="form-label">Office Address <span
                                         class="text-danger">*</span></label>
                                 <input type="text" name="company_address" value="{{ auth()->user()->address }}"
-                                    class="form-control  border border-dark-subtle"  required
-                                    disabled>
+                                    class="form-control  border border-dark-subtle" required disabled>
                             </div>
                         </div>
                         <input name="first_par_name" id="first_par_name" value="{{ auth()->user()->name }}" hidden />
@@ -352,25 +349,25 @@
                                     <span class="text-danger">*</span></label>
                                 <input type="email" name="first_par_email" id="first_par_email"
                                     value="{{ $is_register->priority[0]['par_email'] ?? auth()->user()->email }}"
-                                    class="form-control border border-dark-subtle" required
-                                    >
+                                    class="form-control border border-dark-subtle" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
-                            <div class="mb-3"><label for="exampleInputPassword1" class="form-label"> Mobile <span class="text-danger">*</span></label>
+                            <div class="mb-3"><label for="exampleInputPassword1" class="form-label"> Mobile <span
+                                        class="text-danger">*</span></label>
                                 <input type="number" name="first_par_phone" id="first_par_phone"
                                     value="{{ $is_register->priority[0]['par_phone'] ?? auth()->user()->mobile }}"
-                                    class="form-control border border-dark-subtle" required
-                                    maxlength="11" oninput="this.value = this.value.slice(0, 11); this.value = this.value.replace(/[^0-9]/g, '');">
+                                    class="form-control border border-dark-subtle" required maxlength="11"
+                                    oninput="this.value = this.value.slice(0, 11); this.value = this.value.replace(/[^0-9]/g, '');">
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputPassword1" class="form-label">Facebook Profile </label>
-                                <input type="text" value="{{ $is_register->par_facebook_link ?? old('par_facebook_link') }}"
+                                <input type="url"
+                                    value="{{ $is_register->par_facebook_link ?? old('par_facebook_link') }}"
                                     name="par_facebook_link" placeholder="https://www.facebook.com/abcd"
-                                    class="@error('par_facebook_link') is-invalid @enderror form-control border border-dark-subtle"
-                                    >
+                                    class="@error('par_facebook_link') is-invalid @enderror form-control border border-dark-subtle">
                             </div>
                             @error('par_facebook_link')
                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -380,8 +377,9 @@
                         <div class="col-12 col-md-6">
                             <div class="mb-3">
                                 <label for="exampleInputEmail1" class="form-label">LinkedIn Profile </label>
-                                <input type="text" name="par_linkedIn_link"
-                                    value="{{ $is_register->par_linkedIn_link ?? old('par_linkedIn_link') }}" placeholder="https://www.linkedin.com/in/abcd"
+                                <input type="url" name="par_linkedIn_link"
+                                    value="{{ $is_register->par_linkedIn_link ?? old('par_linkedIn_link') }}"
+                                    placeholder="https://www.linkedin.com/in/abcd"
                                     class="form-control border @error('par_linkedIn_link') is-invalid @enderror border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp">
                             </div>
@@ -411,13 +409,13 @@
                             <div class="mb-3">
                                 <select id="first_priority_committe"
                                     class="form-select fw-semibold border border-dark-subtle"
-                                    aria-label="Default select example" required>
+                                    aria-label="Default select example"
+                                    @if ($is_register->priority[0]['priority_type'] != 'committe') disabled @endif required>
                                     <option value ="" selected>Select Standing Committee</option>
                                     @foreach ($standingCommittee as $committee)
                                         <option value="{{ $committee }}"
-                                        @if($is_register->priority[0]['priority_committe'] ?? old('first_priority_committe') == $committee )
-                                            selected
-                                        @endif>{{ $committee }}</option>
+                                            @if ($is_register->priority[0]['priority'] ?? old('first_priority_committe') == $committee) selected @endif>{{ $committee }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -426,7 +424,8 @@
                                         class="text-danger">*</span></div>
                                 <div class="form-check">
                                     <input checked class="form-check-input" type="radio" selected name=""
-                                        id="firstPriorityCommitteNameField">
+                                        id="firstPriorityCommitteNameField"
+                                        @if ($is_register->priority[0]['priority_type'] != 'committe') disabled @endif>
                                     <label class="form-check-label" for="flexRadioDefault1">
                                         {{ auth()->user()->name }}, {{ auth()->user()->designation }}
                                     </label>
@@ -437,20 +436,21 @@
                             <div class="mb-3">
                                 <select id="first_priority_forum"
                                     class="form-select fw-semibold border border-dark-subtle"
-                                    aria-label="Default select example" required>
+                                    aria-label="Default select example" required
+                                    @if ($is_register->priority[0]['priority_type'] != 'forum') disabled @endif>
                                     <option value ="" selected>Select Forum</option>
                                     @foreach ($forums as $forum)
                                         <option value="{{ $forum }}"
-                                        @if($is_register->priority[0]['priority_forum'] ?? old('first_priority_forum') == $forum )
-                                            selected
-                                        @endif>{{ $forum }}</option>
+                                            @if ($is_register->priority[0]['priority_forum'] ?? old('first_priority_forum') == $forum) selected @endif>{{ $forum }}
+                                        </option>
                                     @endforeach
                                     </option>
                                 </select>
                             </div>
                             <div class="mb-3">
                                 <div class="fs-sm d-flex">Participant's Name <span class="text-danger me-2">*</span>
-                                    <div id="firstPriorityForumParticipantName">
+                                    <div id="firstPriorityForumParticipantName"
+                                        @if ($is_register->priority[0]['priority_type'] != 'forum') hidden @endif>
                                         <a href="#" style="text-decoration: none;"
                                             class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
                                             onclick="openForm('first')"><i class="fa-regular fa-pen-to-square"></i>
@@ -459,7 +459,7 @@
                                 </div>
                                 <div class="form-check">
                                     <input checked class="form-check-input" type="radio" selected name=""
-                                        id="firstPriorityNameField">
+                                        id="firstPriorityNameField" @if ($is_register->priority[0]['priority_type'] != 'forum') disabled @endif>
                                     <label class="form-check-label" for="flexRadioDefault1"
                                         id="firstPriorityNameField_show">
                                         <div>{{ auth()->user()->name }}, {{ auth()->user()->designation }}</div>
@@ -477,8 +477,8 @@
                                 </label>
                                 <div class="form-floating">
                                     <textarea class="form-control p-2 border border-dark-subtle" placeholder="Leave a comment here"
-                                        id="first_priority_relevance_to_committee" name="first_priority_relevance_to_committee" style="height: 120px"
-                                        required></textarea>
+                                        id="first_priority_relevance_to_committee" value="" name="first_priority_relevance_to_committee"
+                                        style="height: 120px" required>{{ $is_register->priority[0]['priority_relevance_to_committee'] }}</textarea>
                                     <div id="wordCount" class="text-end mt-1">0 / 100</div>
                                 </div>
                             </div>
@@ -489,15 +489,12 @@
                                     Committee / Forum can contribute
                                     <span class="text-danger">*</span>
                                 </label>
-                                <input type="text" name="first_priority_support_or_improvement[]"
-                                    class="form-control border border-dark-subtle" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_support_or_improvement[]"
-                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" required>
-                                <input type="text" name="first_priority_support_or_improvement[]"
-                                    class="form-control mt-2 border border-dark-subtle" id="exampleInputEmail1"
-                                    aria-describedby="emailHelp" required>
+                                @foreach (json_decode($is_register->priority[0]['priority_support_or_improvement'], true) as $priority_support_or_improvement)
+                                    <input type="text" value="{{ $priority_support_or_improvement }}"
+                                        name="first_priority_support_or_improvement[]"
+                                        class="form-control border border-dark-subtle mb-2" id="exampleInputEmail1"
+                                        aria-describedby="emailHelp" required>
+                                @endforeach
                                 <div id="first-more-points"></div>
                                 <div class="mb-2 d-flex justify-content-end">
                                     <div id="firstMorePoints_Button">
@@ -515,7 +512,7 @@
                                     <span class="text-danger">*</span>
                                 </label>
                                 <textarea class="form-control p-2 border border-dark-subtle" id="floatingTextarea2" style="height: 130px"
-                                    name="first_priority_community_or_policy" required></textarea>
+                                    name="first_priority_community_or_policy" required>{{ $is_register->priority[0]['priority_community_or_policy'] }}</textarea>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -524,7 +521,8 @@
                                     contribute? <span class="text-danger">*</span></label>
                                 <input type="number" class="form-control border border-dark-subtle"
                                     id="exampleInputEmail1" aria-describedby="emailHelp"
-                                    name="first_priority_contribute_hours" maxlength="1" oninput="this.value = this.value.slice(0, 4); this.value = this.value.replace(/[^0-9]/g, '');" required>
+                                    name="first_priority_contribute_hours"
+                                    value="{{ $is_register->priority[0]['priority_contribute_hours'] }}" required>
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -534,14 +532,16 @@
                                     meeting? <span class="text-danger">*</span></label>
                                 <div class="d-flex">
                                     <div class="form-check">
-                                        <input checked class="form-check-input" type="radio"
+                                        <input @if ($is_register->priority[0]['priority_attend_monthly_meeting'] == 'Yes') checked @endif
+                                            class="form-check-input" type="radio"
                                             name="first_priority_attend_monthly_meeting" id="flexRadioDefault"
                                             value="Yes">
                                         <label class="form-check-label fw-semibold" for="flexRadioDefault1">Yes
                                         </label>
                                     </div>
                                     <div class="form-check ms-2">
-                                        <input class="form-check-input" type="radio"
+                                        <input @if ($is_register->priority[0]['priority_attend_monthly_meeting'] == 'No') checked @endif
+                                            class="form-check-input" type="radio"
                                             name="first_priority_attend_monthly_meeting" id="no"
                                             value="No">
                                         <label class="form-check-label fw-semibold" for="no">No
@@ -553,184 +553,224 @@
                     </div>
 
                     <!-- Second Priority -->
-                    <div class="row my-4" id="Second_PriorityForm">
-                        <div class="col-12">
-                            <div class="accordion border-none" id="accordionExample">
-                                <div class="accordion-item" style="border: none !important;">
-                                    <div class="row">
-                                        <div class="d-flex text-center justify-content-center text-md-center border-none bg-success-subtle p-2 p-xl-3 mb-3 rounded-3 accordion-button collapsed"
-                                            style="border: none!important;" data-bs-toggle="collapse"
-                                            data-bs-target="#collapseTwo" aria-expanded="false"
-                                            aria-controls="collapseTwo">
-                                            <div class="mb-0">
-                                                Are you interested in joining another Standing Committee
-                                                / Forum <span class="fw-bold"> (Second Priority) ?</span>
+                    @if (!empty($is_register->priority[1]['priority']))
+                        <div class="row my-4" id="Second_PriorityForm">
+                            <div class="col-12">
+                                <div class="accordion border-none" id="accordionExample">
+                                    <div class="accordion-item" style="border: none !important;">
+                                        <div class="row">
+                                            <div class="d-flex text-center justify-content-center text-md-center border-none bg-success-subtle p-2 p-xl-3 mb-3 rounded-3 accordion-button collapsed"
+                                                style="border: none!important;" data-bs-toggle="collapse"
+                                                data-bs-target="#collapseTwo" aria-expanded="false"
+                                                aria-controls="collapseTwo">
+                                                <div class="mb-0">
+                                                    Are you interested in joining another Standing Committee
+                                                    / Forum <span class="fw-bold"> (Second Priority) ?</span>
+                                                </div>
                                             </div>
-                                        </div>
-                                        <div id="collapseTwo" class="accordion-collapse collapse"
-                                            data-bs-parent="#accordionExample">
-                                            <div class="row">
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <select id="second_priority_committee"
-                                                            class="form-select fw-semibold"
-                                                            aria-label="Default select example">
-                                                            <option value ="" selected>Select Standing Committee
-                                                            </option>
-                                                            @foreach ($standingCommittee as $committee)
-                                                                <option value="{{ $committee }}">
-                                                                    {{ $committee }}
+                                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                                data-bs-parent="#accordionExample">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <select @if ($is_register->priority[1]['priority_type'] != 'committe') disabled @endif
+                                                                id="second_priority_committee"
+                                                                class="form-select fw-semibold"
+                                                                aria-label="Default select example">
+                                                                <option value ="" selected>Select Standing
+                                                                    Committee
                                                                 </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                    <div class="mb-3">
-                                                        <div class="fs-sm">Participant's Name (Only Representative Can
-                                                            Join)</div>
-                                                        <div class="form-check">
-                                                            <input checked class="form-check-input" type="radio"
-                                                                name="flexRadioDefault"
-                                                                id="secondPriorityCommitteNameField">
-                                                            <label class="form-check-label" for="flexRadioDefault1">
-                                                                {{ auth()->user()->name }},
-                                                                {{ auth()->user()->designation }}
-                                                            </label>
+                                                                @foreach ($standingCommittee as $committee)
+                                                                    <option value="{{ $committee }}"
+                                                                        @if ($is_register->priority[1]['priority'] == $committee) selected @endif>
+                                                                        {{ $committee }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <select id="second_priority_forum"
-                                                            class="form-select fw-semibold"
-                                                            aria-label="Default select example">
-                                                            <option value ="" selected>Select Forum</option>
-                                                            @foreach ($forums as $forum)
-                                                                <option value="{{ $forum }}">
-                                                                    {{ $forum }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-
-                                                    <div class="mb-3">
-                                                        <div class="fs-sm d-flex">Participant's Name
-                                                            <div class="ms-2"
-                                                                id="secondtPriorityForumParticipantName">
-                                                                <a href="#" style="text-decoration: none;"
-                                                                    class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
-                                                                    onclick="openForm('second')"><i
-                                                                        class="fa-regular fa-pen-to-square"></i>
-                                                                    Change</a>
-                                                            </div>
-                                                        </div>
-                                                        <div class="form-check">
-                                                            <input checked id="secondPriorityNameField"
-                                                                class="form-check-input" type="radio" selected
-                                                                name="" id="flexRadioDefault1">
-                                                            <label class="form-check-label" for="flexRadioDefault1"
-                                                                id="secondPriorityNameField_show">
-                                                                {{ auth()->user()->name }},
-                                                                {{ auth()->user()->designation }}
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <input name="second_priority_type" id="second_priority_type"
-                                                    value="" hidden />
-                                                <input name="second_priority" id="second_priority" value=""
-                                                    hidden />
-                                                <input name="second_par_name" id="second_par_name"
-                                                    value="{{ auth()->user()->name }}" hidden />
-                                                <input name="second_par_designation" id="second_par_designation"
-                                                    value="{{ auth()->user()->designation }}" hidden />
-                                                <input name="second_par_email" id="second_par_email"
-                                                    value="{{ auth()->user()->email }}" hidden />
-                                                <input name="second_par_phone" id="second_par_phone"
-                                                    value="{{ auth()->user()->mobile }}" hidden />
-                                                <div class="col-12 col-md-12">
-                                                    <div class="mb-3">
-                                                        <label for="" class="form-label">Briefly describe
-                                                            yourself
-                                                            and your
-                                                            relevance to the committee.
-                                                            <small>(Min 100 words)</small></label>
-                                                        <div class="form-floating">
-                                                            <textarea name="second_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
-                                                                placeholder="Leave a comment here" id="floatingTextarea2" style="height: 120px"></textarea>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="" class="form-label">Identify key areas
-                                                            where
-                                                            this Standing Committee / Forum can contribute
-                                                        </label>
-                                                        <input type="text"
-                                                            class="form-control border border-dark-subtle"
-                                                            id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                            name="second_priority_support_or_improvement[]">
-                                                        <input type="text"
-                                                            class="form-control mt-2 border border-dark-subtle"
-                                                            id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                            name="second_priority_support_or_improvement[]">
-                                                        <input type="text"
-                                                            class="form-control mt-2 border border-dark-subtle"
-                                                            id="exampleInputEmail1" aria-describedby="emailHelp"
-                                                            name="second_priority_support_or_improvement[]">
-                                                        <div id="second-more-gap"></div>
-                                                        <div class="mb-2 d-flex justify-content-end">
-                                                            <div id="second_priorityMoreGap_button">
-                                                                <a href="#" style="text-decoration: none;"
-                                                                    class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
-                                                                    id="secondMoreGap">+ Add</a>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Provide
-                                                            examples/experience of your contribution to policy work or
-                                                            position held related to community engagement.
-                                                        </label>
-                                                        <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle"
-                                                            id="floatingTextarea2" style="height: 130px"></textarea>
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">How many
-                                                            hours
-                                                            per month can you
-                                                            contribute?</label>
-                                                        <input type="number" name="second_priority_contribute_hours"
-                                                            class="form-control border border-dark-subtle"
-                                                            id="exampleInputEmail1" aria-describedby="emailHelp" maxlength="1" oninput="this.value = this.value.slice(0, 4); this.value = this.value.replace(/[^0-9]/g, '');">
-                                                    </div>
-                                                </div>
-                                                <div class="col-12 col-md-6">
-                                                    <div class="mb-3">
-                                                        <label for="exampleInputEmail1" class="form-label">Will you
-                                                            attend
-                                                            at least one monthly
-                                                            meeting?</label>
-                                                        <div class="d-flex">
+                                                        <div class="mb-3">
+                                                            <div class="fs-sm">Participant's Name (Only Representative
+                                                                Can
+                                                                Join)</div>
                                                             <div class="form-check">
-                                                                <input checked class="form-check-input" type="radio"
-                                                                    name="second_priority_attend_monthly_meeting"
-                                                                    value="Yes" id="flexRadioDefault">
-                                                                <label class="form-check-label fw-semibold"
-                                                                    for="flexRadioDefault1">Yes
+                                                                <input
+                                                                    @if ($is_register->priority[1]['priority_type'] != 'committe') disabled @endif
+                                                                    checked class="form-check-input" type="radio"
+                                                                    name="flexRadioDefault"
+                                                                    id="secondPriorityCommitteNameField">
+                                                                <label class="form-check-label"
+                                                                    for="flexRadioDefault1">
+                                                                    {{ auth()->user()->name }},
+                                                                    {{ auth()->user()->designation }}
                                                                 </label>
                                                             </div>
-                                                            <div class="form-check ms-2">
-                                                                <input class="form-check-input" type="radio"
-                                                                    name="second_priority_attend_monthly_meeting"
-                                                                    value="NO" id="no">
-                                                                <label class="form-check-label fw-semibold"
-                                                                    for="no">No
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <select @if ($is_register->priority[1]['priority_type'] != 'forum') disabled @endif
+                                                                id="second_priority_forum"
+                                                                class="form-select fw-semibold"
+                                                                aria-label="Default select example">
+                                                                <option value ="" selected>Select Forum</option>
+                                                                @foreach ($forums as $forum)
+                                                                    <option value="{{ $forum }}"
+                                                                        @if ($is_register->priority[1]['priority'] == $forum) selected @endif>
+                                                                        {{ $forum }}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                        </div>
+
+                                                        <div class="mb-3">
+                                                            <div class="fs-sm d-flex">Participant's Name
+                                                                <div class="ms-2"
+                                                                    @if ($is_register->priority[1]['priority_type'] ?? '' != 'forum') disabled @endif
+                                                                    id="secondtPriorityForumParticipantName">
+                                                                    <a href="#" style="text-decoration: none;"
+                                                                        class="rounded-1 text-success fs-sm d-inline-block me-2 fs-6"
+                                                                        onclick="openForm('second')"><i
+                                                                            class="fa-regular fa-pen-to-square"></i>
+                                                                        Change</a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-check">
+                                                                <input
+                                                                    @if ($is_register->priority[1]['priority_type'] ?? '' != 'forum') disabled @endif
+                                                                    checked id="secondPriorityNameField"
+                                                                    class="form-check-input" type="radio" selected
+                                                                    name="" id="flexRadioDefault1">
+                                                                <label class="form-check-label"
+                                                                    for="flexRadioDefault1"
+                                                                    id="secondPriorityNameField_show">
+                                                                    {{ $is_register->priority[1]['par_name'] ?? auth()->user()->name }},
+                                                                    {{ $is_register->priority[1]['par_designation'] ?? auth()->user()->designation }}
                                                                 </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <input name="second_priority_type" id="second_priority_type"
+                                                        value="" hidden />
+                                                    <input name="second_priority" id="second_priority" value=""
+                                                        hidden />
+                                                    <input name="second_par_name" id="second_par_name"
+                                                        value="{{ auth()->user()->name }}" hidden />
+                                                    <input name="second_par_designation" id="second_par_designation"
+                                                        value="{{ auth()->user()->designation }}" hidden />
+                                                    <input name="second_par_email" id="second_par_email"
+                                                        value="{{ auth()->user()->email }}" hidden />
+                                                    <input name="second_par_phone" id="second_par_phone"
+                                                        value="{{ auth()->user()->mobile }}" hidden />
+                                                    <div class="col-12 col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Briefly describe
+                                                                yourself
+                                                                and your
+                                                                relevance to the committee.
+                                                                <small>(Min 100 words)</small></label>
+                                                            <div class="form-floating">
+                                                                <textarea name="first_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
+                                                                    placeholder="Leave a comment here" id="floatingTextarea2" style="height: 120px">{{ $is_register->priority[1]['priority_relevance_to_committee'] ?? '' }}</textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="" class="form-label">Identify key
+                                                                areas
+                                                                where
+                                                                this Standing Committee / Forum can contribute
+                                                            </label>
+                                                            @if (!empty($is_register->priority[1]['priority_support_or_improvement']))
+                                                                @foreach (json_decode($is_register->priority[1]['priority_support_or_improvement'], true) as $priority_support_or_improvement)
+                                                                    <input type="text"
+                                                                        class="form-control border border-dark-subtle mb-2"
+                                                                        id="exampleInputEmail1"
+                                                                        value="{{ $priority_support_or_improvement }}"
+                                                                        aria-describedby="emailHelp"
+                                                                        name="second_priority_support_or_improvement[]">
+                                                                @endforeach
+                                                            @else
+                                                                <input type="text"
+                                                                    class="form-control border border-dark-subtle mb-2"
+                                                                    id="exampleInputEmail1"
+                                                                    aria-describedby="emailHelp"
+                                                                    name="second_priority_support_or_improvement[]">
+                                                                <input type="text"
+                                                                    class="form-control border border-dark-subtle mb-2"
+                                                                    id="exampleInputEmail1"
+                                                                    aria-describedby="emailHelp"
+                                                                    name="second_priority_support_or_improvement[]">
+                                                                <input type="text"
+                                                                    class="form-control border border-dark-subtle mb-2"
+                                                                    id="exampleInputEmail1"
+                                                                    aria-describedby="emailHelp"
+                                                                    name="second_priority_support_or_improvement[]">
+                                                            @endif
+
+                                                            <div id="second-more-gap"></div>
+                                                            <div class="mb-2 d-flex justify-content-end">
+                                                                <div id="second_priorityMoreGap_button">
+                                                                    <a href="#" style="text-decoration: none;"
+                                                                        class="bg-success p-2 rounded-1 text-white fs-sm mt-2 d-inline-block"
+                                                                        id="secondMoreGap">+ Add</a>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">Provide
+                                                                examples/experience of your contribution to policy work
+                                                                or
+                                                                position held related to community engagement.
+                                                            </label>
+                                                            <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle"
+                                                                id="floatingTextarea2" style="height: 130px">{{ $is_register->priority[1]['priority_community_or_policy'] ?? '' }}</textarea>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">How
+                                                                many
+                                                                hours
+                                                                per month can you
+                                                                contribute?</label>
+                                                            <input type="number"
+                                                                value="{{ $is_register->priority[1]['priority_contribute_hours'] ?? '' }}"
+                                                                name="second_priority_contribute_hours"
+                                                                class="form-control border border-dark-subtle"
+                                                                id="exampleInputEmail1" aria-describedby="emailHelp">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-12 col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="exampleInputEmail1" class="form-label">Will
+                                                                you
+                                                                attend
+                                                                at least one monthly
+                                                                meeting?</label>
+                                                            <div class="d-flex">
+                                                                <div class="form-check">
+                                                                    <input
+                                                                        @if ($is_register->priority[1]['priority_attend_monthly_meeting'] ?? '' == 'No') checked @endif
+                                                                        class="form-check-input" type="radio"
+                                                                        name="second_priority_attend_monthly_meeting"
+                                                                        value="Yes" id="flexRadioDefault">
+                                                                    <label class="form-check-label fw-semibold"
+                                                                        for="flexRadioDefault1">Yes
+                                                                    </label>
+                                                                </div>
+                                                                <div class="form-check ms-2">
+                                                                    <input
+                                                                        @if ($is_register->priority[1]['priority_attend_monthly_meeting'] ?? '' == 'No') checked @endif
+                                                                        class="form-check-input" type="radio"
+                                                                        name="second_priority_attend_monthly_meeting"
+                                                                        value="NO" id="no">
+                                                                    <label class="form-check-label fw-semibold"
+                                                                        for="no">No
+                                                                    </label>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -741,8 +781,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-
+                    @endif
                 </div>
 
                 <!-- Agree With -->
@@ -835,8 +874,7 @@
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Designation <span class="text-danger">*</span></label>
                                                 <input type="text" name="designation"
-                                                    class="form-control border border-dark-subtle"
-                                                    >
+                                                    class="form-control border border-dark-subtle">
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -845,8 +883,7 @@
                                                     Email
                                                     <span class="text-danger">*</span></label>
                                                 <input type="email" name="email"
-                                                    class="form-control border border-dark-subtle"
-                                                    >
+                                                    class="form-control border border-dark-subtle">
                                             </div>
                                         </div>
                                         <div class="col-12">
@@ -854,8 +891,7 @@
                                                 <label for="exampleInputPassword1" class="form-label">Participants
                                                     Mobile <span class="text-danger">*</span></label>
                                                 <input type="number" name="phone"
-                                                    class="form-control border border-dark-subtle"
-                                                 maxlength="11"
+                                                    class="form-control border border-dark-subtle" maxlength="11"
                                                     oninput="this.value = this.value.slice(0, 11); this.value = this.value.replace(/[^0-9]/g, '');">
                                             </div>
                                         </div>
@@ -935,10 +971,10 @@
                 if (selectedValue) {
                     $('#second_priority_committee').html(second_CommitteeOptions).find(
                         `option[value="${selectedValue}"]`).remove();
-                        $('#second_priority_forum').removeAttr('required');
-                        $('#second_priority_forum').prop('disabled', false);
-                        $('#second_priority_committe').removeAttr('required');
-                        $('#second_priority_committe').prop('disabled', false);
+                    $('#second_priority_forum').removeAttr('required');
+                    $('#second_priority_forum').prop('disabled', false);
+                    $('#second_priority_committe').removeAttr('required');
+                    $('#second_priority_committe').prop('disabled', false);
                 } else {
                     $('#second_priority_committee').html(second_CommitteeOptions);
                 }
@@ -967,10 +1003,10 @@
                 if (selectedValue) {
                     $('#second_priority_forum').html(second_ForumOptions).find(
                         `option[value="${selectedValue}"]`).remove();
-                        $('#second_priority_forum').removeAttr('required');
-                        $('#second_priority_forum').prop('disabled', false);
-                        $('#second_priority_committe').removeAttr('required');
-                        $('#second_priority_committe').prop('disabled', false);
+                    $('#second_priority_forum').removeAttr('required');
+                    $('#second_priority_forum').prop('disabled', false);
+                    $('#second_priority_committe').removeAttr('required');
+                    $('#second_priority_committe').prop('disabled', false);
                 } else {
                     $('#second_priority_forum').html(second_ForumOptions);
                 }

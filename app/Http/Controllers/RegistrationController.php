@@ -14,44 +14,46 @@ class RegistrationController extends Controller
 
     public function index()
     {
-        $is_register = Registration::where('membership_id', Auth::user()->membership_id)->first();
-        // $is_register = null;
-        return view('registrationForm',compact('is_register'));
+        $is_register = Registration::where('membership_id', Auth::user()->membership_id)->with('priority')->first();
+         if(empty($is_register)){
+            return view('registrationForm', compact('is_register'));
+         }else{
+            return view('viewRegistationData', compact('is_register'));
 
+         }
     }
 
     public function formSubmit(Request $request)
     {
-
-        if(!empty($request->first_priority_type)){
-            $firstPiorityDataset = $this->pioritystore($request,'first');
+        if (!empty($request->first_priority_type)) {
+            $firstPiorityDataset = $this->pioritystore($request, 'first');
         }
 
-        if(!empty($request->second_priority_type)){
-            $secondPiorityDataset = $this->pioritystore($request,'second',$firstPiorityDataset->registration_id);
+        if (!empty($request->second_priority_type)) {
+            $secondPiorityDataset = $this->pioritystore($request, 'second', $firstPiorityDataset->registration_id);
         }
-        $this->sendMailForRegistration($request->first_par_email, emailContent()['subject'], emailContent()['body']);
-        return redirect('/')->with('success', 'Submission Successful!');
-
+        $this->sendMailForRegistration($request->first_par_email);
+        return redirect('/')->with('success', 'Application Successful!');
     }
 
-    protected function pioritystore(Request $request,$priorityLabel, $registration_id = null) {
+    protected function pioritystore(Request $request, $priorityLabel, $registration_id = null)
+    {
         // Define validation rules
         // $rules = [
         //     "{$priorityLabel}_priority" => 'required',
         //     "{$priorityLabel}_priority_type" => 'required',
         //     "{$priorityLabel}_priority_relevance_to_committee" => 'required',
         //     "{$priorityLabel}_priority_community_or_policy" => 'required',
-        //     "{$priorityLabel}_priority_contribute_hours" => 'required',
+        //     "{$priorityLabel}_priority_contribute_hours" => 'required|max:20',
         //     "{$priorityLabel}_priority_attend_monthly_meeting" => 'required',
         // ];
 
         // // Validate the request
         // $validatedData = $request->validate($rules);
 
-        if(empty($registration_id)){
+        if (empty($registration_id)) {
 
-            $registationDataser=[
+            $registationDataser = [
                 'membership_id' => Auth::user()->membership_id,
                 'par_facebook_link' => $request->par_facebook_link,
                 'par_linkedIn_link' => $request->par_linkedIn_link,
@@ -61,8 +63,8 @@ class RegistrationController extends Controller
                 'year' => now()->format('Y'),
                 'submitted_date' => now()->format('Y-m-d'),
             ];
-            $Registration = Registration::create($registationDataser);
 
+            $Registration = Registration::create($registationDataser);
         }
 
         $priorityDataSate = [
@@ -91,6 +93,5 @@ class RegistrationController extends Controller
     {
         Auth::logout();
         return redirect('https://basis.org.bd/member/dashboard');
-
     }
 }

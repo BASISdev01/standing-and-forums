@@ -36,7 +36,7 @@ trait MailTrait
                 'status' => $response->statusCode(),
                 'headers' => $response->headers(),
                 'body' => $response->body(),
-               // 'message_id' => $response->headers('X-Message-Id')['X-Message-Id']
+                // 'message_id' => $response->headers('X-Message-Id')['X-Message-Id']
             ];
             return response()->json($resp);
         } catch (\Exception $e) {
@@ -44,25 +44,29 @@ trait MailTrait
         }
     }
 
-    protected function sendMailForRegistration($to, $sub, $body)
+    protected function sendMailForRegistration($to)
     {
         $email = new \SendGrid\Mail\Mail();
         $email->setFrom('noreply@basis.org.bd', 'BASIS');
-        $email->setSubject($sub);
+        $email->setSubject('Expression of Interest (EoI) Successfully Submitted');
         $email->addTo($to);
         $email->addContent(
             "text/html",
-            "<p>$body</p>"
+            "<p>Respected Member,<br><br> Thank you for expressing your interest in becoming a member of your desired Standing Committee/Forum.<br><br>
+            We will inform you of the committee list after final declaration by the EC, and the list will also be published on the BASIS website.</p>"
         );
 
         $sendgrid = new \SendGrid(env('SENDGRID_KEY'));
         try {
             $response = $sendgrid->send($email);
-            return response()->json(true);
-        } catch (Exception $e) {
-            return response()->json(false);
+            $resp = [
+                'status' => $response->statusCode(),
+                'headers' => $response->headers(),
+                'body' => $response->body()
+            ];
+            return response()->json($resp);
+        } catch (\Exception $e) {
+            return response()->json($e->getMessage());
         }
     }
-
-
 }
