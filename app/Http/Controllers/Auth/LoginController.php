@@ -50,6 +50,7 @@ class LoginController extends Controller
         $updateData = [
             'address' => $token_payload->address ?? "",
             'name' => $token_payload->representative_name ?? "",
+            'designation' => $token_payload->designation ?? "",
             'logo' => $token_payload->logo ?? "",
             'mobile' => $token_payload->representative_contact_number ?? "",
             'email' => $token_payload->representative_email ?? "",
