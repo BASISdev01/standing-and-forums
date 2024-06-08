@@ -30,8 +30,8 @@
                             <img src="/assets/img/icons/unicons/application_Submit.png"  alt="Credit Card"
                             class="rounded logImage" />
                             <div class="d-flex flex-column align-items-center justify-content-center ps-3">
-                                <div class="fw-semibold text-center d-block mb-1">Total Applied</div>
-                                <h3 class="card-title text-nowrap mt-1 mb-1 text-center">{{ logShow('applied') }}</h3>
+                                <div class="fw-semibold text-center d-block">Total Applied</div>
+                                <div class="fs-4 fw-semibold text-nowrap text-center mb-1">{{ logShow('applied') }} <small style="font-size:12px;">( Company - {{ companyLog() }} )</small></div>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <img src="/assets/img/icons/unicons/pending.png" alt="Credit Card"
                             class="rounded logImage" />
                             <div class="d-flex flex-column align-items-center justify-content-center ps-3">
-                                <span class="fw-semibold d-block text-center mb-1">Total Pending Approval</span>
+                                <span class="fw-semibold d-block text-center mb-1">Total Pending</span>
                                 <h3 class="card-title text-nowrap mt-1 mb-1 text-center">{{ logShow('pending') }}</h3>
                             </div>
                         </div>

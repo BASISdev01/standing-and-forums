@@ -116,3 +116,8 @@ function ForumsLog($name = null){
         return $total;
     }
 }
+
+function companyLog($name = null){
+    $total=Registration::count();
+    return $total;
+}
