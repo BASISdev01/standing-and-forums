@@ -49,6 +49,7 @@ class LoginController extends Controller
 
         $updateData = [
             'address' => $token_payload->address ?? "",
+            'name' => $token_payload->representative_name ?? "",
             'logo' => $token_payload->logo ?? "",
             'mobile' => $token_payload->representative_contact_number ?? "",
             'email' => $token_payload->representative_email ?? "",
@@ -64,7 +65,7 @@ class LoginController extends Controller
 
         $insertData = [
             'membership_id' => $member_id,
-            'name' => $token_payload->name ?? "",
+            'name' => $token_payload->representative_name ?? "",
             'designation' => $token_payload->designation ?? "",
             'email' => $token_payload->representative_email ?? "",
             'mobile' => $token_payload->representative_contact_number ?? "",
