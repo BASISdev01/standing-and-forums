@@ -321,7 +321,6 @@
         </div>
         <div class="row justify-content-center">
             <form class="p-2 p-xl-4 pb-0">
-                @csrf
                 <div class="col-12">
                     <div class="row mb-3">
                         <div class="col-12 col-md-6">

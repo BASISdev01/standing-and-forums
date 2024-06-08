@@ -49,7 +49,7 @@
                             </div>
                             <div class="col">
                                 <span class="fw-semibold d-block text-center mb-1">Logged In Members</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('member_login') }}</h3>
                             </div>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                             </div>
                             <div class="col">
                                 <span class="fw-semibold d-block text-center mb-1">Total Applied</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('applied') }}</h3>
                             </div>
                         </div>
                     </div>
@@ -75,13 +75,13 @@
                         <div class="row">
                             <div class="card-title d-flex justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img src="/assets/img/icons/unicons/application_Submit.png" alt="Credit Card"
+                                    <img src="/assets/img/icons/unicons/pending.png" alt="Credit Card"
                                         class="rounded logImage" />
                                 </div>
                             </div>
                             <div class="col">
                                 <span class="fw-semibold d-block text-center mb-1">Total Pending Approval</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('pending') }}</h3>
                             </div>
                         </div>
                     </div>
@@ -91,13 +91,13 @@
                         <div class="row">
                             <div class="card-title d-flex justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img src="/assets/img/icons/unicons/application_Submit.png" alt="Credit Card"
+                                    <img src="/assets/img/icons/unicons/Approved.png" alt="Credit Card"
                                         class="rounded logImage" />
                                 </div>
                             </div>
                             <div class="col">
                                 <span class="fw-semibold d-block text-center mb-1">Total Approved</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">4,679</h3>
+                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('approved') }}</h3>
                             </div>
                         </div>
                     </div>

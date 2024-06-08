@@ -3,6 +3,9 @@
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Registration;
+use App\Models\Priority;
+use App\Models\Member;
 
 if (!function_exists('generateEntryPass')) {
 
@@ -76,4 +79,20 @@ function forums()
         'BASIS America Desk',
         'BASIS Middle East And Africa Desk',
     ];
+}
+
+function logShow($title){
+    if($title == 'member_login'){
+        $totalLoginMember = Member::count();
+        return $totalLoginMember;
+    }elseif($title == 'applied'){
+        $totalApplied = Priority::count();
+        return $totalApplied;
+    }elseif($title == 'pending'){
+        $totalPending = Priority::where('status','Pending')->count();
+        return $totalPending;
+    }elseif($title == 'approved'){
+        $totalApproved = Priority::where('status','approved')->count();
+        return $totalApproved;
+    }
 }
