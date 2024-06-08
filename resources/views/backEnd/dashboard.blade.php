@@ -3,8 +3,8 @@
     @push('style')
         <style>
             .logImage {
-                height: 50px;
-                width: 50px;
+                height: 40px;
+                width: 40px;
                 margin-top: 12px;
             }
         </style>
@@ -13,65 +13,49 @@
         <div class="col-lg-12 col-md-4 order-1">
             <div class="row g-4 mb-3">
                 <div class="col-lg-3 col-md-12 col-6 mb-2">
-                    <div class="card">
-                        <div class="row">
-                            <div class="card-title d-flex justify-content-center">
-                                <div class="flex-shrink-0">
-                                    <img src="/assets/img/icons/unicons/website_login.png" alt="Credit Card"
-                                        class="rounded logImage" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold d-block text-center mb-1">Logged In Members</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('member_login') }}</h3>
+                    <div class="card p-1 ps-2">
+                        <div class="d-flex">
+                            <img src="/assets/img/icons/unicons/website_login.png" alt="Credit Card"
+                            class="rounded logImage" />
+                            <div class="d-flex flex-column align-items-center justify-content-center ps-3">
+                                <div class="fw-semibold d-block text-center mb-1">Logged In Members</div>
+                                <h3 class="card-title text-nowrap mt-1 mb-1 text-center">{{ logShow('member_login') }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-12 col-6 mb-2">
-                    <div class="card">
-                        <div class="row">
-                            <div class="card-title d-flex justify-content-center">
-                                <div class="flex-shrink-0">
-                                    <img src="/assets/img/icons/unicons/application_Submit.png" alt="Credit Card"
-                                        class="rounded logImage" />
-                                </div>
-                            </div>
-                            <div class="col">
-                                <span class="fw-semibold d-block text-center mb-1">Total Applied</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('applied') }}</h3>
+                    <div class="card p-1 ps-2">
+                        <div class="d-flex">
+                            <img src="/assets/img/icons/unicons/application_Submit.png"  alt="Credit Card"
+                            class="rounded logImage" />
+                            <div class="d-flex flex-column align-items-center justify-content-center ps-3">
+                                <div class="fw-semibold text-center d-block mb-1">Total Applied</div>
+                                <h3 class="card-title text-nowrap mt-1 mb-1 text-center">{{ logShow('applied') }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-12 col-6 mb-2">
-                    <div class="card">
-                        <div class="row">
-                            <div class="card-title d-flex justify-content-center">
-                                <div class="flex-shrink-0">
-                                    <img src="/assets/img/icons/unicons/pending.png" alt="Credit Card"
-                                        class="rounded logImage" />
-                                </div>
-                            </div>
-                            <div class="col">
+                    <div class="card p-1 ps-2">
+                        <div class="d-flex">
+                            <img src="/assets/img/icons/unicons/pending.png" alt="Credit Card"
+                            class="rounded logImage" />
+                            <div class="d-flex flex-column align-items-center justify-content-center ps-3">
                                 <span class="fw-semibold d-block text-center mb-1">Total Pending Approval</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('pending') }}</h3>
+                                <h3 class="card-title text-nowrap mt-1 mb-1 text-center">{{ logShow('pending') }}</h3>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-lg-3 col-md-12 col-6 mb-2">
-                    <div class="card">
-                        <div class="row">
-                            <div class="card-title d-flex justify-content-center">
-                                <div class="flex-shrink-0">
-                                    <img src="/assets/img/icons/unicons/Approved.png" alt="Credit Card"
-                                        class="rounded logImage" />
-                                </div>
-                            </div>
-                            <div class="col">
+                    <div class="card p-1 ps-2">
+                        <div class="d-flex">
+                            <img src="/assets/img/icons/unicons/Approved.png" alt="Credit Card"
+                            class="rounded logImage" />
+                            <div class="d-flex flex-column align-items-center justify-content-center ps-3">
                                 <span class="fw-semibold d-block text-center mb-1">Total Approved</span>
-                                <h3 class="card-title text-nowrap mt-1 text-center">{{ logShow('approved') }}</h3>
+                                <h3 class="card-title text-nowrap mt-1 mb-1 text-center">{{ logShow('approved') }}</h3>
                             </div>
                         </div>
                     </div>
