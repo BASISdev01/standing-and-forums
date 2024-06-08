@@ -19,7 +19,8 @@
             .myTable thead tr th {
                 font-size: 10px;
             }
-            .logImage{
+
+            .logImage {
                 height: 50px;
                 width: 50px;
                 margin-top: 12px;
@@ -42,11 +43,8 @@
                         <div class="row">
                             <div class="card-title d-flex justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img
-                                        src="/assets/img/icons/unicons/website_login.png"
-                                        alt="Credit Card"
-                                        class="rounded logImage"
-                                    />
+                                    <img src="/assets/img/icons/unicons/website_login.png" alt="Credit Card"
+                                        class="rounded logImage" />
                                 </div>
                             </div>
                             <div class="col">
@@ -61,11 +59,8 @@
                         <div class="row">
                             <div class="card-title d-flex justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img
-                                        src="/assets/img/icons/unicons/application_Submit.png"
-                                        alt="Credit Card"
-                                        class="rounded logImage"
-                                    />
+                                    <img src="/assets/img/icons/unicons/application_Submit.png" alt="Credit Card"
+                                        class="rounded logImage" />
                                 </div>
                             </div>
                             <div class="col">
@@ -80,11 +75,8 @@
                         <div class="row">
                             <div class="card-title d-flex justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img
-                                        src="/assets/img/icons/unicons/application_Submit.png"
-                                        alt="Credit Card"
-                                        class="rounded logImage"
-                                    />
+                                    <img src="/assets/img/icons/unicons/application_Submit.png" alt="Credit Card"
+                                        class="rounded logImage" />
                                 </div>
                             </div>
                             <div class="col">
@@ -99,11 +91,8 @@
                         <div class="row">
                             <div class="card-title d-flex justify-content-center">
                                 <div class="flex-shrink-0">
-                                    <img
-                                        src="/assets/img/icons/unicons/application_Submit.png"
-                                        alt="Credit Card"
-                                        class="rounded logImage"
-                                    />
+                                    <img src="/assets/img/icons/unicons/application_Submit.png" alt="Credit Card"
+                                        class="rounded logImage" />
                                 </div>
                             </div>
                             <div class="col">
@@ -127,8 +116,8 @@
                             <input style="width: 100px;" type="text" id="Search"
                                 value="{{ request('company_name') }}" name="company_name" class="form-control me-2 ms-2"
                                 title="Search with Company Name" placeholder="Company Name" />
-                            <select name="priority_lable" style="width: 105px;" title="Select Priority" class="form-select"
-                                aria-label="Default select example">
+                            <select name="priority_lable" style="width: 105px;" title="Select Priority"
+                                class="form-select" aria-label="Default select example">
                                 <option value="">Select Priority</option>
                                 <option value="first" @if (request('priority_lable') == 'first') selected @endif>First Priority
                                 </option>
@@ -139,7 +128,8 @@
                                 class="form-select" aria-label="Default select example">
                                 <option value="">Select Committee</option>
                                 @foreach ($standingCommittee as $committee)
-                                    <option value="{{ $committee }}" @if (request('committee') == $committee) selected @endif>
+                                    <option value="{{ $committee }}"
+                                        @if (request('committee') == $committee) selected @endif>
                                         {{ $committee }}</option>
                                 @endforeach
                             </select>
@@ -147,7 +137,8 @@
                                 aria-label="Default select example">
                                 <option value="">Select Forum</option>
                                 @foreach ($forums as $forum)
-                                    <option value="{{ $forum }}" @if (request('forum') == $forum) selected @endif>
+                                    <option value="{{ $forum }}"
+                                        @if (request('forum') == $forum) selected @endif>
                                         {{ $forum }}</option>
                                 @endforeach
                             </select>
@@ -155,7 +146,8 @@
                                 aria-label="Default select example">
                                 <option value="">Year</option>
                                 @foreach ($Years as $Year)
-                                    <option value="{{ $Year }}" @if (request('year') == $Year) selected @endif>
+                                    <option value="{{ $Year }}"
+                                        @if (request('year') == $Year) selected @endif>
                                         {{ $Year }}</option>
                                 @endforeach
                                 </option>
@@ -172,15 +164,14 @@
                             <button class="btn btn-primary rounded-end" title="Search" type="submit"><i
                                     class='bx bx-search'></i></button>
 
-                            <a href="{{ route('committee.index') }}" title="Filter Reset" class="btn btn-warning mx-2 rounded"><i
-                                    class="bx bx-sync"></i>
+                            <a href="{{ route('committee.index') }}" title="Filter Reset"
+                                class="btn btn-warning mx-2 rounded"><i class="bx bx-sync"></i>
                             </a>
 
-                            <a href="{{ route('committee.index') }}" title="Create A Request" class="btn btn-info mx-2 rounded"><i
-                                    class='bx bx-plus me-1'></i>
+                            <a href="{{ route('committee.index') }}" title="Create A Request"
+                                class="btn btn-info mx-2 rounded"><i class='bx bx-plus me-1'></i>
                             </a>
-                            <a href=""
-                                title="Export all Data" class="btn btn-secondary rounded">Export<i
+                            <a href="" title="Export all Data" class="btn btn-secondary rounded">Export<i
                                     class="ms-2 fa-solid fa-file-export"></i>
                             </a>
                         </div>
@@ -191,50 +182,56 @@
                 <table class="table table-bordered myTable">
                     <thead class="table-dark">
                         <tr>
-                            <th class="text-center fs-7" style="width: 30px !important; padding:5px !important;">Sl. No.
+                            <th class="text-center fs-7" style="width: 50px !important; padding:20px 0 !important;">
+                                Sl.
+                                No.
                             </th>
-                            <th class="fs-7 text-center" style="width: 40px !important; padding:5px !important;">
-                                Submitted Date</th>
-                            <th class="fs-7 text-center" style="width: 70px !important; padding:5px !important;">Year
+                            <th class="fs-7 text-center" style="width: 90px !important; padding:20px 0 !important;">
+                                Submit Date</th>
+                            <th class="fs-7 text-center" style="width: 50px !important; padding:20px 0 !important;">
+                                Type
                             </th>
-                            <th class="fs-7 text-center" style="width: 60px !important; padding:5px !important;">
+                            <th class="fs-7 text-center" style="width: 100px !important; padding:20px 0 !important;">
+                                Company Name
+                            </th>
+                            <th class="fs-7 text-center" style="width: 60px !important; padding:20px 0 !important;">
                                 Rep.Name and Designation
                             </th>
-                            <th class="fs-7 text-center" style="width: 40px !important; padding:5px !important;">Email &
-                                Phone</th>
-                            <th class="fs-7 text-center" style="width: 100px !important; padding:5px !important;">1st
+                            <th class="fs-7 text-center" style="width: 80px !important; padding:20px 0 !important;">
+                                1st
                                 Priority</th>
-                            <th class="fs-7 text-center" style="width: 100px !important; padding:5px !important;">2nd
+                            <th class="fs-7 text-center" style="width: 100px !important; padding:20px 0 !important;">
+                                2nd
                                 Priority</th>
-                            <th class="fs-7 text-center" style="width: 190px !important; padding:5px !important;">
+                            <th class="fs-7 text-center" style="width: 190px !important; padding:20px 0 !important;">
                                 Comments</th>
-                            <th class="fs-7 text-center" style="width: 100px !important; padding:5px !important;">Action
+                            <th class="fs-7 text-center" style="width: 100px !important; padding:20px 0 !important;">
+                                Action
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $id = 1;
-                        @endphp
-                        @foreach ($registrationDataset as $registration)
+
+                        @forelse ($registrationDataset as $key=>$registration)
                             <tr>
                                 <td class="text-center" style="padding:5px !important;">
-                                    {{ ($registrationDataset->currentPage() - 1) * $registrationDataset->perPage() + $id }}
+                                    {{ $registrationDataset->firstItem() + $key }}
                                 </td>
 
                                 <td class="text-center" style="padding:5px !important;">
                                     {{ $registration->registration['submitted_date'] }}
                                 </td>
-                                <td class="text-center" style="padding:5px !important;">
-                                    {{ $registration->registration['year'] }}
+                                <td class="text-center text-capitalize" style="padding:5px !important;">
+                                    {{ $registration->priority_type }}
                                 </td>
-
-                                <td class="text-center" style="padding:5px !important;">
-                                    {{ $registration->par_name }}<br> {{ $registration->par_designation }}
+                                <td style="padding:5px !important;">
+                                    {{ $registration->registration['company_name'] }}
                                 </td>
-                                <td class="text-center" style="padding:5px !important;">
+                                <td style="padding:5px !important;">
+                                    {{ $registration->par_name }}<br> {{ $registration->par_designation }}<br>
                                     {{ $registration->par_email }} <br> {{ $registration->par_phone }}
                                 </td>
+
                                 <td class="text-center" style="padding:5px !important;">
                                     @if ($registration->priority_lable == 'first')
                                         {{ $registration->priority }}
@@ -246,13 +243,14 @@
                                     @endif
                                 </td>
                                 <td class="text-center" style="padding:5px !important;">
-                                    <textarea class="form-control p-2 border border-dark-subtle" placeholder="Leave a comment here" id="floatingTextarea2"
-                                        style="height: 80px"></textarea>
+                                    <textarea class="form-control p-2 border border-dark-subtle" placeholder="Leave a comment here"
+                                        id="floatingTextarea2" style="height: 80px"></textarea>
                                 </td>
                                 <td class="text-center" style="padding:5px !important;">
                                     <div class="row me-1">
                                         <div class="col-12 col-md-6">
-                                            <a onclick="deleteApplication({{ $registration->registration['id'] }})" class="text-white btn btn-sm mx-1 btn-danger"
+                                            <a onclick="deleteApplication({{ $registration->registration['id'] }})"
+                                                class="text-white btn btn-sm mx-1 btn-danger"
                                                 title="Delete This Application">
                                                 <i class='bx bxs-trash me-1'></i>Delete
                                             </a>
@@ -272,23 +270,17 @@
                                     </div>
                                 </td>
                             </tr>
-                            @php
-                                $id++;
-                            @endphp
-                        @endforeach
+                        @empty
+                            <tr>
+                                <td colspan="9" class="text-center text-danger">Data not found!</td>
+                            </tr>
+                        @endforelse
                     </tbody>
                 </table>
                 <div class="contaner">
-                    @if ($registrationDataset->total() < 15)
-                        <div class="text-center">
-                            <h3 class="text-danger m-4"> No Data Found </h3>
-                        </div>
-                    @endif
-                    @if ($registrationDataset->total() > 15)
-                        <div class="d-flex justify-content-center mt-4">
-                            {{ $registrationDataset->appends(request()->except('page'))->links() }}
-                        </div>
-                    @endif
+                    <div class="d-flex justify-content-center mt-4">
+                        {{ $registrationDataset->appends(request()->except('page'))->links() }}
+                    </div>
                 </div>
             </div>
         </div>

@@ -416,7 +416,7 @@
                                     <option value ="" selected>Select Standing Committee</option>
                                     @foreach ($standingCommittee as $committee)
                                         <option value="{{ $committee }}"
-                                            @if ($is_register->priority[0]['priority'] ?? old('first_priority_committe') == $committee) selected @endif>{{ $committee }}
+                                            @if ($is_register->priority[0]['priority'] == $committee) selected @endif>{{ $committee }}
                                         </option>
                                     @endforeach
                                 </select>

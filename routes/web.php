@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Controllers\backEnd\StandingAndForumsController;
 use App\Http\Controllers\RegistrationController;
+use App\Models\MemberList;
+use Illuminate\Support\Facades\DB;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +22,8 @@ use App\Http\Controllers\RegistrationController;
 |
 */
 
-Route::get('/',[RegistrationController::class, 'index'])->middleware('auth');
-Route::get('/member-logout',[RegistrationController::class, 'logout'])->name('member.logout');
+Route::get('/', [RegistrationController::class, 'index'])->middleware('auth');
+Route::get('/member-logout', [RegistrationController::class, 'logout'])->name('member.logout');
 
 //Clear Route
 Route::get('/clear', function () {
@@ -51,5 +53,22 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
         Route::post('/destroy', 'destroy')->name('delete');
     });
 
-});
+    Route::get('/member-list-migrate', function () {
+        // $members = json_decode(file_get_contents(public_path("/json/members.json")), true);
+        // foreach ($members as $member) {
+        //     \App\Models\MemberList::create($member);
+        // }
 
+        $registrations = \App\Models\Priority::select('id', 'registration_id')->with('registration:id,membership_id')->where('priority_type', 'committe')->get();
+        foreach ($registrations as $register) {
+            $member = \DB::table('member_lists')->where('membership_no', $register->registration->membership_id)->first();
+            if (isset($member)) {
+                echo $member->company_name . '<br>';
+                \App\Models\Priority::find($register->id)->update([
+                    'par_name' => $member->rep_name,
+                    'par_designation' => $member->rep_designation,
+                ]);
+            }
+        }
+    });
+});
