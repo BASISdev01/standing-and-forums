@@ -19,7 +19,7 @@
     <div class="menu-inner-shadow"></div>
     <ul class="menu-inner py-1">
         <!-- Dashboard -->
-        <li class="menu-item">
+        <li class="menu-item {{request()->routeIs('admin.dashboard')?'active':''}}">
             <a href="{{ route('admin.dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 Dashboard
@@ -27,21 +27,13 @@
         </li>
         <!--Menu Header-->
         @php
-        $Dynamic_Content_Active = request()->routeIs('committee.index');
+        $committee = request()->routeIs('committee.index');
         @endphp
-        <li class="menu-item {{ $Dynamic_Content_Active ? 'active open' : '' }}">
-            <a href="javascript:void(0)" class="menu-link menu-toggle">
+        <li class="menu-item {{ $committee ? 'active' : '' }}">
+            <a  href="{{route('committee.index')}}" class="menu-link">
                 <i class="fa-solid fa-address-card me-2"></i>
                 <div data-i18n="Payments">Standing And Forums</div>
             </a>
-            <ul class="menu-sub">
-                <li class="menu-item {{request()->routeIs('committee.index')?'active':''}}">
-                    <a href="{{route('committee.index')}}" class="menu-link {{request()->routeIs('committee.index')?'bg-secondary text-white':''}}">Apply List</a>
-                </li>
-                {{--  <li class="menu-item ">
-                    <a href="" class="menu-link">Approved List</a>
-                </li>  --}}
-            </ul>
         </li>
 
     </ul>

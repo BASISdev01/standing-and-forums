@@ -39,7 +39,7 @@ class AdminLoginController extends Controller
                 'password' => 'required|string',
             ]);
             if (Auth::guard('admin')->attempt($request->only(['email', 'password']), $request->get('remember'))) {
-                return to_route('committee.index');
+                return to_route('admin.dashboard');
             }
             return back()->withInput($request->only('email', 'remember'))->with('error', ' These credentials do not match our records.');
         }

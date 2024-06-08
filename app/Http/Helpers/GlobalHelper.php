@@ -96,3 +96,23 @@ function logShow($title){
         return $totalApproved;
     }
 }
+
+function committeLog($name = null){
+    if(empty($name)){
+        $total=Priority::where('priority_type','committe')->count();
+        return $total;
+    }else{
+        $total=Priority::where('priority',$name)->count();
+        return $total;
+    }
+}
+
+function ForumsLog($name = null){
+    if(empty($name)){
+        $total=Priority::where('priority_type','forum')->count();
+        return $total;
+    }else{
+        $total=Priority::where('priority',$name)->count();
+        return $total;
+    }
+}
