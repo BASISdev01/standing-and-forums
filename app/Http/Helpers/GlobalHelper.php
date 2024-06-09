@@ -69,7 +69,7 @@ function standingCommittee()
 function forums()
 {
     return [
-        'BASIS Presidents Forum',
+        // 'BASIS Presidents Forum',
         'Infrastructure & Hi-Tech Park Forum',
         'Microprocessor,  Encryption & Quantum Computing Forum',
         'Forum For Especially Abled Persons',
