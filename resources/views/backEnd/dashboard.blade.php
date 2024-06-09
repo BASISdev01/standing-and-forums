@@ -15,7 +15,7 @@
                 <div class="col-lg-3 col-md-12 col-6 mb-2">
                     <div class="card p-1 ps-2">
                         <div class="d-flex">
-                            <img src="/assets/img/icons/unicons/website_login.png" alt="Credit Card"
+                            <img src="/assets/img/icons/unicons/website_login_v2.png" alt="Credit Card"
                             class="rounded logImage" />
                             <div class="d-flex flex-column align-items-center justify-content-center ps-3">
                                 <div class="fw-semibold d-block text-center mb-1">Logged In Members</div>
