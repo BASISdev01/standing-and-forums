@@ -89,6 +89,16 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
         dd('done');
     });
 
+    Route::get('/member-info-update', function () {
+        $members=\DB::table('member_lists')->get();
+        foreach($members as $member ){
+            \DB::table('members')->where('membership_id', $member->membership_id)->update([
+                'name' => $member->rep_name,
+            ]);
+        }
+        dd('done');
+    });
+
     Route::get('/update-agree', function () {
         \DB::table('registration')->update(['is_agree'=>1]);
         dd('done');
