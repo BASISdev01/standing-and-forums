@@ -152,6 +152,8 @@
                             </select>
                             <select name="status" style="width: 60px;" title="Select Year" class="form-select"
                                 aria-label="Default select example">
+                                <option value="all" @if (request('status') == 'all') selected @endif>All
+                                </option>
                                 <option value="pending" @if (request('status') == 'pending') selected @endif>Pending
                                 </option>
                                 <option value="approved" @if (request('status') == 'approved') selected @endif>Approved
@@ -162,7 +164,7 @@
                             <button class="btn btn-primary rounded-end" title="Search" type="submit"><i
                                     class='bx bx-search'></i></button>
 
-                            <a href="{{ route('committee.index') }}" title="Filter Reset"
+                            <a href="{{ route('committee.index',['status'=>'pending']) }}" title="Filter Reset"
                                 class="btn btn-warning mx-2 rounded"><i class="bx bx-sync"></i>
                             </a>
 

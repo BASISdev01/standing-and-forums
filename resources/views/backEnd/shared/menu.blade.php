@@ -30,7 +30,7 @@
         $committee = request()->routeIs('committee.index');
         @endphp
         <li class="menu-item {{ $committee ? 'active' : '' }}">
-            <a  href="{{route('committee.index')}}" class="menu-link">
+            <a  href="{{route('committee.index' ,['status'=>'pending'])}}" class="menu-link">
                 <i class="fa-solid fa-address-card me-2"></i>
                 <div data-i18n="Payments">Standing And Forums</div>
             </a>

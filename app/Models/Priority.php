@@ -63,9 +63,9 @@ class Priority extends Model
         }
 
         if ($request->input('status') != null) {
-            $query->where('status', $request->input('status'));
-        }else{
-            $query->where('status', 'pending');
+            if($request->input('status') != 'all'){
+                $query->where('status', $request->input('status'));
+            }
         }
 
         return $query;
@@ -99,9 +99,9 @@ class Priority extends Model
             });
         }
         if (isset($request['status'])) {
-            $query->where('status', $request['status']);
-        }else{
-            $query->where('status', 'pending');
+            if($request['status'] != 'all'){
+                $query->where('status', $request['status']);
+            }
         }
 
         return $query;

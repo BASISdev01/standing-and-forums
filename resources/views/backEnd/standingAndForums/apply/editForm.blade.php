@@ -566,7 +566,7 @@
                             <div class="col-12 text-center mt-4">
                                 <button type="submit" onclick="showError()" class="btn btn-success text-center"
                                     >save</button>
-                                <a href="{{ route('committee.index') }}" class="btn btn-danger text-center ms-3">Cancel</a>
+                                <a href="{{ route('committee.index',['status'=>'pending']) }}" class="btn btn-danger text-center ms-3">Cancel</a>
                             </div>
                         </div>
                     </div>

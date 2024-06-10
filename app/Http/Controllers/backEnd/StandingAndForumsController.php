@@ -43,7 +43,7 @@ class StandingAndForumsController extends Controller
 
     public function reject(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'rejected','approved_date' =>'']);
+        Priority::where('id',$request->id)->update(['status'=>'rejected','approved_date' =>null]);
         return response()->json( $request->id . "This Application Successfully Rejected");
     }
 
@@ -55,7 +55,7 @@ class StandingAndForumsController extends Controller
 
     public function pending(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'pending','approved_date' =>'']);
+        Priority::where('id',$request->id)->update(['status'=>'pending','approved_date' =>null]);
         return response()->json( $request->id . "This Application Successfully Pending");
     }
 
