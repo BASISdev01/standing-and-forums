@@ -64,6 +64,8 @@ class Priority extends Model
 
         if ($request->input('status') != null) {
             $query->where('status', $request->input('status'));
+        }else{
+            $query->where('status', 'pending');
         }
 
         return $query;

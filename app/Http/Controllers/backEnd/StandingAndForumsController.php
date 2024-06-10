@@ -26,16 +26,66 @@ class StandingAndForumsController extends Controller
         return view($this->dirApply.'.index', compact('standingCommittee','forums','Years','registrationDataset'));
     }
 
-    public function destroy(Request $request){
+    public function view(Request $request)
+    {
+        $registerDataset = Priority::where('id', $request->id)->with('registration')->first();
+        return view($this->dirApply.'.editForm', compact('registerDataset'));
+    }
 
+    public function destroy(Request $request)
+    {
         Priority::where('registration_id',$request->id)->delete();
         Registration::where('id',$request->id)->delete();
-        return response()->json( $request->id . " This Application Successfully Deleted");
+        return response()->json( $request->id . "This Application Successfully Deleted");
+    }
+
+    public function reject(Request $request)
+    {
+        Priority::where('id',$request->id)->update(['status'=>'rejected']);
+        return response()->json( $request->id . "This Application Successfully Rejected");
+    }
+
+    public function approve(Request $request)
+    {
+        Priority::where('id',$request->id)->update(['status'=>'approved']);
+        return response()->json( $request->id . "This Application Successfully Approved");
+    }
+
+    public function pending(Request $request)
+    {
+        Priority::where('id',$request->id)->update(['status'=>'pending']);
+        return response()->json( $request->id . "This Application Successfully Pending");
+    }
+
+    public function storeComment(Request $request)
+    {
+        Priority::where('id',$request->id)->update(['comment'=>$request->comment]);
+        return response()->json( $request->id . "Successfully store comments");
     }
 
     public function logout()
     {
         Auth::guard('admin')->logout();
         return to_route('admin.login');
+    }
+
+    public function update(Request $request){
+        $request->validate([
+            'priority' => 'required',
+            'priority_type' => 'required',
+            'priority_lable' => 'required',
+            'par_designation' => 'required',
+            'par_email' => 'required',
+            'par_phone' => 'required',
+        ]);
+        $priorityDataset=$request->only((new Priority)->getFillable());
+        $registerDataset=[
+            'par_facebook_link' => $request->par_facebook_link,
+            'par_linkedIn_link' => $request->par_linkedIn_link,
+        ];
+        Priority::where('id',$request->priority_id)->update($priorityDataset);
+        Registration::where('id',$request->register_id)->update($registerDataset);
+        return redirect()->back()->with('success', 'Change Successful!');
+
     }
 }

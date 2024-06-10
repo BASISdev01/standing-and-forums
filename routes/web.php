@@ -50,7 +50,13 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     //committee Routes
     Route::controller(StandingAndForumsController::class)->prefix('standing-and-forums')->name('committee.')->group(function () {
         Route::get('/', 'index')->name('index');
+        Route::get('/view', 'view')->name('view');
+        Route::post('/update', 'update')->name('update');
         Route::post('/destroy', 'destroy')->name('delete');
+        Route::post('/reject', 'reject')->name('reject');
+        Route::post('/approve', 'approve')->name('approve');
+        Route::post('/pending', 'pending')->name('pending');
+        Route::post('/storeComment', 'storeComment')->name('storeComment');
     });
 
     Route::get('/member-list-migrate', function () {
@@ -70,5 +76,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
                 ]);
             }
         }
+    });
+
+    Route::get('/member-info-update', function () {
+        $members=\DB::table('member_lists')->get();
+        foreach($members as $member ){
+            \DB::table('members')->where('membership_id', $member->membership_no)->update([
+                'name' => $member->rep_name,
+                'designation' => $member->rep_designation,
+            ]);
+        }
+        dd('done');
+    });
+
+    Route::get('/update-agree', function () {
+        \DB::table('registration')->update(['is_agree'=>1]);
+        dd('done');
     });
 });

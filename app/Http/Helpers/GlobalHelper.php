@@ -121,3 +121,33 @@ function companyLog($name = null){
     $total=Registration::count();
     return $total;
 }
+
+function Logo($membership_id ){
+    $logo=Member::where('membership_id',$membership_id)->select('logo')->first();
+    return $logo->logo;
+}
+
+function companyName($membership_id ){
+    $company=Member::where('membership_id',$membership_id)->select('company_name')->first();
+    return $company->company_name;
+}
+
+function perName($membership_id ){
+    $company=Member::where('membership_id',$membership_id)->select('name')->first();
+    return $company->name;
+}
+
+function perDesignation($membership_id ){
+    $company=Member::where('membership_id',$membership_id)->select('designation')->first();
+    return $company->designation;
+}
+
+function perEmail($membership_id ){
+    $company=Member::where('membership_id',$membership_id)->select('email')->first();
+    return $company->email;
+}
+
+function perMobile($membership_id ){
+    $company=Member::where('membership_id',$membership_id)->select('mobile')->first();
+    return $company->mobile;
+}
