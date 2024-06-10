@@ -287,7 +287,7 @@
             <div class="row justify-content-center">
                 <form class="p-2 p-xl-4 px-xl-5 pb-0"
                 action="{{ route('committee.update') }}"
-                    enctype="multipart/form-data"  method="post" enctype="multipart/form-data">
+                    enctype="multipart/form-data"  method="post" onsubmit="return validateForm();">
                     @csrf
                     <div class="col-12">
                         <div class="row mb-3">
@@ -309,7 +309,7 @@
                                         class="form-control  border border-dark-subtle" required >
                                 </div>
                             </div>
-                            <input name="par_name" id="first_par_name" value="{{ $registerDataset->registration['company_address'] }}"
+                            <input name="par_name" id="first_par_name" value="{{ $registerDataset->par_name }}"
                                 hidden />
                             <input name="par_designation" id="first_par_designation"
                                 value="{{ $registerDataset->par_designation ?? perDesignation($registerDataset->registration['membership_id']) }}" hidden />
@@ -404,7 +404,7 @@
                                         @endif
                                             name="" id="firstPriorityCommitteNameField">
                                         <label class="form-check-label" for="flexRadioDefault1">
-                                            {{ $registerDataset->par_name ?? perName($registerDataset->registration['membership_id'])  }}, {{  $registerDataset->par_designation ?? perDesignation($registerDataset->registration['membership_id']) }}
+                                            {{ perName($registerDataset->registration['membership_id'])  }}, {{  perDesignation($registerDataset->registration['membership_id']) }}
                                         </label>
                                     </div>
                                 </div>
@@ -860,32 +860,12 @@
                 }
 
                 function validateForm() {
-                    // Perform custom validation here (check required fields)
-                    var requiredFields = document.querySelectorAll('[required]');
-                    var isValid = true;
-                    for (var i = 0; i < requiredFields.length; i++) {
-                        if (requiredFields[i].value.trim() === '') {
-                            requiredFields[i].classList.add('is-invalid');
-                            isValid = false;
-                            break;
-                        } else {
-                            requiredFields[i].classList.remove('is-invalid');
-                        }
-                    }
 
-                    if (isValid) {
-                        // If all required fields are filled, show the preloader
-                        $("#preloader").removeAttr("hidden").show();
-                        return true; // Allow the form to submit
-                    } else {
-                        // If not all required fields are filled, display an alert or error message
-                        //alert('Please fill out all required fields.');
-                        return false; // Prevent the form from submitting
-                    }
+                    $("#preloader").removeAttr("hidden").show();
+
                 }
 
                 function showError() {
-                    alr
                     var requiredFields = document.querySelectorAll('[required]');
                     var isValid = true;
                     for (var i = 0; i < requiredFields.length; i++) {
