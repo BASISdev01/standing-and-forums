@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Registration;
 use App\Models\Priority;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\EoiExport;
 use Illuminate\Support\Facades\Auth;
 
 class StandingAndForumsController extends Controller
@@ -41,19 +43,19 @@ class StandingAndForumsController extends Controller
 
     public function reject(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'rejected']);
+        Priority::where('id',$request->id)->update(['status'=>'rejected','approved_date' =>'']);
         return response()->json( $request->id . "This Application Successfully Rejected");
     }
 
     public function approve(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'approved']);
+        Priority::where('id',$request->id)->update(['status'=>'approved','approved_date' =>now()->format('Y-m-d')]);
         return response()->json( $request->id . "This Application Successfully Approved");
     }
 
     public function pending(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'pending']);
+        Priority::where('id',$request->id)->update(['status'=>'pending','approved_date' =>'']);
         return response()->json( $request->id . "This Application Successfully Pending");
     }
 
@@ -86,6 +88,15 @@ class StandingAndForumsController extends Controller
         Priority::where('id',$request->priority_id)->update($priorityDataset);
         Registration::where('id',$request->register_id)->update($registerDataset);
         return redirect()->back()->with('success', 'Change Successful!');
+
+    }
+
+    public function export(Request $request){
+        $requestData = json_decode(urldecode($request->query('request')), true);
+        $applyData = Priority::with('registration')->ExportFilter($requestData)->get();
+        $export = new EoiExport($applyData);
+
+        return Excel::download($export, 'EoI.xlsx');
 
     }
 }

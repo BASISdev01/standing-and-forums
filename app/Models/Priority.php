@@ -71,6 +71,43 @@ class Priority extends Model
         return $query;
     }
 
+    public function scopeExportFilter($query, $request)
+    {
+        if (isset($request['company_name'])) {
+            $query->whereHas('registration', function ($companyNameQuery) use ($request) {
+                $companyNameQuery->where('company_name', 'LIKE', '%' . $request['company_name'] . '%');
+            });
+        }
+
+        if (isset($request['priority_lable'])) {
+            $query->where('priority_lable', $request['priority_lable']);
+        }
+
+        if (isset($request['committee'])) {
+            $query->where('priority_type', 'committe');
+            $query->where('priority', $request['committee']);
+        }
+
+        if (isset($request['forum'])) {
+            $query->where('priority_type', 'forum');
+            $query->where('priority', $request['forum']);
+        }
+
+        if (isset($request['year'])) {
+            $query->whereHas('registration', function ($yearQuery) use ($request) {
+                $yearQuery->where('year', $request['year']);
+            });
+        }
+        if (isset($request['status'])) {
+            $query->where('status', $request['status']);
+        }else{
+            $query->where('status', 'pending');
+        }
+
+        return $query;
+    }
+
+
     public function registration(): BelongsTo
     {
         return $this->belongsTo(Registration::class,'registration_id','id');

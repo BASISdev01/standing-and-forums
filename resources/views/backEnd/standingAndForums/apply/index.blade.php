@@ -169,7 +169,11 @@
                             <a href="{{ route('committee.index') }}" title="Create A Request"
                                 class="btn btn-info mx-2 rounded"><i class='bx bx-plus me-1'></i>
                             </a>
-                            <a href="" title="Export all Data" class="btn btn-secondary rounded">Export<i
+                            <a @if (!empty(request()->all()))
+                                href="{{ route('committee.export',['request' => urlencode(json_encode(request()->all())) ?? ''] ) }}"
+                            @else
+                                href="{{ route('committee.export') }}"
+                            @endif title="Export all Data" class="btn btn-secondary rounded">Export<i
                                     class="ms-2 fa-solid fa-file-export"></i>
                             </a>
                         </div>

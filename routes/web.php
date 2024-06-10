@@ -57,6 +57,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
         Route::post('/approve', 'approve')->name('approve');
         Route::post('/pending', 'pending')->name('pending');
         Route::post('/storeComment', 'storeComment')->name('storeComment');
+        Route::get('/export', 'export')->name('export');
     });
 
     Route::get('/member-list-migrate', function () {
@@ -78,12 +79,11 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
         }
     });
 
-    Route::get('/member-info-update', function () {
-        $members=\DB::table('member_lists')->get();
+    Route::get('/member-address-update', function () {
+        $members=\DB::table('members')->get();
         foreach($members as $member ){
-            \DB::table('members')->where('membership_id', $member->membership_no)->update([
-                'name' => $member->rep_name,
-                'designation' => $member->rep_designation,
+            \DB::table('registration')->where('membership_id', $member->membership_id)->update([
+                'company_address' => $member->address,
             ]);
         }
         dd('done');

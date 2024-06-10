@@ -58,7 +58,7 @@ class RegistrationController extends Controller
                 'par_facebook_link' => $request->par_facebook_link,
                 'par_linkedIn_link' => $request->par_linkedIn_link,
                 'company_name' => Auth::user()->company_name,
-                'company_address' => Auth::user()->com_name,
+                'company_address' => Auth::user()->address,
                 'is_agree' => $request->is_agree,
                 'year' => now()->format('Y'),
                 'submitted_date' => now()->format('Y-m-d'),
