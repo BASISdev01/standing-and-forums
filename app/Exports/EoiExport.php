@@ -26,8 +26,8 @@ class EoiExport implements FromCollection, WithHeadings, WithMapping
         return [
             'priority_id',
             'registration_id',
-            'company_name',
             'member_id',
+            'company_name',
             'priority_lable',
             'priority_type',
             'priority',
