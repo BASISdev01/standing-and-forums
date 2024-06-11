@@ -92,7 +92,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth:admin']], function () 
     Route::get('/member-info-update', function () {
         $members=\DB::table('member_lists')->get();
         foreach($members as $member ){
-            \DB::table('members')->where('membership_id', $member->membership_id)->update([
+            \DB::table('members')->where('membership_id', $member->membership_no)->update([
                 'name' => $member->rep_name,
             ]);
         }

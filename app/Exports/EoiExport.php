@@ -24,8 +24,6 @@ class EoiExport implements FromCollection, WithHeadings, WithMapping
     public function headings(): array
     {
         return [
-            'priority_id',
-            'registration_id',
             'member_id',
             'company_name',
             'priority_lable',
@@ -43,10 +41,7 @@ class EoiExport implements FromCollection, WithHeadings, WithMapping
             'priority_community_or_policy',
             'priority_contribute_hours',
             'priority_attend_monthly_meeting',
-            'year',
             'submitted_date',
-            'is_agree',
-            'approved_date',
             'comment',
             'status',
         ];
@@ -58,8 +53,6 @@ class EoiExport implements FromCollection, WithHeadings, WithMapping
         $prioritySupportOrImprovement = json_decode($row['priority_support_or_improvement'], true);
         $prioritySupportOrImprovementText = is_array($prioritySupportOrImprovement) ? implode(', ', $prioritySupportOrImprovement) : '';
         return [
-            $row['id'],
-            $row['registration']['id'],
             $row['registration']['membership_id'],
             $row['registration']['company_name'],
             $row['priority_lable'],
@@ -77,10 +70,7 @@ class EoiExport implements FromCollection, WithHeadings, WithMapping
             $row['priority_community_or_policy'],
             $row['priority_contribute_hours'],
             $row['priority_attend_monthly_meeting'],
-            $row['registration']['year'],
             $row['registration']['submitted_date'],
-            $row['registration']['is_agree'],
-            $row['approved_date'],
             $row['comment'],
             $row['status']
         ];
