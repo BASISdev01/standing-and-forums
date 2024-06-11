@@ -483,6 +483,7 @@
                                         id="first_priority_relevance_to_committee" name="first_priority_relevance_to_committee" style="height: 120px"
                                         required></textarea>
                                     <div id="wordCount" class="text-end mt-1">0 / 100</div>
+                                    <div id="first_priority_relevance_to_committee_error_text" class="text-danger fs-6" hidden><small>Input minimum 100 words</small></div>
                                 </div>
                             </div>
                         </div>
@@ -517,8 +518,11 @@
                                     contribution to policy work or position held related to community engagement.
                                     <span class="text-danger">*</span>
                                 </label>
-                                <textarea class="form-control p-2 border border-dark-subtle" id="floatingTextarea2" style="height: 130px"
+                                <textarea id="first_priority_community_or_policy" class="form-control p-2 border border-dark-subtle" id="floatingTextarea2" style="height: 130px"
                                     name="first_priority_community_or_policy" required></textarea>
+                                    <div id="firstpolicywordCount" class="text-end mt-1">0 / 50</div>
+                                <div id="first_priority_community_or_policy_error_text" class="text-danger fs-6" hidden><small> Input minimum 50 words</small></div>
+
                             </div>
                         </div>
                         <div class="col-12 col-md-6">
@@ -658,8 +662,10 @@
                                                             relevance to the committee.
                                                             <small>(Min 100 words)</small></label>
                                                         <div class="form-floating">
-                                                            <textarea name="second_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
+                                                            <textarea id="second_priority_relevance_to_committee" name="second_priority_relevance_to_committee" class="form-control p-2 border border-dark-subtle"
                                                                 placeholder="Leave a comment here" id="floatingTextarea2" style="height: 120px"></textarea>
+                                                            <div id="secondwordCount" class="text-end mt-1">0 / 100</div>
+                                                            <div id="second_priority_relevance_to_committee_error_text" class="text-danger fs-6" hidden><small>Input minimum 100 words</small></div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -697,8 +703,10 @@
                                                             examples/experience of your contribution to policy work or
                                                             position held related to community engagement.
                                                         </label>
-                                                        <textarea name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle"
+                                                        <textarea id="second_priority_community_or_policy" name="second_priority_community_or_policy" class="form-control p-2 border border-dark-subtle"
                                                             id="floatingTextarea2" style="height: 130px"></textarea>
+                                                        <div id="secondtpolicywordCount" class="text-end mt-1">0 / 50</div>
+                                                        <div id="second_priority_community_or_policy_error_text" class="text-danger fs-6" hidden><small>Input minimum 50 words</small></div>
                                                     </div>
                                                 </div>
                                                 <div class="col-12 col-md-6">
@@ -988,13 +996,56 @@
                 if (wordCount > maxWords) {
                     $('#wordLimitMessage').show();
                     const trimmedText = words.slice(0, maxWords).join(' ');
-                    $(this).val(trimmedText);
+                    //$(this).val(trimmedText);
                     $('#wordCount').text(`${maxWords} / ${maxWords} words`);
                 } else {
                     $('#wordLimitMessage').hide();
                     $('#wordCount').text(`${wordCount} / ${maxWords} words`);
                 }
             });
+
+            $('#first_priority_community_or_policy').on('input', function() {
+                const maxWords = 50;
+                const words = $(this).val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const wordCount = words.length;
+
+                if (wordCount > maxWords) {
+                    const trimmedText = words.slice(0, maxWords).join(' ');
+                   // $(this).val(trimmedText);
+                    $('#firstpolicywordCount').text(`${maxWords} / ${maxWords} words`);
+                } else {
+                    $('#firstpolicywordCount').text(`${wordCount} / ${maxWords} words`);
+                }
+            });
+
+            $('#second_priority_relevance_to_committee').on('input', function() {
+                const maxWords = 100;
+                const words = $(this).val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const wordCount = words.length;
+
+                if (wordCount > maxWords) {
+                    const trimmedText = words.slice(0, maxWords).join(' ');
+                    //$(this).val(trimmedText);
+                    $('#secondwordCount').text(`${maxWords} / ${maxWords} words`);
+                } else {
+                    $('#secondwordCount').text(`${wordCount} / ${maxWords} words`);
+                }
+            });
+
+            $('#second_priority_community_or_policy').on('input', function() {
+                const maxWords = 50;
+                const words = $(this).val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const wordCount = words.length;
+
+                if (wordCount > maxWords) {
+                    const trimmedText = words.slice(0, maxWords).join(' ');
+                    //$(this).val(trimmedText);
+                    $('#secondtpolicywordCount').text(`${maxWords} / ${maxWords} words`);
+                } else {
+                    $('#secondtpolicywordCount').text(`${wordCount} / ${maxWords} words`);
+                }
+            });
+
 
             //second priority select
             $('#second_priority_committee').on('change', function() {
@@ -1193,6 +1244,8 @@
 
         function validateForm() {
             // Perform custom validation here (check required fields)
+            const words = $('#first_priority_relevance_to_committee').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+            const wordCount = words.length;
             var requiredFields = document.querySelectorAll('[required]');
             var isValid = true;
             for (var i = 0; i < requiredFields.length; i++) {
@@ -1203,6 +1256,60 @@
                 } else {
                     requiredFields[i].classList.remove('is-invalid');
                 }
+            }
+
+            if(words.length < 100 ){
+                var relevanceField = document.getElementById('first_priority_relevance_to_committee');
+                relevanceField.classList.add('custom-input-focus');
+                relevanceField.classList.add('is-invalid');
+                $('#first_priority_relevance_to_committee_error_text').attr('hidden', false);
+                isValid = false;
+                return false;
+            }else{
+                $('#first_priority_relevance_to_committee_error_text').attr('hidden', true);
+            }
+
+            const firstpolicywords = $('#first_priority_community_or_policy').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+            const firstpolicywordCount = firstpolicywords.length;
+            if (firstpolicywordCount < 50) {
+                var firstpolicyField = document.getElementById('first_priority_community_or_policy');
+                firstpolicyField.classList.add('custom-input-focus');
+                firstpolicyField.classList.add('is-invalid');
+                $('#first_priority_community_or_policy_error_text').attr('hidden', false);
+                isValid = false;
+                return false;
+            }else{
+                $('#first_priority_community_or_policy_error_text').attr('hidden', true);
+            }
+
+            var second_priority_type = $('#second_priority_type').val();
+            if(second_priority_type != ''){
+                const secondpolicywords = $('#second_priority_community_or_policy').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const secondpolicywordCount = secondpolicywords.length;
+                if (secondpolicywordCount < 50) {
+                    var secondpolicyField = document.getElementById('second_priority_community_or_policy');
+                    secondpolicyField.classList.add('custom-input-focus');
+                    secondpolicyField.classList.add('is-invalid');
+                    $('#second_priority_community_or_policy_error_text').attr('hidden', false);
+                    isValid = false;
+                    return false;
+                }else{
+                    $('#second_priority_community_or_policy_error_text').attr('hidden', true);
+                }
+
+                const secondrelevancewords = $('#second_priority_relevance_to_committee').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const secondCount = secondrelevancewords.length;
+                if (secondCount < 100) {
+                    var secondrelevanceField = document.getElementById('second_priority_relevance_to_committee');
+                    secondrelevanceField.classList.add('custom-input-focus');
+                    secondrelevanceField.classList.add('is-invalid');
+                    $('#second_priority_relevance_to_committee_error_text').attr('hidden', false);
+                    isValid = false;
+                    return false;
+                }else{
+                    $('#second_priority_relevance_to_committee_error_text').attr('hidden', true);
+                }
+
             }
 
             if (isValid) {
@@ -1219,6 +1326,54 @@
         function showError() {
             var requiredFields = document.querySelectorAll('[required]');
             var isValid = true;
+
+            const words = $('#first_priority_relevance_to_committee').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+            const wordCount = words.length;
+            if (wordCount < 100) {
+                var relevanceField = document.getElementById('first_priority_relevance_to_committee');
+                relevanceField.classList.add('custom-input-focus');
+                relevanceField.classList.add('is-invalid');
+                $('#first_priority_relevance_to_committee_error_text').attr('hidden', false);
+            }else{
+                $('#first_priority_relevance_to_committee_error_text').attr('hidden', true);
+            }
+
+            var firstpolicywords = $('#first_priority_community_or_policy').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+            var firstpolicywordCount = firstpolicywords.length;
+            if (firstpolicywordCount < 50) {
+                var firstpolicyField = document.getElementById('first_priority_community_or_policy');
+                firstpolicyField.classList.add('custom-input-focus');
+                firstpolicyField.classList.add('is-invalid');
+                $('#first_priority_community_or_policy_error_text').attr('hidden', false);
+            }else{
+                $('#first_priority_community_or_policy_error_text').attr('hidden', true);
+            }
+
+            var second_priority_type = $('#second_priority_type').val();
+            if(second_priority_type != ''){
+                const secondpolicywords = $('#second_priority_community_or_policy').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const secondpolicywordCount = secondpolicywords.length;
+                if (secondpolicywordCount < 50) {
+                    var secondpolicyField = document.getElementById('second_priority_community_or_policy');
+                    secondpolicyField.classList.add('custom-input-focus');
+                    secondpolicyField.classList.add('is-invalid');
+                    $('#second_priority_community_or_policy_error_text').attr('hidden', false);
+                }else{
+                    $('#second_priority_community_or_policy_error_text').attr('hidden', true);
+                }
+
+                const secondrelevancewords = $('#second_priority_relevance_to_committee').val().match(/\b[-?(\w+)?]+\b/gi) || [];
+                const secondrelevancewordCount = secondrelevancewords.length;
+                if (secondrelevancewordCount < 100) {
+                    var secondrelevanceField = document.getElementById('second_priority_relevance_to_committee');
+                    secondrelevanceField.classList.add('custom-input-focus');
+                    secondrelevanceField.classList.add('is-invalid');
+                    $('#second_priority_relevance_to_committee_error_text').attr('hidden', false);
+                }else{
+                    $('#second_priority_relevance_to_committee_error_text').attr('hidden', true);
+                }
+            }
+
             for (var i = 0; i < requiredFields.length; i++) {
                 console.log(requiredFields[i]);
                 if (requiredFields[i].value.trim() === '') {

@@ -25,6 +25,7 @@ class RegistrationController extends Controller
 
     public function formSubmit(Request $request)
     {
+        dd($request->all());
         if (!empty($request->first_priority_type)) {
             $firstPiorityDataset = $this->pioritystore($request, 'first');
         }
