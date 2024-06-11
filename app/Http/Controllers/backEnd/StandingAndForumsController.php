@@ -43,19 +43,19 @@ class StandingAndForumsController extends Controller
 
     public function reject(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'rejected','approved_date' =>null]);
+        Priority::where('id',$request->id)->update(['status'=>'rejected','approved_date' =>null,'approved_by_designation'=>null]);
         return response()->json( $request->id . "This Application Successfully Rejected");
     }
 
     public function approve(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'approved','approved_date' =>now()->format('Y-m-d')]);
-        return response()->json( $request->id . "This Application Successfully Approved");
+        Priority::where('id',$request->priority_id)->update(['status'=>'approved','approved_date' =>now()->format('Y-m-d'),'approved_by_designation'=>$request->designation]);
+        return response()->json( $request->priority_id . "This Application Successfully Approved");
     }
 
     public function pending(Request $request)
     {
-        Priority::where('id',$request->id)->update(['status'=>'pending','approved_date' =>null]);
+        Priority::where('id',$request->id)->update(['status'=>'pending','approved_date' =>null,'approved_by_designation'=>null]);
         return response()->json( $request->id . "This Application Successfully Pending");
     }
 

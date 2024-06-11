@@ -25,14 +25,16 @@
                 width: 40px;
                 margin-top: 12px;
             }
-            .action-btn-container a{
+
+            .action-btn-container a {
                 height: 32px;
                 width: 88px;
                 display: flex;
                 align-items: center;
                 justify-content: center;
             }
-            .email-crop{
+
+            .email-crop {
                 overflow-wrap: break-word;
                 display: inline-block;
                 width: 185px !important;
@@ -71,7 +73,8 @@
                             <div class="d-flex flex-column align-items-center justify-content-center ps-3">
                                 <div class="fw-semibold text-center d-block">Total Applied</div>
                                 <div class="fs-4 fw-semibold text-nowrap text-center mb-1">{{ logShow('applied') }}
-                                    <small style="font-size:12px;">( Company - {{ companyLog() }} )</small></div>
+                                    <small style="font-size:12px;">( Company - {{ companyLog() }} )</small>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -164,18 +167,17 @@
                             <button class="btn btn-primary rounded-end" title="Search" type="submit"><i
                                     class='bx bx-search'></i></button>
 
-                            <a href="{{ route('committee.index',['status'=>'pending']) }}" title="Filter Reset"
+                            <a href="{{ route('committee.index', ['status' => 'pending']) }}" title="Filter Reset"
                                 class="btn btn-warning mx-2 rounded"><i class="bx bx-sync"></i>
                             </a>
 
                             <a href="{{ route('committee.index') }}" title="Create A Request"
                                 class="btn btn-info mx-2 rounded"><i class='bx bx-plus me-1'></i>
                             </a>
-                            <a @if (!empty(request()->all()))
-                                href="{{ route('committee.export',['request' => urlencode(json_encode(request()->all())) ?? ''] ) }}"
+                            <a @if (!empty(request()->all())) href="{{ route('committee.export', ['request' => urlencode(json_encode(request()->all())) ?? '']) }}"
                             @else
-                                href="{{ route('committee.export') }}"
-                            @endif title="Export all Data" class="btn btn-secondary rounded">Export<i
+                                href="{{ route('committee.export') }}" @endif
+                                title="Export all Data" class="btn btn-secondary rounded">Export<i
                                     class="ms-2 fa-solid fa-file-export"></i>
                             </a>
                         </div>
@@ -233,7 +235,11 @@
                                 </td>
                                 <td style="padding:5px !important;">
                                     {{ $registration->par_name }}<br> {{ $registration->par_designation }}<br>
-                                    <span class="email-crop">{{ $registration->par_email }}</span> <br> {{ $registration->par_phone }}
+                                    <span class="email-crop">{{ $registration->par_email }}</span> <br>
+                                    {{ $registration->par_phone }}<br>
+                                @if (request('status') == 'approved')
+                                    <span class="badge bg-label-dark">{{ $registration->approved_by_designation }}</span>
+                                @endif
                                 </td>
 
                                 <td class="text-center" style="padding:5px !important;">
@@ -248,7 +254,8 @@
                                 </td>
                                 <td class="text-center" style="padding:5px !important;">
                                     <textarea class="form-control p-2 border border-dark-subtle" placeholder="Leave a comment here"
-                                        id="comment_{{ $registration->id }}" onkeypress="storeComments(event, {{ $registration->id }})" name="comment" style="height: 80px">{{ $registration->comment }}</textarea>
+                                        id="comment_{{ $registration->id }}" onkeypress="storeComments(event, {{ $registration->id }})" name="comment"
+                                        style="height: 80px">{{ $registration->comment }}</textarea>
                                 </td>
                                 <td style="padding:5px !important;">
                                     <div class="action-btn-container d-flex flex-wrap gap-1 align-self-center">
@@ -256,26 +263,27 @@
                                             class="text-white btn btn-sm btn-danger" title="Delete This Application">
                                             <i class='bx bxs-trash me-1'></i>Delete
                                         </a>
-                                        <a href="{{ route('committee.view',['id'=> $registration->id]) }}" class="btn btn-sm  btn-primary"
-                                            title="View This Application" target="blank">
+                                        <a href="{{ route('committee.view', ['id' => $registration->id]) }}"
+                                            class="btn btn-sm  btn-primary" title="View This Application"
+                                            target="blank">
                                             <i class='bx bx-show-alt me-1'></i>View
                                         </a>
-                                        @if($registration->status != 'approved')
-                                            <a   class="text-white btn btn-sm  btn-success fw-bold"
+                                        @if ($registration->status != 'approved')
+                                            <a class="text-white btn btn-sm  btn-success fw-bold"
                                                 title="Approve This Application"
-                                                onclick="approveApplication({{ $registration->id }})">
+                                                onclick="openApprovelModal({{ $registration->id }})">
                                                 <i class='bx bx-check-double me-1'></i>Approve
                                             </a>
                                         @endif
-                                        @if($registration->status != 'pending')
-                                            <a  class="text-white btn btn-sm  btn-info fw-bold"
+                                        @if ($registration->status != 'pending')
+                                            <a class="text-white btn btn-sm  btn-info fw-bold"
                                                 title="Make Pending This Application"
                                                 onclick="pendingApplication({{ $registration->id }})">
                                                 <i class='bx bx-revision me-1'></i>Pending
                                             </a>
                                         @endif
-                                        @if($registration->status != 'rejected')
-                                            <a  class="text-white btn btn-sm  btn-warning fw-bold"
+                                        @if ($registration->status != 'rejected')
+                                            <a class="text-white btn btn-sm  btn-warning fw-bold"
                                                 title="Reject This Application"
                                                 onclick="rejectApplication({{ $registration->id }})">
                                                 <i class='bx bxs-no-entry me-1'></i>Reject
@@ -329,15 +337,67 @@
     </div>
 
 
+    {{--  Approvel Modal  --}}
+    <div class="modal fade" id="approvelModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-dark d-flex justify-content-center">
+                    <h5 class="modal-title text-capitalize text-white mb-2" id="exampleModalLabel">please select the
+                        designation</h5>
+                </div>
+                <div class="modal-body">
+                    <form id="approvelForm">
+                        <div class="form-group">
+                            <input name="priority_id" id="priority_id" hidden />
+                            <select name="designation" title="Select Priority" class="form-select fw-bold"
+                                aria-label="Default select example">
+                                <option value="Chairman">Chairman
+                                </option>
+                                <option value="Co-Chairman">Co-Chairman
+                                </option>
+                                <option value="Member">Member
+                                </option>
+                            </select>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer d-felx justify-content-center">
+                    <button type="button" class="btn btn-danger" onclick="closeApprovelModal()"
+                        data-dismiss="modal">Close</button>
+                    <a onclick="approveApplication()" class="btn btn-success text-white">Save And Approve</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    @if (session()->has('success') || session()->has('error'))
+        <div id="autoCloseAlert"
+            class="d-flex alert-container justify-content-center justify-content-md-end position-fixed position-absolute">
+            <div class="alert {{ session()->has('success') ? 'bg-success' : 'bg-danger' }} text-white alert-dismissible me-3 d-flex align-items-center"
+                role="alert">
+                {{ session('success') ?? session('error') }}
+                {{--  <button type="button" class="btn-close mt-3 px-2 me-2" data-bs-dismiss="alert"
+                aria-label="Close"></button>  --}}
+            </div>
+        </div>
+    @endif
     @push('script')
         <script>
             $(document).ready(function() {
-                $('#comment').on('keydown', function(event) {
 
-                });
             });
 
-            function storeComments(event, id){
+            function openApprovelModal(id) {
+                $("#approvelModal").modal('show');
+                $("#priority_id").val(id);
+            }
+
+            function closeApprovelModal(id) {
+                $("#approvelModal").modal('hide');
+                $("#approvelForm")[0].reset();
+            }
+
+            function storeComments(event, id) {
                 if (event.key === 'Enter') {
                     event.preventDefault();
                     var comment = $('#comment_' + id).val();
@@ -361,7 +421,7 @@
                                     comment: comment
                                 },
                                 success: function(data) {
-                                   window.location.reload();
+                                    window.location.reload();
                                 },
                                 error: function(request, status, error) {
                                     console.log(error);
@@ -396,6 +456,14 @@
                                 id: id
                             },
                             success: function(data) {
+                                $('#preloader').fadeOut('slow');
+                                Swal.fire({
+                                    position: 'middle',
+                                    icon: 'success',
+                                    title: 'Deleted Successfully',
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                  })
                                 window.location.reload();
                             },
                             error: function(request, status, error) {
@@ -408,39 +476,36 @@
 
             }
 
-            function approveApplication(id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#66C732',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Yes, Approve it!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#preloader").removeAttr("hidden").show();
-                        //document.getElementById('Uploading').setAttribute('hidden', '');
-                        //$("#Deleting").removeAttr("hidden");
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                            },
-                            url: "{{ route('committee.approve') }}",
-                            type: "post",
-                            data: {
-                                id: id
-                            },
-                            success: function(data) {
-                                window.location.reload();
-                            },
-                            error: function(request, status, error) {
-                                $('#preloader').fadeOut('slow');
-                                console.log(error);
-                            }
-                        });
+            function approveApplication() {
+                $("#preloader").removeAttr("hidden").show();
+                var formData = new FormData(document.getElementById("approvelForm"));
+                $.ajax({
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    url: "{{ route('committee.approve') }}",
+                    type: "post",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function(data) {
+                        $("#approvelModal").modal('hide');
+                        $('#preloader').fadeOut('slow');
+                        $("#approvelForm")[0].reset();
+                        Swal.fire({
+                            position: 'middle',
+                            icon: 'success',
+                            title: 'Approved This Application',
+                            showConfirmButton: false,
+                            timer: 1000
+                          })
+                        window.location.reload();
+                    },
+                    error: function(request, status, error) {
+                        $('#preloader').fadeOut('slow');
+                        console.log(error);
                     }
-                })
-
+                });
             }
 
             function rejectApplication(id) {
@@ -454,8 +519,6 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $("#preloader").removeAttr("hidden").show();
-                        //document.getElementById('Uploading').setAttribute('hidden', '');
-                        //$("#Deleting").removeAttr("hidden");
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -466,6 +529,14 @@
                                 id: id
                             },
                             success: function(data) {
+                                $('#preloader').fadeOut('slow');
+                                Swal.fire({
+                                    position: 'middle',
+                                    icon: 'success',
+                                    title: 'Status Uploaded Successfully',
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                  })
                                 window.location.reload();
                             },
                             error: function(request, status, error) {
@@ -489,8 +560,6 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         $("#preloader").removeAttr("hidden").show();
-                        //document.getElementById('Uploading').setAttribute('hidden', '');
-                        //$("#Deleting").removeAttr("hidden");
                         $.ajax({
                             headers: {
                                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
@@ -501,41 +570,14 @@
                                 id: id
                             },
                             success: function(data) {
-                                window.location.reload();
-                            },
-                            error: function(request, status, error) {
                                 $('#preloader').fadeOut('slow');
-                                console.log(error);
-                            }
-                        });
-                    }
-                })
-
-            }
-
-            function pendingApplication(id) {
-                Swal.fire({
-                    title: 'Are you sure?',
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#d33',
-                    cancelButtonColor: '#66C732',
-                    confirmButtonText: 'Yes, Make It Pending!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $("#preloader").removeAttr("hidden").show();
-                        //document.getElementById('Uploading').setAttribute('hidden', '');
-                        //$("#Deleting").removeAttr("hidden");
-                        $.ajax({
-                            headers: {
-                                'X-CSRF-TOKEN': "{{ csrf_token() }}"
-                            },
-                            url: "{{ route('committee.pending') }}",
-                            type: "post",
-                            data: {
-                                id: id
-                            },
-                            success: function(data) {
+                                Swal.fire({
+                                    position: 'middle',
+                                    icon: 'success',
+                                    title: 'Status Uploaded Successfully',
+                                    showConfirmButton: false,
+                                    timer: 1000
+                                  })
                                 window.location.reload();
                             },
                             error: function(request, status, error) {
