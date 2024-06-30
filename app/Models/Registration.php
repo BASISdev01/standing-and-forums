@@ -25,6 +25,6 @@ class Registration extends Model
 
     public function priority(): HasMany
     {
-        return $this->hasMany(Priority::class,'registration_id','id');
+        return $this->hasMany(Priority::class, 'registration_id', 'id');
     }
 }
