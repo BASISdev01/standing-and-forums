@@ -16,6 +16,7 @@ class RegistrationController extends Controller
     {
         $is_register = Registration::where('membership_id', Auth::user()->membership_id)->with('priority')->first();
          if(empty($is_register)){
+            $is_register = 1;
             return view('registrationForm', compact('is_register'));
          }else{
             return view('viewRegistationData', compact('is_register'));
@@ -25,15 +26,16 @@ class RegistrationController extends Controller
 
     public function formSubmit(Request $request)
     {
-        if (!empty($request->first_priority_type)) {
-            $firstPiorityDataset = $this->pioritystore($request, 'first');
-        }
+        // if (!empty($request->first_priority_type)) {
+        //     $firstPiorityDataset = $this->pioritystore($request, 'first');
+        // }
 
-        if (!empty($request->second_priority_type)) {
-            $secondPiorityDataset = $this->pioritystore($request, 'second', $firstPiorityDataset->registration_id);
-        }
-        $this->sendMailForRegistration($request->first_par_email);
-        return redirect('/')->with('success', 'Application Successful!');
+        // if (!empty($request->second_priority_type)) {
+        //     $secondPiorityDataset = $this->pioritystore($request, 'second', $firstPiorityDataset->registration_id);
+        // }
+        // $this->sendMailForRegistration($request->first_par_email);
+        // return redirect('/')->with('success', 'Application Successful!');
+        return redirect('/')->with('error', 'Application Cloded!');
     }
 
     protected function pioritystore(Request $request, $priorityLabel, $registration_id = null)

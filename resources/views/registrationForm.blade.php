@@ -761,7 +761,7 @@
                     @if (!empty($is_register))
                         <div
                             class="form-bottom-overlay rounded-3 d-flex justify-content-center align-items-center text-white text-capitalize fw-bold fs-1">
-                            Already Submitted !
+                            Application Cloded !
                         </div>
                     @endif
                     <div class="row">
