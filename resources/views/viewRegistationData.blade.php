@@ -790,7 +790,7 @@
                     @if (!empty($is_register))
                         <div
                             class="form-bottom-overlay rounded-3 d-flex justify-content-center align-items-center text-white text-capitalize fw-bold fs-1">
-                            Application Cloded !
+                            Application Closed !
                         </div>
                     @endif
                     <div class="row">

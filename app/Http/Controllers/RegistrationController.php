@@ -35,7 +35,7 @@ class RegistrationController extends Controller
         // }
         // $this->sendMailForRegistration($request->first_par_email);
         // return redirect('/')->with('success', 'Application Successful!');
-        return redirect('/')->with('error', 'Application Cloded!');
+        return redirect('/')->with('error', 'Application Closed!');
     }
 
     protected function pioritystore(Request $request, $priorityLabel, $registration_id = null)
